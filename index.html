@@ -1216,23 +1216,38 @@
         }
 
         function abrirModalImagens(tipo) { 
-            escopoImagensAtual = tipo || 'mao';
-            const titulo = document.getElementById('tituloModalDinamicoImagens');
-            const gridMao = document.getElementById('gridImagensMao');
-            const gridPe = document.getElementById('gridImagensPe');
-
-            if(escopoImagensAtual === 'mao') {
-                titulo.innerText = "📸 Inspirações para as Mãos";
-                gridMao.style.display = 'grid';
-                gridPe.style.display = 'none';
-            } else {
-                titulo.innerText = "🦶 Inspirações para os Pés";
-                gridMao.style.display = 'none';
-                gridPe.style.display = 'grid';
-            }
-            
-            document.getElementById('modalImagens').style.display = 'flex'; 
+    const servico = document.getElementById('servico').value;
+    
+    // Se o tipo não foi passado, define com base no serviço selecionado
+    if (!tipo) {
+        if (servico === "Pé Simples") {
+            escopoImagensAtual = 'pe';
+        } else {
+            escopoImagensAtual = 'mao';
         }
+    } else {
+        escopoImagensAtual = tipo;
+    }
+
+    const titulo = document.getElementById('tituloModalDinamicoImagens');
+    const gridMao = document.getElementById('gridImagensMao');
+    const gridPe = document.getElementById('gridImagensPe');
+
+    if(escopoImagensAtual === 'mao') {
+        titulo.innerText = "📸 Inspirações para as Mãos";
+        gridMao.style.gridTemplateColumns = 'repeat(3, 1fr)'; // Garante o grid correto
+        gridMao.style.display = 'grid';
+        gridPe.style.display = 'none';
+    } else {
+        titulo.innerText = "🦶 Inspirações para os Pés";
+        gridMao.style.display = 'none';
+        gridPe.style.gridTemplateColumns = 'repeat(3, 1fr)'; // Garante o grid correto
+        gridPe.style.display = 'grid';
+    }
+    
+    document.getElementById('modalImagens').style.display = 'flex'; 
+}
+
 
         function selecionarArte(numero, nomeEstilo, tipoEscopo) {
             if(tipoEscopo === 'mao') {
