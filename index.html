@@ -1,0 +1,1640 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio MK - Agendamento Profissional</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">   
+    <style>
+        /* --- ESTILOS GERAIS (PALETA ROSA PASTEL / LUXO MINIMALISTA) --- */
+        :root {
+            --cor-principal: #fbf0ee;   
+            --cor-escura: #3d3533;      
+            --cor-destaque: #e3b1a8;    
+            --cor-fundo: #faf7f6;       
+            --branco: #ffffff;
+            --sucesso: #a3c9a8;         
+            --erro: #e09f9d;            
+            --borda: #f0e6e4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--cor-fundo);
+            color: var(--cor-escura);
+            padding-bottom: 90px;
+        }
+
+        header {
+            background-color: var(--cor-principal);
+            text-align: center;
+            padding: 35px 20px 25px 20px;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .perfil-header {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--branco);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            margin: 0 auto 12px auto;
+            display: block;
+        }
+
+        header h1 {
+            font-size: 1.7rem;
+            color: var(--cor-escura);
+            margin-bottom: 5px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            font-size: 0.9rem;
+            opacity: 0.75;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        /* --- CARROSSEL AUTOMÁTICO DE IMAGENS --- */
+        .carrossel-container {
+            width: 100%;
+            overflow: hidden;
+            margin: 0 auto;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .carrossel-trilho {
+            display: flex;
+            gap: 15px;
+            width: max-content;
+            animation: rolarCarrossel 25s linear infinite;
+        }
+
+        .carrossel-item {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--branco);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+        }
+
+        @keyframes rolarCarrossel {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* --- SEÇÕES --- */
+        section {
+            background: var(--branco);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.01);
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        section.ativa {
+            display: block;
+        }
+
+        h2 {
+            font-size: 1.25rem;
+            margin-bottom: 20px;
+            border-left: 3px solid var(--cor-destaque);
+            padding-left: 12px;
+            color: var(--cor-escura);
+            font-weight: 600;
+        }
+
+        /* --- LISTA DE SERVIÇOS --- */
+        .servicos-lista {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .card-servico {
+            background: var(--branco);
+            border: 1px solid var(--borda);
+            padding: 18px;
+            border-radius: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .card-servico:hover {
+            border-color: var(--cor-destaque);
+            background: var(--cor-fundo);
+            transform: translateY(-1px);
+        }
+
+        .card-servico .info h3 {
+            font-size: 1rem;
+            color: var(--cor-escura);
+            margin-bottom: 4px;
+        }
+
+        .card-servico .info p {
+            font-size: 0.85rem;
+            color: #948a88;
+        }
+
+        .card-servico .preco-tag {
+            background-color: var(--cor-principal);
+            color: #a3766f;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* --- BOTÕES EXTRA DE ESTILO --- */
+        .btn-customizar {
+            width: 100%;
+            background-color: var(--cor-fundo);
+            color: var(--cor-escura);
+            border: 1px dashed var(--cor-destaque);
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-customizar.pendente {
+            border-color: var(--erro);
+            background-color: #fdf5f5;
+        }
+
+        .tag-obrigatorio {
+            background-color: #dbb3ad;
+            color: var(--branco);
+            font-size: 0.65rem;
+            padding: 3px 8px;
+            border-radius: 6px;
+            margin-left: auto;
+            text-transform: uppercase;
+        }
+
+        .feedback-customizacao {
+            font-size: 0.85rem;
+            color: var(--cor-escura);
+            background: var(--cor-fundo);
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-top: 10px;
+            border-left: 3px solid var(--cor-destaque);
+            display: none;
+            line-height: 1.4;
+        }
+
+        /* --- MODAIS MODERNOS E ELEGANTES --- */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 2000; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(61, 53, 51, 0.4);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: dispararCortina 0.3s ease;
+        }
+
+        @keyframes dispararCortina {
+            from { background-color: rgba(61, 53, 51, 0); }
+            to { background-color: rgba(61, 53, 51, 0.4); }
+        }
+
+        .modal-conteudo {
+            background-color: var(--branco);
+            border-radius: 28px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 30px;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(61, 53, 51, 0.15);
+            animation: subirModal 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+
+        /* ESTILO ESPECÍFICO PARA O MODAL DE MIMOS TELA CHEIA */
+        .modal-tela-cheia {
+            padding: 0 !important;
+        }
+        .modal-tela-cheia .modal-conteudo {
+            max-width: 100% !important;
+            width: 100% !important;
+            height: 100% !important;
+            max-height: 100vh !important;
+            border-radius: 0 !important;
+            padding: 30px 20px 100px 20px !important;
+            animation: fadeIn 0.3s ease-in-out !important;
+        }
+
+        @keyframes subirModal {
+            from { transform: translateY(40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .fechar-modal {
+            position: absolute;
+            top: 22px;
+            right: 24px;
+            font-size: 1.5rem;
+            color: #bbb;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .fechar-modal:hover {
+            color: var(--cor-escura);
+        }
+
+        .seletor-modal-opcao {
+            background: var(--cor-fundo);
+            padding: 18px;
+            border-radius: 16px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid var(--borda);
+            transition: all 0.2s;
+        }
+
+        .seletor-modal-opcao:hover {
+            border-color: var(--cor-destaque);
+            background: var(--branco);
+            transform: translateX(3px);
+        }
+
+        /* Grid de Paleta de Cores Multi-seleção */
+        .grid-cores {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .cor-item {
+            text-align: center;
+            font-size: 0.8rem;
+            cursor: pointer;
+            padding: 12px 5px;
+            border-radius: 14px;
+            border: 1px solid transparent;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .cor-item:hover {
+            background: var(--cor-fundo);
+        }
+
+        .cor-item.selecionada {
+            border-color: var(--cor-destaque);
+            background: var(--cor-principal);
+        }
+
+        .circulo-cor {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            margin: 0 auto 6px;
+            border: 2px solid var(--branco);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+        }
+
+        .badge-ordem {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: var(--cor-escura);
+            color: var(--branco);
+            font-size: 0.65rem;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* CONTEÚDO COM BOTÃO FIXO SEMPRE VISÍVEL NA BASE DO MODAL */
+        .conteudo-modal-fixo {
+            padding-bottom: 80px; 
+        }
+
+        .rodape-botao-fixo-modal {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, var(--branco) 25%);
+            padding: 20px 30px 25px 30px;
+            border-bottom-left-radius: 28px;
+            border-bottom-right-radius: 28px;
+            z-index: 10;
+        }
+
+        /* Ajuste do rodapé para o modal de tela cheia */
+        .modal-tela-cheia .rodape-botao-fixo-modal {
+            position: fixed;
+            border-radius: 0;
+        }
+
+        .grid-imagens-artes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .container-foto-arte {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .bloco-imagem-arte {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 14px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .bloco-imagem-arte:hover {
+            transform: scale(1.02);
+        }
+
+        .bloco-imagem-arte.selecionada {
+            border-color: var(--cor-destaque);
+            box-shadow: 0 4px 12px rgba(227, 177, 168, 0.3);
+        }
+
+        .bloco-imagem-arte img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .nome-arte-legenda {
+            font-size: 0.75rem;
+            margin-top: 5px;
+            text-align: center;
+            color: #666;
+        }
+
+        /* Detalhes do Modal de Confirmação de Serviço */
+        .box-detalhe-servico {
+            background-color: var(--cor-fundo);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 15px;
+            text-align: center;
+            border: 1px solid var(--borda);
+        }
+
+        .box-detalhe-servico h3 {
+            font-size: 1.3rem;
+            color: var(--cor-escura);
+            margin-bottom: 6px;
+        }
+
+        .box-detalhe-servico p {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 15px;
+        }
+
+        .box-detalhe-servico .preco-grande {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #a3766f;
+            background: var(--branco);
+            display: inline-block;
+            padding: 8px 25px;
+            border-radius: 30px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.02);
+        }
+
+        /* Lista de horários indisponíveis */
+        .lista-indisponiveis {
+            margin-top: 15px;
+            max-height: 250px;
+            overflow-y: auto;
+            border: 1px solid var(--borda);
+            border-radius: 12px;
+            background: var(--cor-fundo);
+        }
+
+        .item-indisponivel {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--borda);
+            font-size: 0.9rem;
+            color: #7a6e6b;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .item-indisponivel:last-child {
+            border-bottom: none;
+        }
+
+        .btn-ver-indisponivel {
+            background: none;
+            border: none;
+            color: #c98a83;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: underline;
+        }
+
+        /* --- FORMULÁRIO --- */
+        .form-grupo {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #6e615e;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--borda);
+            border-radius: 12px;
+            background-color: var(--cor-fundo);
+            font-size: 0.95rem;
+            color: var(--cor-escura);
+            transition: all 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--cor-destaque);
+            background-color: var(--branco);
+        }
+
+        .erro-horario {
+            color: #c98a83;
+            font-size: 0.85rem;
+            margin-top: 6px;
+            display: none;
+            font-weight: 600;
+        }
+
+        button.btn-enviar {
+            width: 100%;
+            background-color: var(--cor-escura);
+            color: var(--branco);
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            transition: all 0.2s;
+        }
+
+        button.btn-enviar:hover {
+            opacity: 0.9;
+        }
+
+        button:disabled {
+            background-color: #e0dcdb !important;
+            color: #9c9391 !important;
+            cursor: not-allowed;
+        }
+
+        /* --- RODAPÉ FIXO --- */
+        .rodape-fixo {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--branco);
+            display: flex;
+            justify-content: space-around;
+            padding: 14px 0;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.02);
+            z-index: 1500;
+        }
+
+        .aba-nav {
+            background: none;
+            border: none;
+            color: #bfaea8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.7rem;
+            cursor: pointer;
+            width: 20%;
+        }
+
+        .aba-nav i {
+            font-size: 1.25rem;
+            margin-bottom: 4px;
+        }
+
+        .aba-nav.ativa-nav {
+            color: var(--cor-destaque);
+            font-weight: 600;
+        }
+
+        .mapa-container iframe {
+            width: 100%;
+            height: 220px;
+            border-radius: 14px;
+            border: none;
+        }
+
+        /* --- ESTILOS NOVOS ADICIONADOS PARA PRODUTOS E RESUMO --- */
+        .mimos-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .mimo-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            border: 1px solid var(--borda);
+            border-radius: 12px;
+            background: var(--branco);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        }
+        .mimo-conteudo-esquerda {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .mimo-imagem {
+            width: 65px;
+            height: 65px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 1px solid var(--borda);
+        }
+        .mimo-info h4 {
+            font-size: 0.95rem;
+            color: var(--cor-escura);
+            font-weight: 600;
+        }
+        .mimo-info .mimo-preco-tag {
+            font-size: 0.85rem;
+            color: #a3766f;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+        .mimo-controles {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-mimo-acao {
+            background: var(--cor-fundo);
+            border: 1px solid var(--cor-destaque);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: var(--cor-escura);
+        }
+        .btn-mimo-lixeira {
+            background: none;
+            border: none;
+            color: var(--erro);
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin-left: 5px;
+        }
+        .mimo-qtd {
+            font-weight: 600;
+            font-size: 1rem;
+            min-width: 15px;
+            text-align: center;
+        }
+        .resumo-bloco {
+            background: var(--cor-fundo);
+            border: 1px solid var(--borda);
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 15px;
+            text-align: left;
+            position: relative;
+        }
+        .resumo-bloco h4 {
+            font-size: 0.9rem;
+            color: #a3766f;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .resumo-bloco p {
+            font-size: 0.95rem;
+            line-height: 1.4;
+            padding-right: 40px;
+        }
+        .btn-editar-resumo {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--branco);
+            border: 1px solid var(--cor-destaque);
+            color: var(--cor-escura);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+        .btn-editar-resumo:hover {
+            background: var(--cor-principal);
+        }
+        .resumo-total-box {
+            background: var(--cor-principal);
+            border: 2px solid var(--cor-destaque);
+            border-radius: 16px;
+            padding: 18px;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+        .resumo-total-box h3 {
+            font-size: 1.1rem;
+            color: var(--cor-escura);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+        .resumo-total-box .preco-total {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #a3766f;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=200&auto=format&fit=crop&q=80" alt="Studio Nails" class="perfil-header">
+        <h1>Samila Ribeiro</h1>
+        <p>Sua beleza refletida em suas unhas</p>
+        
+        <div class="carrossel-container">
+            <div class="carrossel-trilho">
+                <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=120&auto=format&fit=crop&q=60" class="carrossel-item" alt="Unhas 1">
+                <img src="https://images.unsplash.com/photo-1632345031435-8797b2d58045?w=120&auto=format&fit=crop&q=60" class="carrossel-item" alt="Unhas 2">
+                <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=120&auto=format&fit=crop&q=60" class="carrossel-item" alt="Unhas 3">
+                <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=120&auto=format&fit=crop&q=60" class="carrossel-item" alt="Unhas 4">
+                <img src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=120&auto=format&fit=crop&q=60" class="carrossel-item" alt="Unhas 5">
+                <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=120&auto=format&fit=crop&q=60" class="carrossel-item" alt="Unhas 6">
+                <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=120&auto=format&fit=crop&q=60" class="carrossel-item" alt="Unhas 1">
+                <img src="https://images.unsplash.com/photo-1632345031435-8797b2d58045?w=120&auto=format&fit=crop&q=60" class="carrossel-item" alt="Unhas 2">
+                <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=120&auto=format&fit=crop&q=60" class="carrossel-item" alt="Unhas 3">
+                <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=120&auto=format&fit=crop&q=60" class="carrossel-item" alt="Unhas 4">
+                <img src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=120&auto=format&fit=crop&q=60" class="carrossel-item" alt="Unhas 5">
+                <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=120&auto=format&fit=crop&q=60" class="carrossel-item" alt="Unhas 6">
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <section id="sec-inicio" class="ativa">
+            <h2>✨ Nossos Serviços</h2>
+            <p style="font-size: 0.85rem; color: #777; margin-bottom: 18px;">Selecione o serviço ideal para iniciar seu agendamento:</p>
+            
+            <div class="servicos-lista">
+                <div class="card-servico" onclick="abrirModalServico('Mão Simples', 'Cuticulagem completa, hidratação e esmaltação.', 'R$ 30,00')">
+                    <div class="info">
+                        <h3>Mão Simples</h3>
+                        <p>Cuticulagem completa, hidratação e esmaltação.</p>
+                    </div>
+                    <div class="preco-tag">R$ 30,00</div>
+                </div>
+                <div class="card-servico" onclick="abrirModalServico('Pé Simples', 'Higienização profunda, cuidados e acabamento.', 'R$ 30,00')">
+                    <div class="info">
+                        <h3>Pé Simples</h3>
+                        <p>Higienização profunda, cuidados e acabamento.</p>
+                    </div>
+                    <div class="preco-tag">R$ 30,00</div>
+                </div>
+                <div class="card-servico" onclick="abrirModalServico('Pé e Mão Completo', 'Combo queridinho com esfoliação relaxante.', 'R$ 50,00')">
+                    <div class="info">
+                        <h3>Pé e Mão Completo</h3>
+                        <p>Combo queridinho com esfoliação relaxante.</p>
+                    </div>
+                    <div class="preco-tag">R$ 50,00</div>
+                </div>              
+            </div>
+        </section>
+
+        <section id="sec-agendar">
+            <h2>📅 Faça seu Agendamento</h2>
+            <form id="formAgendamento">
+                <div class="form-grupo">
+                    <label for="nome">Seu Nome:</label>
+                    <input type="text" id="nome" required placeholder="Digite seu nome completo">
+                </div>
+
+                <div class="form-grupo">
+                    <label for="servico">Serviço Selecionado:</label>
+                    <select id="servico" required onchange="ajustarCamposPorServico()">
+                        <option value="">Selecione um serviço...</option>
+                        <option value="Mão Simples">Mão Simples (R$ 30,00)</option>
+                        <option value="Pé Simples">Pé Simples (R$ 30,00)</option>
+                        <option value="Pé e Mão Completo">Pé e Mão Completo (R$ 50,00)</option>
+                    </select>
+                </div>
+
+                <div class="form-grupo">
+                    <label>Design & Cores</label>
+                    <button type="button" id="btnAbreCustomizar" class="btn-customizar pendente" onclick="abrirModalCustomizar()">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> <span>Escolha as Cores ou Inspiração</span>
+                        <span class="tag-obrigatorio">Obrigatório</span>
+                    </button>
+                    <div id="feedbackEstilo" class="feedback-customizacao"></div>
+                </div>
+
+                <div class="form-grupo">
+                    <label for="data">Data Desejada:</label>
+                    <input type="date" id="data" required>
+                </div>
+
+                <div class="form-grupo" style="margin-bottom: 5px;">
+                    <label for="horario">Horário Desejado:</label>
+                    <input type="time" id="horario" required disabled>
+                    <div id="erroHorario" class="erro-horario">Este horário conflita com um atendimento (Janela de 1h antes/depois ocupada).</div>
+                </div>
+                <button type="button" class="btn-ver-indisponivel" onclick="abrirModalIndisponiveis()">
+                    <i class="fa-solid fa-clock-rotate-left"></i> Ver Horários Indisponíveis
+                </button>
+
+                <button type="submit" id="btnConfirmar" class="btn-enviar" style="margin-top: 25px;">Confirmar Agendamento ✨</button>
+            </form>
+        </section>
+
+        <section id="sec-localizacao">
+            <h2>📍 Nosso Espaço</h2>
+            <p style="margin-bottom: 15px; font-size: 0.9rem;"><i class="fa-solid fa-map-pin" style="color: var(--cor-destaque)"></i> Centro de Estética Studio MK</p>
+            <div class="mapa-container">
+                <iframe src="https://maps.app.goo.gl/EUjuQtwAPNMDLkMJ7?g_st=ac" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </section>
+
+        <section id="sec-suporte">
+            <h2>🙋 Suporte & Dúvidas</h2>
+            <p style="font-size: 0.9rem; line-height: 1.5;">Precisa alterar algum detalhe ou tirar uma dúvida sobre banho de gel? Fale diretamente comigo no balcão virtual.</p>
+            <br>
+            <button class="btn-enviar" onclick="abrirSuporte()" style="background-color: #25d366; color: white;"><i class="fa-brands fa-whatsapp"></i> Chamar no WhatsApp</button>
+        </section>
+
+        <section id="sec-CriarSites">
+            <h2>💻 Desenvolvimento Web</h2>
+            <p style="font-size: 0.9rem; line-height: 1.5;">Gostou deste sistema de agendamento interativo com integração inteligente de planilhas? Faça um igual para o seu negócio!</p>
+            <br>
+            <button class="btn-enviar" onclick="abrirCriador()"><i class="fa-solid fa-code"></i> Solicitar Orçamento de Site</button>
+        </section>
+
+    </div>
+
+    <div id="modalServico" class="modal">
+        <div class="modal-conteudo" style="max-width: 450px;">
+            <span class="fechar-modal" onclick="fecharModalServico()">×</span>
+            <h2>💅 Serviço Selecionado</h2>
+            <p style="font-size: 0.85rem; color: #777;">Confirme sua escolha para prosseguirmos para a data e hora:</p>
+            
+            <div class="conteudo-modal-fixo">
+                <div class="box-detalhe-servico">
+                    <h3 id="lblModalNomeServico">Nome do Serviço</h3>
+                    <p id="lblModalDescServico">Descrição completa do serviço aqui.</p>
+                    <div class="preco-grande" id="lblModalPrecoServico">R$ 0,00</div>
+                </div>
+            </div>
+
+            <div class="rodape-botao-fixo-modal">
+                <button class="btn-enviar" onclick="confirmarServicoModal()">Confirmar este Serviço</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalCustomizar" class="modal">
+        <div class="modal-conteudo">
+            <span class="fechar-modal" onclick="fecharModalCustomizar()">×</span>
+            <h2 style="margin-bottom: 5px;">✨ Personalize suas Unhas</h2>
+            <p style="font-size: 0.85rem; color: #777; margin-bottom: 20px;">Escolha suas cores preferidas ou envie uma imagem de inspiração:</p>
+            
+            <div class="seletor-modal-opcao" onclick="abrirModalCores('mao')">
+                <div>
+                    <h4 id="tituloCoresMao">🎨 Cores dos Esmaltes</h4>
+                    <p id="txtCorSelecionada">Nenhuma selecionada</p>
+                </div>
+                <i class="fa-solid fa-chevron-right" style="color: var(--cor-destaque)"></i>
+            </div>
+
+            <div class="seletor-modal-opcao" id="boxSeletorPe" onclick="abrirModalCores('pe')" style="display: none;">
+                <div>
+                    <h4>🦶 Cores para as Unhas dos Pés</h4>
+                    <p id="txtCorPeSelecionada">Nenhuma selecionada</p>
+                </div>
+                <i class="fa-solid fa-chevron-right" style="color: var(--cor-destaque)"></i>
+            </div>
+
+            <div class="seletor-modal-opcao" id="boxSeletorImagemMao" onclick="abrirModalImagens('mao')">
+                <div>
+                    <h4 id="tituloImagemMao">📸 Fotos de Inspiração para as Unhas</h4>
+                    <p id="txtArteSelecionada">Nenhuma arte selecionada</p>
+                </div>
+                <i class="fa-solid fa-chevron-right" style="color: var(--cor-destaque)"></i>
+            </div>
+
+            <div class="seletor-modal-opcao" id="boxSeletorImagemPe" onclick="abrirModalImagens('pe')" style="display: none;">
+                <div>
+                    <h4>📸 Fotos de Inspiração para os Pés</h4>
+                    <p id="txtArtePeSelecionada">Nenhuma arte selecionada</p>
+                </div>
+                <i class="fa-solid fa-chevron-right" style="color: var(--cor-destaque)"></i>
+            </div>
+
+            <button class="btn-enviar" onclick="fecharModalCustomizar()" style="margin-top: 10px;">Salvar Escolhas e Voltar</button>
+        </div>
+    </div>
+
+    <div id="modalCores" class="modal">
+        <div class="modal-conteudo" style="max-width: 450px;">
+            <span class="fechar-modal" onclick="fecharModalCores()">×</span>
+            <h2 id="tituloModalDinamicoCores">🎨 Escolha até 5 Cores</h2>
+            <p style="font-size: 0.85rem; color: #777; margin-bottom: 15px;">Toque nas cores que deseja combinar (na ordem de sua preferência):</p>
+            
+            <div class="grid-cores" id="gridCoresContainer"></div>
+            <button class="btn-enviar" onclick="concluirSelecaoCoresModal()" style="margin-top: 20px;">Confirmar Cores</button>
+        </div>
+    </div>
+
+    <div id="modalImagens" class="modal">
+        <div class="modal-conteudo" style="max-width: 480px;">
+            <span class="fechar-modal" onclick="fecharModalImagens()">×</span>
+            <h2 id="tituloModalDinamicoImagens">📸 Ideias & Inspirações</h2>
+            <p style="font-size: 0.85rem; color: #777; margin-bottom: 15px;">Selecione uma foto de exemplo com a decoração desejada (Opcional):</p>
+            
+            <div class="conteudo-modal-fixo">
+                <div class="grid-imagens-artes" id="gridImagensMao">                 
+                    <div class="container-foto-arte"><div class="bloco-imagem-arte" id="imgArteMao-1" onclick="selecionarArte(1, 'Francesinha Fina', 'mao')"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=150&auto=format&fit=crop&q=60"></div><div class="nome-arte-legenda">Francesinha Fina</div></div>
+                    <div class="container-foto-arte"><div class="bloco-imagem-arte" id="imgArteMao-2" onclick="selecionarArte(2, 'Glitter Degradê', 'mao')"><img src="https://i.ibb.co/m5XjztKn/89286.jpg"></div><div class="nome-arte-legenda">Glitter Degradê</div></div>
+                    <div class="container-foto-arte"><div class="bloco-imagem-arte" id="imgArteMao-3" onclick="selecionarArte(3, 'Nude Atemporal', 'mao')"><img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=150&auto=format&fit=crop&q=60"></div><div class="nome-arte-legenda">Nude Atemporal</div></div>
+                    <div class="container-foto-arte"><div class="bloco-imagem-arte" id="imgArteMao-4" onclick="selecionarArte(4, 'Vermelho Luxo', 'mao')"><img src="https://i.ibb.co/PZDN8xtb/89287.jpg"></div><div class="nome-arte-legenda">Vermelho Luxo</div></div>
+                    <div class="container-foto-arte"><div class="bloco-imagem-arte" id="imgArteMao-5" onclick="selecionarArte(5, 'Encapsulada Flor', 'mao')"><img src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=150&auto=format&fit=crop&q=60"></div><div class="nome-arte-legenda">Encapsulada</div></div>
+                    <div class="container-foto-arte"><div class="bloco-imagem-arte" id="imgArteMao-6" onclick="selecionarArte(6, 'Pedrarias Clássicas', 'mao')"><img src="https://i.ibb.co/v6Cw2R5f/89292.png"></div><div class="nome-arte-legenda">Pedrarias</div></div>
+                    <div class="container-foto-arte"><div class="bloco-imagem-arte" id="imgArteMao-7" onclick="selecionarArte(7, 'Efeito Cromado', 'mao')"><img src="https://i.ibb.co/GKZPtwj/89295.webp"></div><div class="nome-arte-legenda">Cromado</div></div>
+                    <div class="container-foto-arte"><div class="bloco-imagem-arte" id="imgArteMao-8" onclick="selecionarArte(8, 'Babyboomer Delicada', 'mao')"><img src="https://i.ibb.co/WNnv74L7/89296.jpg"></div><div class="nome-arte-legenda">Babyboomer</div></div>
+                    <div class="container-foto-arte"><div class="bloco-imagem-arte" id="imgArteMao-9" onclick="selecionarArte(9, 'Traços Geométricos', 'mao')"><img src="https://i.ibb.co/q39sDFW4/89297.jpg"></div><div class="nome-arte-legenda">Geométrico</div></div>
+                </div>
+                
+                <div class="grid-imagens-artes" id="gridImagensPe" style="display: none;">
+                    <div class="container-foto-arte"><div class="bloco-imagem-arte" id="imgArtePe-1" onclick="selecionarArte(1, 'Francesinha nos Pés', 'pe')"><img src="https://i.ibb.co/yByr7c8n/89299.jpg"></div><div class="nome-arte-legenda">Francesinha Pés</div></div>
+                    <div class="container-foto-arte"><div class="bloco-imagem-arte" id="imgArtePe-2" onclick="selecionarArte(2, 'Nude Delicado', 'pe')"><img src="https://i.ibb.co/vCrwpgwn/89298.jpg"></div><div class="nome-arte-legenda">Nude Delicado</div></div>
+                    <div class="container-foto-arte"><div class="bloco-imagem-arte" id="imgArtePe-3" onclick="selecionarArte(3, 'Vermelho Sedutor', 'pe')"><img src="https://i.ibb.co/vNQc5Mv/89300.jpg"></div><div class="nome-arte-legenda">Vermelho Pés</div></div>
+                    <div class="container-foto-arte"><div class="bloco-imagem-arte" id="imgArtePe-4" onclick="selecionarArte(4, 'Branco Total', 'pe')"><img src="https://i.ibb.co/mrtTKj0v/89302.jpg"></div><div class="nome-arte-legenda">Branco Total</div></div>
+                    <div class="container-foto-arte"><div class="bloco-imagem-arte" id="imgArtePe-5" onclick="selecionarArte(5, 'Clique com Glitter', 'pe')"><img src="https://i.ibb.co/4nsM907B/89301.jpg"></div><div class="nome-arte-legenda">Glitter Sutil</div></div>
+                    <div class="container-foto-arte"><div class="bloco-imagem-arte" id="imgArtePe-6" onclick="selecionarArte(6, 'Natural Clean', 'pe')"><img src="https://i.ibb.co/G3njmxk0/89303.jpg"></div><div class="nome-arte-legenda">Natural Clean</div></div>
+                </div>
+            </div>
+            
+            <div class="rodape-botao-fixo-modal">
+                <button class="btn-enviar" onclick="fecharModalImagens()">Confirmar Foto Escolhida</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalIndisponiveis" class="modal">
+        <div class="modal-conteudo" style="max-width: 420px;">
+            <span class="fechar-modal" onclick="fecharModalIndisponiveis()">×</span>
+            <h2>🔒 Horários Reservados</h2>
+            <p style="font-size: 0.85rem; color: #777;">Estes horários já possuem agendamento na planilha:</p>
+            <div class="lista-indisponiveis" id="containerListaIndisponiveis"></div>
+            <button class="btn-enviar" onclick="fecharModalIndisponiveis()" style="margin-top: 20px;">Fechar Janela</button>
+        </div>
+    </div>
+
+    <div id="modalMimos" class="modal modal-tela-cheia">
+        <div class="modal-conteudo">
+            <span class="fechar-modal" onclick="fecharModalMimos()">×</span>
+            <h2>Você deseja uma recepção além do especial </h2>
+            <p style="font-size: 0.85rem; color: #777; margin-bottom: 20px;">Escolha mimos ou produtos para consumir ou usar assim que chegar ao nosso estúdio:</p>
+            
+            <div class="mimos-grid" id="mimosContainer"></div>
+
+            <div class="rodape-botao-fixo-modal">
+                <button class="btn-enviar" onclick="abrirModalResumoFinal()" style="background-color: var(--cor-destaque); color: var(--cor-escura);">Avançar para o Resumo ✨</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalResumoFinal" class="modal">
+        <div class="modal-conteudo" style="max-width: 480px;">
+            <span class="fechar-modal" onclick="fecharModalResumoFinal()">×</span>
+            <h2>📝 Confirmar Dados Selecionados</h2>
+            <p style="font-size: 0.85rem; color: #777; margin-bottom: 20px;">Confira todas as especificações do seu agendamento antes de concluir:</p>
+            
+            <div id="conteudoResumoFinal"></div>
+
+            <button class="btn-enviar" id="btnConcluirDefinitivo" onclick="executarEnvioDefinitivo()" style="margin-top: 15px; background-color: #25d366; color: white;">
+                <i class="fa-brands fa-whatsapp"></i> Confirmar e Enviar para WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <nav class="rodape-fixo">
+        <button class="aba-nav acao-nav" id="btn-nav-inicio" onclick="mudarAba('sec-inicio', this)">
+            <i class="fa-solid fa-house"></i><span>Início</span>
+        </button>
+        <button class="aba-nav" id="btn-nav-agendar" onclick="mudarAba('sec-agendar', this)">
+            <i class="fa-solid fa-calendar-days"></i><span>Agendar</span>
+        </button>
+        <button class="aba-nav" id="btn-nav-localizacao" onclick="mudarAba('sec-localizacao', this)">
+            <i class="fa-solid fa-location-dot"></i><span>Local</span>
+        </button>
+        <button class="aba-nav" id="btn-nav-suporte" onclick="mudarAba('sec-suporte', this)">
+            <i class="fa-solid fa-headset"></i><span>Suporte</span>
+        </button>
+        <button class="aba-nav" id="btn-nav-CriarSites" onclick="mudarAba('sec-CriarSites', this)">
+            <i class="fa-solid fa-laptop-code"></i><span>Criar Site</span>
+        </button>
+    </nav>
+
+    <script>
+        // --- CONFIGURAÇÕES DO SISTEMA ---
+        const TELEFONE_WHATSAPP = "5562995679219"; 
+        const TELEFONE_DESENVOLVEDOR = "5562995679219"; 
+        
+        const URL_WEB_APP_APPS_SCRIPT = "https://script.google.com/macros/s/AKfycby16kn4aalxao7R8ZP89nzuCJ7JVI0tWbLpiPMt9lCU6VT847yYpFYVklArN3TmSNuH/exec";
+        const URL_CSV_PLANILHA = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQSWhQS9nFk5UFshZhLgd5B2osW21IkcmEIqakuh8g01U0tcmhXSNyaWfgHisVuRTOa_vVApLTGWNeT/pub?output=csv";
+
+        const PRECO_SERVICOS = {
+            "Mão Simples": 30.00,
+            "Pé Simples": 30.00,
+            "Pé e Mão Completo": 50.00
+        };
+
+        const BANCO_CORES = [
+            { nome: "Vermelho Real", cor: "#800000" }, { nome: "Cereja", cor: "#a30000" }, { nome: "Vinho", cor: "#4a0404" },
+            { nome: "Jabuticaba", cor: "#3b001f" }, { nome: "Açaí", cor: "#581845" }, { nome: "Café", cor: "#1c0008" },
+            { nome: "Rosa Bebê", cor: "#ffc0cb" }, { nome: "Rosa Pink", cor: "#ff69b4" }, { nome: "Terracota", cor: "#e2725b" },
+            { nome: "Malva Chic", cor: "#db7093" }, { nome: "Fúcsia", cor: "#ff1493" }, { nome: "Nude Areia", cor: "#e6dfd3" },
+            { nome: "Capuccino", cor: "#d2b48c" }, { nome: "Branco Renda", cor: "#ffffff" }, { nome: "Verde Menta", cor: "#a0db8e" },
+            { nome: "Militar", cor: "#2e8b57" }, { nome: "Azul Jeans", cor: "#4682b4" }, { nome: "Azul Céu", cor: "#b0e0e6" },
+            { nome: "Lavanda", cor: "#dda0dd" }, { nome: "Pastel", cor: "#fffdd0" }, { nome: "Pérola", cor: "#e6e6fa" },
+            { nome: "Rose Gold", cor: "#bfa3af" }, { nome: "Preto", cor: "#000000" }, { nome: "Glitter Prata", cor: "#c0c0c0" }
+        ];
+
+        let agendamentosExistentes = [];
+        let coresSelecionadasMao = []; 
+        let coresSelecionadasPe = [];
+        let escopoCoresAtual = 'mao'; 
+        let numeroArteEscolhida = "Não selecionada";
+        let numeroArtePeEscolhida = "Não selecionada";
+        let escopoImagensAtual = 'mao'; 
+        let servicoSelecionadoTemporario = "";
+
+        // --- BANCO DE MIMOS COM PREÇOS REALISTAS ADICIONADOS ---
+        let BANCO_MIMOS = [
+            { id: "coca", nome: "Coca-Cola em lata", preco: 6.00, quantidade: 0, imagem: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=150&auto=format&fit=crop&q=60" },
+            { id: "heineken", nome: "Heineken", preco: 10.00, quantidade: 0, imagem: "https://images.unsplash.com/photo-1608270586620-248524c67de9?w=150&auto=format&fit=crop&q=60" },
+            { id: "brincos", nome: "Brincos Semi-Joia", preco: 15.00, quantidade: 0, imagem: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=150&auto=format&fit=crop&q=60" },
+            { id: "unhas_pos", nome: "Unhas postiças (Kit)", preco: 25.00, quantidade: 0, imagem: "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=150&auto=format&fit=crop&q=60" },
+            { id: "colar", nome: "Colar Delicado", preco: 20.00, quantidade: 0, imagem: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=150&auto=format&fit=crop&q=60" }
+        ];
+
+        window.addEventListener('DOMContentLoaded', () => {
+            buscarAgendamentosDaPlanilha();
+            renderizarMimos();
+        });
+
+        function buscarAgendamentosDaPlanilha() {
+            fetch(URL_CSV_PLANILHA)
+                .then(res => res.text())
+                .then(dadosCsv => {
+                    agendamentosExistentes = processarCsv(dadosCsv);
+                })
+                .catch(err => console.error("Erro ao ler tabela remota:", err));
+        }
+
+        function processarCsv(textoCsv) {
+            const linhas = textoCsv.split(/\r?\n/);
+            let resultado = [];
+            for(let i = 1; i < linhas.length; i++) {
+                if(!linhas[i]) continue;
+                const colunas = linhas[i].split(",");
+                if(colunas.length >= 1) {
+                    resultado.push({
+                        agendamento: colunas[0].trim().replace(/"/g, '')
+                    });
+                }
+            }
+            return resultado;
+        }
+
+        function mudarAba(idSecao, botaoClicado) {
+            document.querySelectorAll('section').forEach(sec => sec.classList.remove('ativa'));
+            document.querySelectorAll('.aba-nav').forEach(btn => btn.classList.remove('ativa-nav'));
+            document.getElementById(idSecao).classList.add('ativa');
+            if(botaoClicado) botaoClicado.classList.add('ativa-nav');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function abrirModalServico(nome, descricao, preco) {
+            servicoSelecionadoTemporario = nome;
+            document.getElementById('lblModalNomeServico').innerText = nome;
+            document.getElementById('lblModalDescServico').innerText = descricao;
+            document.getElementById('lblModalPrecoServico').innerText = preco;
+            document.getElementById('modalServico').style.display = 'flex';
+        }
+
+        function fecharModalServico() {
+            document.getElementById('modalServico').style.display = 'none';
+        }
+
+        function confirmarServicoModal() {
+            document.getElementById('servico').value = servicoSelecionadoTemporario;
+            ajustarCamposPorServico();
+            fecharModalServico();
+            mudarAba('sec-agendar', document.getElementById('btn-nav-agendar'));
+        }
+
+        function ajustarCamposPorServico() {
+            const servico = document.getElementById('servico').value;
+            const boxPe = document.getElementById('boxSeletorPe');
+            const titMao = document.getElementById('tituloCoresMao');
+            const boxImagemPe = document.getElementById('boxSeletorImagemPe');
+            const titImagemMao = document.getElementById('tituloImagemMao');
+            
+            if(servico === "Pé e Mão Completo") {
+                boxPe.style.display = 'flex';
+                titMao.innerText = "💅 Cores para as Unhas das Mãos";
+                boxImagemPe.style.display = 'flex';
+                titImagemMao.innerText = "📸 Fotos de Inspiração para as Mãos";
+            } else {
+                boxPe.style.display = 'none';
+                titMao.innerText = "🎨 Cores dos Esmaltes";
+                coresSelecionadasPe = [];
+                document.getElementById('txtCorPeSelecionada').innerText = "Nenhuma selecionada";
+                boxImagemPe.style.display = 'none';
+                titImagemMao.innerText = "📸 Fotos de Inspiração & Artes";
+                numeroArtePeEscolhida = "Não selecionada";
+                document.getElementById('txtArtePeSelecionada').innerText = "Nenhuma arte selecionada";
+            }
+            atualizarFeedbackVisualForm();
+            if(document.getElementById('data').value) verificarDisponibilidade();
+        }
+
+        function abrirModalCustomizar() { document.getElementById('modalCustomizar').style.display = 'flex'; }
+        function fecharModalCustomizar() { 
+            document.getElementById('modalCustomizar').style.display = 'none'; 
+            atualizarFeedbackVisualForm();
+        }
+
+        function abrirModalCores(tipo) {
+            escopoCoresAtual = tipo;
+            const titulo = document.getElementById('tituloModalDinamicoCores');
+            titulo.innerText = tipo === 'mao' ? "🎨 Cores para as Unhas das Mãos" : "🦶 Cores para as unhas dos Pés";
+            renderizarGridCores();
+            document.getElementById('modalCores').style.display = 'flex';
+        }
+
+        function fecharModalCores() { 
+            document.getElementById('modalCores').style.display = 'none'; 
+        }
+
+        function concluirSelecaoCoresModal() {
+            const pTxtMao = document.getElementById('txtCorSelecionada');
+            const pTxtPe = document.getElementById('txtCorPeSelecionada');
+
+            if(escopoCoresAtual === 'mao') {
+                pTxtMao.innerHTML = coresSelecionadasMao.length > 0 ? `Selecionadas: <b>${coresSelecionadasMao.join(', ')}</b>` : "Nenhuma selecionada";
+            } else {
+                pTxtPe.innerHTML = coresSelecionadasPe.length > 0 ? `Selecionadas: <b>${coresSelecionadasPe.join(', ')}</b>` : "Nenhuma selecionada";
+            }
+            fecharModalCores();
+        }
+
+        function renderizarGridCores() {
+            const container = document.getElementById('gridCoresContainer');
+            container.innerHTML = "";
+            const listaAtiva = escopoCoresAtual === 'mao' ? coresSelecionadasMao : coresSelecionadasPe;
+
+            BANCO_CORES.forEach(item => {
+                const index = listaAtiva.indexOf(item.nome);
+                const classSelecionada = index > -1 ? 'selecionada' : '';
+                const borderExtra = item.cor === '#ffffff' ? 'border: 1px solid #ddd;' : '';
+
+                let div = document.createElement('div');
+                div.className = `cor-item ${classSelecionada}`;
+                div.setAttribute('data-cor', item.nome);
+                div.onclick = function() { alternarSelecaoCorUnica(this); };
+                
+                div.innerHTML = `
+                    <div class="circulo-cor" style="background-color: ${item.cor}; ${borderExtra}"></div>
+                    ${item.nome}
+                    ${index > -1 ? `<div class="badge-ordem">${index + 1}</div>` : ''}
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function abrirModalImagens(tipo) { 
+            escopoImagensAtual = tipo || 'mao';
+            const titulo = document.getElementById('tituloModalDinamicoImagens');
+            const gridMao = document.getElementById('gridImagensMao');
+            const gridPe = document.getElementById('gridImagensPe');
+
+            if(escopoImagensAtual === 'mao') {
+                titulo.innerText = "📸 Inspirações para as Mãos";
+                gridMao.style.display = 'grid';
+                gridPe.style.display = 'none';
+            } else {
+                titulo.innerText = "🦶 Inspirações para os Pés";
+                gridMao.style.display = 'none';
+                gridPe.style.display = 'grid';
+            }
+            
+            document.getElementById('modalImagens').style.display = 'flex'; 
+        }
+
+        function selecionarArte(numero, nomeEstilo, tipoEscopo) {
+            if(tipoEscopo === 'mao') {
+                document.querySelectorAll('#gridImagensMao .bloco-imagem-arte').forEach(img => img.classList.remove('selecionada'));
+                document.getElementById(`imgArteMao-${numero}`).classList.add('selecionada');
+                numeroArteEscolhida = `${nomeEstilo} (Exemplo Mão #${numero})`;
+                document.getElementById('txtArteSelecionada').innerHTML = `Selecionado: <b>${nomeEstilo}</b>`;
+            } else {
+                document.querySelectorAll('#gridImagensPe .bloco-imagem-arte').forEach(img => img.classList.remove('selecionada'));
+                document.getElementById(`imgArtePe-${numero}`).classList.add('selecionada');
+                numeroArtePeEscolhida = `${nomeEstilo} (Exemplo Pé #${numero})`;
+                document.getElementById('txtArtePeSelecionada').innerHTML = `Selecionado: <b>${nomeEstilo}</b>`;
+            }
+        }
+
+        function fecharModalImagens() {
+            document.getElementById('modalImagens').style.display = 'none';
+        }
+
+        function atualizarFeedbackVisualForm() {
+            const box = document.getElementById('feedbackEstilo');
+            const btn = document.getElementById('btnAbreCustomizar');
+            const servico = document.getElementById('servico').value;
+            
+            let possuiMao = coresSelecionadasMao.length > 0;
+            let possuiPe = coresSelecionadasPe.length > 0;
+            let possuiArteMao = numeroArteEscolhida !== "Não selecionada";
+            let possuiArtePe = numeroArtePeEscolhida !== "Não selecionada";
+
+            let validacaoOk = false;
+            if(servico === "Pé e Mão Completo") {
+                validacaoOk = (possuiMao || possuiArteMao) && (possuiPe || possuiArtePe);
+            } else {
+                validacaoOk = possuiMao || possuiArteMao;
+            }
+            
+            if(possuiMao || possuiPe || possuiArteMao || possuiArtePe) {
+                box.style.display = 'block';
+                let htmlStr = `📌 <b>Estilo Configurado:</b><br>`;
+                if(possuiMao) htmlStr += `• Cores da Mão: ${coresSelecionadasMao.join(', ')}<br>`;
+                if(possuiArteMao) htmlStr += `• Inspiração da Mão: ${numeroArteEscolhida}<br>`;
+                if(servico === "Pé e Mão Completo" && possuiPe) htmlStr += `• Cores do Pé: ${coresSelecionadasPe.join(', ')}<br>`;
+                if(servico === "Pé e Mão Completo" && possuiArtePe) htmlStr += `• Inspiração do Pé: ${numeroArtePeEscolhida}`;
+                box.innerHTML = htmlStr;
+            }
+
+            if(validacaoOk) {
+                btn.classList.remove('pendente');
+                btn.style.borderColor = 'var(--sucesso)';
+                btn.style.backgroundColor = '#f2fff5';
+                btn.querySelector('.tag-obrigatorio').innerText = 'OK ✨';
+                btn.querySelector('.tag-obrigatorio').style.backgroundColor = 'var(--sucesso)';
+            } else {
+                btn.classList.add('pendente');
+                btn.style.borderColor = 'var(--erro)';
+                btn.style.backgroundColor = '#fdf5f5';
+                btn.querySelector('.tag-obrigatorio').innerText = 'Obrigatório';
+                btn.querySelector('.tag-obrigatorio').style.backgroundColor = '#dbb3ad';
+            }
+        }
+
+        const inputData = document.getElementById('data');
+        const inputHorario = document.getElementById('horario');
+        const erroHorario = document.getElementById('erroHorario');
+        const btnConfirmar = document.getElementById('btnConfirmar');
+
+        const hoje = new Date().toISOString().split('T')[0];
+        inputData.min = hoje;
+
+        inputData.addEventListener('change', () => {
+            if(inputData.value) {
+                inputHorario.disabled = false;
+                if(inputData.value === hoje) {
+                    const agora = new Date();
+                    agora.setHours(agora.getHours() + 1);
+                    inputHorario.value = `${String(agora.getHours()).padStart(2, '0')}:${String(agora.getMinutes()).padStart(2, '0')}`;
+                } else {
+                    inputHorario.value = "09:00"; 
+                }
+                verificarDisponibilidade();
+            } else {
+                inputHorario.disabled = true;
+            }
+        });
+        
+        inputHorario.addEventListener('change', verificarDisponibilidade);
+
+        function converterParaMinutos(stringHora) {
+            const partes = stringHora.split(':');
+            return (parseInt(partes[0], 10) * 60) + parseInt(partes[1], 10);
+        }
+
+        function verificarDisponibilidade() {
+            const dataEscolhida = inputData.value;
+            const horarioEscolhido = inputHorario.value;
+
+            if(!dataEscolhida || !horarioEscolhido) return;
+
+            const dataFormatada = dataEscolhida.split('-').reverse().join('/');
+            const minutosEscolhidos = converterParaMinutos(horarioEscolhido);
+
+            let conflitoEncontrado = false;
+
+            agendamentosExistentes.forEach(agend => {
+                if(agend.agendamento.includes(" - ")) {
+                    const partesChave = agend.agendamento.split(" - ");
+                    const dataPlanilha = partesChave[0].trim();
+                    const horaPlanilha = partesChave[1].trim().substring(0, 5); 
+
+                    if(dataPlanilha === dataFormatada) {
+                        const minutosPlanilha = converterParaMinutos(horaPlanilha);
+                        if (minutosEscolhidos > (minutosPlanilha - 60) && minutosEscolhidos < (minutosPlanilha + 60)) {
+                            conflitoEncontrado = true;
+                        }
+                    }
+                }
+            });
+
+            if(conflitoEncontrado) {
+                erroHorario.style.display = 'block';
+                btnConfirmar.disabled = true;
+                inputHorario.style.borderColor = 'var(--erro)';
+            } else {
+                erroHorario.style.display = 'none';
+                btnConfirmar.disabled = false;
+                inputHorario.style.borderColor = '#ddd';
+            }
+        }
+
+        function abrirModalIndisponiveis() {
+            const container = document.getElementById('containerListaIndisponiveis');
+            container.innerHTML = "";
+
+            if(agendamentosExistentes.length === 0) {
+                container.innerHTML = `<div class="item-indisponivel">Todos os horários estão livres no momento!</div>`;
+            } else {
+                agendamentosExistentes.forEach(agend => {
+                    let div = document.createElement('div');
+                    div.className = "item-indisponivel";
+                    div.innerHTML = `<i class="fa-solid fa-calendar-minus" style="color: var(--erro)"></i> <span>${agend.agendamento}</span>`;
+                    container.appendChild(div);
+                });
+            }
+            document.getElementById('modalIndisponiveis').style.display = 'flex';
+        }
+
+        function fecharModalIndisponiveis() {
+            document.getElementById('modalIndisponiveis').style.display = 'none';
+        }
+
+        function renderizarMimos() {
+            const container = document.getElementById('mimosContainer');
+            container.innerHTML = "";
+
+            BANCO_MIMOS.forEach(prod => {
+                let div = document.createElement('div');
+                div.className = "mimo-item";
+                div.innerHTML = `
+                    <div class="mimo-conteudo-esquerda">
+                        <img src="${prod.imagem}" class="mimo-imagem" alt="${prod.nome}">
+                        <div class="mimo-info">
+                            <h4>${prod.nome}</h4>
+                            <div class="mimo-preco-tag">R$ ${prod.preco.toFixed(2).replace('.', ',')}</div>
+                        </div>
+                    </div>
+                    <div class="mimo-controles">
+                        <button type="button" class="btn-mimo-acao" onclick="alterarQtdMimo('${prod.id}', -1)">-</button>
+                        <span class="mimo-qtd">${prod.quantidade}</span>
+                        <button type="button" class="btn-mimo-acao" onclick="alterarQtdMimo('${prod.id}', 1)">+</button>
+                        <button type="button" class="btn-mimo-lixeira" onclick="removerMimoCompleto('${prod.id}')">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function alternarSelecaoCorUnica(elemento) {
+            const nomeCor = elemento.getAttribute('data-cor');
+            let listaAtiva = escopoCoresAtual === 'mao' ? coresSelecionadasMao : coresSelecionadasPe;
+            const index = listaAtiva.indexOf(nomeCor);
+
+            if (index > -1) {
+                listaAtiva.splice(index, 1);
+            } else {
+                if (listaAtiva.length >= 5) {
+                    alert("Você pode selecionar no máximo até 5 cores!");
+                    return;
+                }
+                listaAtiva.push(nomeCor);
+            }
+            renderizarGridCores();
+        }
+
+        function alterarQtdMimo(id, delta) {
+            const produto = BANCO_MIMOS.find(p => p.id === id);
+            if(produto) {
+                produto.quantidade += delta;
+                if(produto.quantidade < 0) produto.quantidade = 0;
+                renderizarMimos();
+            }
+        }
+
+        function removerMimoCompleto(id) {
+            const produto = BANCO_MIMOS.find(p => p.id === id);
+            if(produto) {
+                produto.quantidade = 0;
+                renderizarMimos();
+            }
+        }
+
+        function fecharModalMimos() {
+            document.getElementById('modalMimos').style.display = 'none';
+        }
+
+        function editarDadoEspecifico(tipo) {
+            fecharModalResumoFinal();
+            if (tipo === 'cliente' || tipo === 'data_hora' || tipo === 'servico') {
+                mudarAba('sec-agendar', document.getElementById('btn-nav-agendar'));
+                if (tipo === 'cliente') document.getElementById('nome').focus();
+                if (tipo === 'data_hora') document.getElementById('data').focus();
+                if (tipo === 'servico') document.getElementById('servico').focus();
+            } else if (tipo === 'estilo') {
+                mudarAba('sec-agendar', document.getElementById('btn-nav-agendar'));
+                abrirModalCustomizar();
+            } else if (tipo === 'mimos') {
+                document.getElementById('modalMimos').style.display = 'flex';
+            }
+        }
+
+        function abrirModalResumoFinal() {
+            fecharModalMimos();
+            
+            const nome = document.getElementById('nome').value;
+            const servico = document.getElementById('servico').value;
+            const dataRaw = document.getElementById('data').value;
+            const horario = inputHorario.value;
+            const dataFormatada = dataRaw.split('-').reverse().join('/');
+
+            let totalGeral = PRECO_SERVICOS[servico] || 0;
+
+            let mimosAdicionados = BANCO_MIMOS.filter(p => p.quantidade > 0);
+            let mimosTextoHTML = "";
+            
+            if(mimosAdicionados.length === 0) {
+                mimosTextoHTML = "Nenhum item selecionado.";
+            } else {
+                mimosAdicionados.forEach(m => {
+                    const custoItem = m.preco * m.quantidade;
+                    totalGeral += custoItem;
+                    mimosTextoHTML += `• ${m.nome} (Qtd: ${m.quantidade}) - R$ ${custoItem.toFixed(2).replace('.', ',')}<br>`;
+                });
+            }
+
+            let estiloHTML = "";
+            if(coresSelecionadasMao.length > 0) estiloHTML += `• Cores Mão: ${coresSelecionadasMao.join(', ')}<br>`;
+            if(numeroArteEscolhida !== "Não selecionada") estiloHTML += `• Inspiração Mão: ${numeroArteEscolhida}<br>`;
+            if(servico === "Pé e Mão Completo" && coresSelecionadasPe.length > 0) estiloHTML += `• Cores Pé: ${coresSelecionadasPe.join(', ')}<br>`;
+            if(servico === "Pé e Mão Completo" && numeroArtePeEscolhida !== "Não selecionada") estiloHTML += `• Inspiração Pé: ${numeroArtePeEscolhida}`;
+            if(!estiloHTML) estiloHTML = "Nenhum detalhe configurado.";
+
+            const containerResumo = document.getElementById('conteudoResumoFinal');
+            containerResumo.innerHTML = `
+                <div class="resumo-bloco">
+                    <h4>👤 Cliente</h4>
+                    <p>${nome}</p>
+                    <button class="btn-editar-resumo" onclick="editarDadoEspecifico('cliente')"><i class="fa-solid fa-pen"></i></button>
+                </div>
+                <div class="resumo-bloco">
+                    <h4>📅 Data e Hora</h4>
+                    <p>${dataFormatada} às ${horario}</p>
+                    <button class="btn-editar-resumo" onclick="editarDadoEspecifico('data_hora')"><i class="fa-solid fa-pen"></i></button>
+                </div>
+                <div class="resumo-bloco">
+                    <h4>💅 Serviço Escolhido</h4>
+                    <p>${servico} - R$ ${(PRECO_SERVICOS[servico] || 0).toFixed(2).replace('.', ',')}</p>
+                    <button class="btn-editar-resumo" onclick="editarDadoEspecifico('servico')"><i class="fa-solid fa-pen"></i></button>
+                </div>
+                <div class="resumo-bloco">
+                    <h4>🎨 Estilo Escolhido</h4>
+                    <p>${estiloHTML}</p>
+                    <button class="btn-editar-resumo" onclick="editarDadoEspecifico('estilo')"><i class="fa-solid fa-pen"></i></button>
+                </div>
+                <div class="resumo-bloco">
+                    <h4>🎁 Produtos / Boas-Vindas</h4>
+                    <p>${mimosTextoHTML}</p>
+                    <button class="btn-editar-resumo" onclick="editarDadoEspecifico('mimos')"><i class="fa-solid fa-pen"></i></button>
+                </div>
+                <div class="resumo-total-box">
+                    <h3>Total Estimado</h3>
+                    <div class="preco-total">R$ ${totalGeral.toFixed(2).replace('.', ',')}</div>
+                </div>
+            `;
+
+            document.getElementById('modalResumoFinal').style.display = 'flex';
+        }
+
+        function fecharModalResumoFinal() {
+            document.getElementById('modalResumoFinal').style.display = 'none';
+        }
+
+        document.getElementById('formAgendamento').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const servico = document.getElementById('servico').value;
+            let possuiMao = coresSelecionadasMao.length > 0;
+            let possuiPe = coresSelecionadasPe.length > 0;
+            let possuiArteMao = numeroArteEscolhida !== "Não selecionada";
+            let possuiArtePe = numeroArtePeEscolhida !== "Não selecionada";
+
+            let validacaoOk = false;
+            if(servico === "Pé e Mão Completo") {
+                validacaoOk = (possuiMao || possuiArteMao) && (possuiPe || possuiArtePe);
+            } else {
+                validacaoOk = possuiMao || possuiArteMao;
+            }
+
+            if(!validacaoOk) {
+                alert("Por favor, configure o estilo das unhas escolhendo cores ou foto de inspiração antes de confirmar.");
+                abrirModalCustomizar();
+                return;
+            }
+
+            document.getElementById('modalMimos').style.display = 'flex';
+        });
+
+        function executarEnvioDefinitivo() {
+            const nome = document.getElementById('nome').value;
+            const servico = document.getElementById('servico').value;
+            const dataRaw = document.getElementById('data').value;
+            const horario = inputHorario.value;
+
+            const dataFormatada = dataRaw.split('-').reverse().join('/');
+            const stringAgendamentoColunaA = `${dataFormatada} - ${horario}`;
+
+            let possuiMao = coresSelecionadasMao.length > 0;
+            let possuiPe = coresSelecionadasPe.length > 0;
+            let possuiArteMao = numeroArteEscolhida !== "Não selecionada";
+            let possuiArtePe = numeroArtePeEscolhida !== "Não selecionada";
+
+            let totalGeral = PRECO_SERVICOS[servico] || 0;
+
+            const btnFinal = document.getElementById('btnConcluirDefinitivo');
+            btnFinal.disabled = true;
+            btnFinal.innerText = "Salvando seu horário...";
+
+            fetch(URL_WEB_APP_APPS_SCRIPT, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    agendamento: stringAgendamentoColunaA,
+                    nome: nome,
+                    servico: servico
+                })
+            })
+            .then(() => {
+                let msgWhats = `Olá! Fiz meu agendamento no site e estou enviando para confirmação:%0A%0A✨ *Agendamento:* ${stringAgendamentoColunaA}%0A👤 *Cliente:* ${nome}%0A💅 *Serviço:* ${servico} (R$ ${(PRECO_SERVICOS[servico]||0).toFixed(2).replace('.', ',')})`;
+                
+                if(possuiMao) msgWhats += `%0A🎨 *Cores da Mão:* ${coresSelecionadasMao.join(', ')}`;
+                if(possuiArteMao) msgWhats += `%0A📸 *Inspiração da Mão:* ${numeroArteEscolhida}`;
+                if(servico === "Pé e Mão Completo" && possuiPe) msgWhats += `%0A🦶 *Cores do Pé:* ${coresSelecionadasPe.join(', ')}`;
+                if(servico === "Pé e Mão Completo" && possuiArtePe) msgWhats += `%0A📸 *Inspiração do Pé:* ${numeroArtePeEscolhida}`;
+
+                let mimosAdicionados = BANCO_MIMOS.filter(p => p.quantidade > 0);
+                if(mimosAdicionados.length > 0) {
+                    msgWhats += `%0A%0A🎁 *Produtos Adicionados:*`;
+                    mimosAdicionados.forEach(m => {
+                        const sub = m.preco * m.quantidade;
+                        totalGeral += sub;
+                        msgWhats += `%0A• ${m.nome} (${m.quantidade}x) - R$ ${sub.toFixed(2).replace('.', ',')}`;
+                    });
+                }
+
+                msgWhats += `%0A%0A💰 *VALOR TOTAL ESTIMADO:* R$ ${totalGeral.toFixed(2).replace('.', ',')}`;
+
+                btnFinal.disabled = false;
+                btnFinal.innerHTML = '<i class="fa-brands fa-whatsapp"></i> Confirmar e Enviar para WhatsApp';
+                
+                fecharModalResumoFinal();
+
+                window.open(`https://api.whatsapp.com/send?phone=${TELEFONE_WHATSAPP}&text=${msgWhats}`, '_blank');
+                agendamentosExistentes.push({ agendamento: stringAgendamentoColunaA });
+            })
+            .catch(err => {
+                alert("Ocorreu um erro ao salvar seu agendamento.");
+                btnFinal.disabled = false;
+                btnFinal.innerHTML = '<i class="fa-brands fa-whatsapp"></i> Confirmar e Enviar para WhatsApp';
+                console.error(err);
+            });
+        }
+
+        function abrirSuporte() {
+            const txt = "Olá! Estou no site e preciso de ajuda com o agendamento.";
+            window.open(`https://api.whatsapp.com/send?phone=${TELEFONE_WHATSAPP}&text=${encodeURIComponent(txt)}`, '_blank');
+        }
+
+        function abrirCriador() {
+            const txt = "Olá! Gostei do site de agendamentos e quero fazer um orçamento.";
+            window.open(`https://api.whatsapp.com/send?phone=${TELEFONE_DESENVOLVEDOR}&text=${encodeURIComponent(txt)}`, '_blank');
+        }
+    </script>
+</body>
+</html>
