@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -750,7 +752,7 @@
 <body>
 
     <header>
-        <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=200&auto=format&fit=crop&q=80" alt="Studio Nails" class="perfil-header">
+        <img src="https://i.ibb.co/1wrMH4F/89390.png" alt="Studio Nails" class="perfil-header">
         <h1>Samela Ribeiro</h1>
         <p>Sua beleza refletida em suas unhas</p>
         
@@ -779,6 +781,20 @@
             <p style="font-size: 0.85rem; color: #777; margin-bottom: 18px;">Selecione o serviço ideal para iniciar seu agendamento:</p>
             
             <div class="servicos-lista">
+                <div class="card-servico" onclick="abrirModalServico('Postiça Realista Simples', 'Cuticulagem completa, hidratação e esmaltação.', 'R$ 35,00')">
+                    <div class="info">
+                        <h3>Postiça Realista Simples</h3>
+                        <p>Cuticulagem completa, hidratação e esmaltação.</p>
+                    </div>
+                    <div class="preco-tag">R$ 35,00</div>
+                </div>
+                <div class="card-servico" onclick="abrirModalServico('Postiça Realista Luxo', 'Cuticulagem completa, hidratação e esmaltação.', 'R$ 45,00')">
+                    <div class="info">
+                        <h3>Postiça Realista Luxo</h3>
+                        <p>Cuticulagem completa, hidratação e esmaltação.</p>
+                    </div>
+                    <div class="preco-tag">R$ 45,00</div>
+                </div>
                 <div class="card-servico" onclick="abrirModalServico('Mão Simples', 'Cuticulagem completa, hidratação e esmaltação.', 'R$ 30,00')">
                     <div class="info">
                         <h3>Mão Simples</h3>
@@ -799,7 +815,14 @@
                         <p>Combo queridinho com esfoliação relaxante.</p>
                     </div>
                     <div class="preco-tag">R$ 50,00</div>
-                </div>              
+                </div>
+                <div class="card-servico" onclick="abrirModalServico('Esmaltação', 'Esmaltação', 'R$ 25,00')">
+                    <div class="info">
+                        <h3>Esmaltação</h3>
+                        <p>Esmaltação apenas</p>
+                    </div>
+                    <div class="preco-tag">R$ 25,00</div>
+                </div>
             </div>
         </section>
 
@@ -815,9 +838,12 @@
                     <label for="servico">Serviço Selecionado:</label>
                     <select id="servico" required onchange="ajustarCamposPorServico()">
                         <option value="">Selecione um serviço...</option>
-                        <option value="Mão Simples">Mão Simples (R$ 30,00)</option>
-                        <option value="Pé Simples">Pé Simples (R$ 30,00)</option>
+                        <option value="Postiça Realista Simples">Postiça Realista Simples (R$ 35,00)</option>
+                        <option value="Postiça Realista Luxo">Postiça Realista Luxo (R$ 45,00)</option>
+                        <option value="Mão Simples">Manicore (R$ 30,00)</option>
+                        <option value="Pé Simples">Pedicure (R$ 30,00)</option>
                         <option value="Pé e Mão Completo">Pé e Mão Completo (R$ 50,00)</option>
+                        <option value="Esmaltação">Esmaltação (R$ 25,00)</option>              
                     </select>
                 </div>
 
@@ -934,16 +960,22 @@
         </div>
     </div>
 
-    <div id="modalCores" class="modal">
+        <div id="modalCores" class="modal">
         <div class="modal-conteudo" style="max-width: 450px;">
             <span class="fechar-modal" onclick="fecharModalCores()">×</span>
             <h2 id="tituloModalDinamicoCores">🎨 Escolha até 5 Cores</h2>
             <p style="font-size: 0.85rem; color: #777; margin-bottom: 15px;">Toque nas cores que deseja combinar (na ordem de sua preferência):</p>
             
-            <div class="grid-cores" id="gridCoresContainer"></div>
-            <button class="btn-enviar" onclick="concluirSelecaoCoresModal()" style="margin-top: 20px;">Confirmar Cores</button>
+            <div class="conteudo-modal-fixo">
+                <div class="grid-cores" id="gridCoresContainer"></div>
+            </div>
+            
+            <div class="rodape-botao-fixo-modal">
+                <button class="btn-enviar" onclick="concluirSelecaoCoresModal()">Confirmar Cores</button>
+            </div>
         </div>
     </div>
+
 
     <div id="modalImagens" class="modal">
         <div class="modal-conteudo" style="max-width: 480px;">
@@ -993,9 +1025,10 @@
     <div id="modalMimos" class="modal modal-tela-cheia">
         <div class="modal-conteudo">
             <span class="fechar-modal" onclick="fecharModalMimos()">×</span>
-            <h2>Você deseja uma recepção além do especial </h2>
+            <h2>Você deseja ter aquela recepção além do especial?</h2>
             <p style="font-size: 0.85rem; color: #777; margin-bottom: 20px;">Escolha mimos ou produtos para consumir ou usar assim que chegar ao nosso estúdio:</p>
-            
+            <p style="text-align: center;"></p>
+          
             <div class="mimos-grid" id="mimosContainer"></div>
 
             <div class="rodape-botao-fixo-modal">
@@ -1045,10 +1078,14 @@
         const URL_CSV_PLANILHA = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQSWhQS9nFk5UFshZhLgd5B2osW21IkcmEIqakuh8g01U0tcmhXSNyaWfgHisVuRTOa_vVApLTGWNeT/pub?output=csv";
 
         const PRECO_SERVICOS = {
-            "Mão Simples": 30.00,
-            "Pé Simples": 30.00,
-            "Pé e Mão Completo": 50.00
-        };
+    "Postiça Realista Simples": 35.00,
+    "Postiça Realista Luxo": 45.00,
+    "Mão Simples": 30.00,
+    "Pé Simples": 30.00,
+    "Pé e Mão Completo": 50.00,
+    "Esmaltação": 25.00
+};
+
 
         const BANCO_CORES = [
             { nome: "Vermelho Real", cor: "#800000" }, { nome: "Cereja", cor: "#a30000" }, { nome: "Vinho", cor: "#4a0404" },
@@ -1073,7 +1110,7 @@
         // --- BANCO DE MIMOS COM PREÇOS REALISTAS ADICIONADOS ---
         let BANCO_MIMOS = [
             { id: "coca", nome: "Coca-Cola em lata", preco: 6.00, quantidade: 0, imagem: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=150&auto=format&fit=crop&q=60" },
-            { id: "heineken", nome: "Heineken", preco: 10.00, quantidade: 0, imagem: "https://images.unsplash.com/photo-1608270586620-248524c67de9?w=150&auto=format&fit=crop&q=60" },
+            { id: "heineken", nome: "Heineken", preco: 12.00, quantidade: 0, imagem: "https://i.ibb.co/20FkbyK4/89317.jpg" },
             { id: "brincos", nome: "Brincos Semi-Joia", preco: 15.00, quantidade: 0, imagem: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=150&auto=format&fit=crop&q=60" },
             { id: "unhas_pos", nome: "Unhas postiças (Kit)", preco: 25.00, quantidade: 0, imagem: "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=150&auto=format&fit=crop&q=60" },
             { id: "colar", nome: "Colar Delicado", preco: 20.00, quantidade: 0, imagem: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=150&auto=format&fit=crop&q=60" }
@@ -1135,31 +1172,88 @@
             mudarAba('sec-agendar', document.getElementById('btn-nav-agendar'));
         }
 
-        function ajustarCamposPorServico() {
+                function ajustarCamposPorServico() {
             const servico = document.getElementById('servico').value;
+            
+            // Elementos de Cores
+            const boxMao = document.getElementById('tituloCoresMao').parentElement;
             const boxPe = document.getElementById('boxSeletorPe');
             const titMao = document.getElementById('tituloCoresMao');
+            
+            // Elementos de Imagens
+            const boxImagemMao = document.getElementById('boxSeletorImagemMao');
             const boxImagemPe = document.getElementById('boxSeletorImagemPe');
-            const titImagemMao = document.getElementById('tituloImagemMao');
             
             if(servico === "Pé e Mão Completo") {
+                // Mostra tudo separadamente para o combo completo
+                boxMao.style.display = 'flex';
                 boxPe.style.display = 'flex';
                 titMao.innerText = "💅 Cores para as Unhas das Mãos";
+                
+                boxImagemMao.style.display = 'flex';
                 boxImagemPe.style.display = 'flex';
-                titImagemMao.innerText = "📸 Fotos de Inspiração para as Mãos";
+                
+                // Restaura o clique padrão da primeira caixinha para mão
+                boxMao.setAttribute('onclick', "abrirModalCores('mao')");
+            } else if(servico === "Pé Simples") {
+                // Mostra apenas 1 seletor de cor e 1 seletor de inspiração (ambos configurados para o PÉ)
+                boxMao.style.display = 'flex';
+                boxPe.style.display = 'none'; // Esconde o segundo bloco para não duplicar
+                titMao.innerText = "🦶 Cores para as Unhas dos Pés";
+                
+                // Faz a primeira caixinha abrir as cores do PÉ
+                boxMao.setAttribute('onclick', "abrirModalCores('pe')");
+                
+                // Esconde inspiração da mão e mostra a do pé
+                boxImagemMao.style.display = 'none';
+                boxImagemPe.style.display = 'flex';
+                
+                // Limpa dados de mão por segurança
+                coresSelecionadasMao = [];
+                document.getElementById('txtCorSelecionada').innerText = "Nenhuma selecionada";
+                numeroArteEscolhida = "Não selecionada";
             } else {
+                // Padrão para Mão Simples ou quando nada está selecionado
+                boxMao.style.display = 'flex';
                 boxPe.style.display = 'none';
                 titMao.innerText = "🎨 Cores dos Esmaltes";
+                
+                // Restaura o clique padrão para mão
+                boxMao.setAttribute('onclick', "abrirModalCores('mao')");
+                
+                boxImagemMao.style.display = 'flex';
+                boxImagemPe.style.display = 'none';
+                
+                // Limpa dados de pé por segurança
                 coresSelecionadasPe = [];
                 document.getElementById('txtCorPeSelecionada').innerText = "Nenhuma selecionada";
-                boxImagemPe.style.display = 'none';
-                titImagemMao.innerText = "📸 Fotos de Inspiração & Artes";
                 numeroArtePeEscolhida = "Não selecionada";
-                document.getElementById('txtArtePeSelecionada').innerText = "Nenhuma arte selecionada";
             }
+            
             atualizarFeedbackVisualForm();
             if(document.getElementById('data').value) verificarDisponibilidade();
         }
+
+        // Ajuste complementar para garantir que os textos de "Selecionadas:" atualizem na caixinha certa
+                function concluirSelecaoCoresModal() {
+            const servico = document.getElementById('servico').value;
+            const pTxtMao = document.getElementById('txtCorSelecionada');
+            const pTxtPe = document.getElementById('txtCorPeSelecionada');
+
+            if(escopoCoresAtual === 'mao') {
+                pTxtMao.innerHTML = coresSelecionadasMao.length > 0 ? `Selecionadas: <b>${coresSelecionadasMao.join(', ')}</b>` : "Nenhuma selecionada";
+            } else {
+                // Se for Pé Simples, exibe o texto na caixinha principal do formulário
+                if(servico === "Pé Simples") {
+                    pTxtMao.innerHTML = coresSelecionadasPe.length > 0 ? `Selecionadas: <b>${coresSelecionadasPe.join(', ')}</b>` : "Nenhuma selecionada";
+                } else {
+                    pTxtPe.innerHTML = coresSelecionadasPe.length > 0 ? `Selecionadas: <b>${coresSelecionadasPe.join(', ')}</b>` : "Nenhuma selecionada";
+                }
+            }
+            fecharModalCores();
+        }
+
+
 
         function abrirModalCustomizar() { document.getElementById('modalCustomizar').style.display = 'flex'; }
         function fecharModalCustomizar() { 
