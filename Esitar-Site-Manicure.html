@@ -66,7 +66,16 @@
                 display: flex;
             }
         }
-         /*🔒🔒🔒TRAVA PARA QUALQUER SITE🔒🔒🔒*/
+    
+                /* Animação para fazer o texto piscar em vermelho */
+            @keyframes piscarVermelho {
+                0%, 100% { color: #ef4444; opacity: 1; }
+                50% { color: #b91c1c; opacity: 0.3; }
+            }
+            .efeito-piscando {
+                animation: piscarVermelho 1s infinite;
+            }
+        /*🔒🔒🔒TRAVA PARA QUALQUER SITE🔒🔒🔒*/
         #bloqueio-seguranca {
             position: fixed;
             top: 0;
@@ -138,27 +147,186 @@
             margin-top: 10px;
             display: none;
         }
-        /*FIM*/
+    /* Configuração do Fundo Preto Fixo */
+#bloqueio-seguranca {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+/* Garante que o modal fique na frente dos códigos */
+.modal-autenticacao {
+    position: relative;
+    z-index: 10;
+    background-color: #ffffff; /* Caso queira o modal branco por cima do fundo preto */
+}
+
+/* Container da Chuva de Código */
+.chuva-codigo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    user-select: none;
+    pointer-events: none; /* Não atrapalha os cliques no formulário */
+    z-index: 1;
+    opacity: 0.35; /* Controla a intensidade do fundo para não atrapalhar a leitura */
+}
+
+/* Linhas de texto caindo */
+.coluna-codigo {
+    color: #00ff33;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    writing-mode: vertical-rl; /* Faz o texto ficar em pé */
+    text-orientation: upright;
+    white-space: nowrap;
+    transform: translateY(-100%);
+    animation: quedaCodigo 4s linear infinite;
+    text-shadow: 0 0 8px #00ff33;
+}
+
+/* Variações de tempo para as colunas caírem de forma aleatória */
+.coluna-codigo:nth-child(2n) { animation-duration: 3s; animation-delay: 1s; font-size: 12px; opacity: 0.7; }
+.coluna-codigo:nth-child(3n) { animation-duration: 5s; animation-delay: 0.5s; font-size: 16px; opacity: 0.5; }
+.coluna-codigo:nth-child(4n) { animation-duration: 2.5s; animation-delay: 1.5s; }
+.coluna-codigo:nth-child(5n) { animation-duration: 6s; animation-delay: 2s; opacity: 0.8; }
+
+/* Animação que faz o código descer */
+@keyframes quedaCodigo {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(100vh);
+    }
+}
+/* Atualização do Painel para Preto Transparente */
+.modal-autenticacao {
+    position: relative;
+    z-index: 10;
+    background-color: rgba(15, 23, 42, 0.85) !important; /* Preto azulado suave com 85% de opacidade */
+    backdrop-filter: blur(6px); /* Embaça levemente a chuva que passa atrás */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff !important; /* Textos principais em branco */
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.7);
+    overflow: hidden; /* Garante que a chuva interna não saia do quadrado */
+}
+
+/* Ajuste nos textos auxiliares para ficarem legíveis no fundo preto */
+.modal-autenticacao p {
+    color: #94a3b8 !important; /* Cinza claro */
+}
+
+/* Nova camada de chuva para cair DENTRO do modal */
+.chuva-interna {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    pointer-events: none;
+    z-index: 1; /* Fica atrás dos inputs, mas na frente do fundo */
+    opacity: 0.15; /* Bem sutil para não atrapalhar a digitação */
+}
+
+     /*🔒🔒🔒*/
     </style>
 </head>
 <body class="bg-gradient-to-b from-[#ffedd5] via-white to-white min-h-screen flex flex-col items-center pb-24 font-sans text-[#44403c]">
+ <div id="bloqueio-seguranca">
+    <style>
+        @keyframes vibrarBorda {
+            0% { box-shadow: 0 0 15px #25D366, 0 0 30px #25D366; border-color: #25D366; transform: scale(1); }
+            100% { box-shadow: 0 0 15px #dc2626, 0 0 30px #dc2626; border-color: #dc2626; transform: scale(1.02); }
+        }
+        /* Estilo para o botão do olhinho */
+        .wrapper-senha {
+            position: relative;
+            width: 100%;
+            max-width: 300px; /* Ajuste o tamanho de acordo com a sua classe campo-autenticacao */
+            margin: 10px auto 0 auto;
+        }
+        .btn-olhinho {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 20px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: color 0.2s;
+        }
+        .btn-olhinho:hover {
+            color: #ffffff;
+        }
+    </style>
 
-    <!--🔒🔒🔒🔒⬇⬇⬇⬇🔒🔒🔒🔒-->
-    <div id="bloqueio-seguranca">
-        <div class="modal-autenticacao" style="position: relative; padding-top: 40px;">
+    <div class="chuva-codigo">
+        <div class="coluna-codigo">const api = 'db'; function() { if(true) return }</div>
+        <div class="coluna-codigo">&lt;div id="auth"&gt; &lt;script&gt; 01010101</div>
+        <div class="coluna-codigo">window.localStorage.setItem('token', user);</div>
+        <div class="coluna-codigo">import { useState, useEffect } from 'react';</div>
+        <div class="coluna-codigo">printf("Access Granted\n"); system("clear");</div>
+        <div class="coluna-codigo">SELECT * FROM users WHERE status = 'active';</div>
+        <div class="coluna-codigo">while(true) { connect(); retry_login(); }</div>
+        <div class="coluna-codigo">$&lt; .root_access_granted_ #include &lt;stdio.h&gt;</div>
+        <div class="coluna-codigo">error_auth_failed; encrypted_sha256_pass;</div>
+        <div class="coluna-codigo">document.getElementById('senha').value;</div>
+        <div class="coluna-codigo">01101100 01101111 01100111 01100111 01101001 01101110</div>
+        <div class="coluna-codigo">chmod +x script.sh &amp;&amp; ./run_auth_backup</div>
+    </div>
+
+    <div class="modal-autenticacao" style="position: relative; padding-top: 40px; background-color: rgba(15, 23, 42, 0.85); backdrop-filter: blur(6px); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; padding: 24px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.7); overflow: hidden;">
+        
+        <div class="chuva-interna" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: space-around; pointer-events: none; z-index: 1; opacity: 0.18;">
+            <div class="coluna-codigo" style="font-size: 11px; animation-duration: 2.2s;">0101010101</div>
+            <div class="coluna-codigo" style="font-size: 11px; animation-duration: 3.5s; animation-delay: 0.8s;">if(auth)</div>
+            <div class="coluna-codigo" style="font-size: 11px; animation-duration: 2.8s; animation-delay: 0.3s;">return true</div>
+            <div class="coluna-codigo" style="font-size: 11px; animation-duration: 4.1s;">System.out</div>
+        </div>
+
+        <div style="position: relative; z-index: 5;">
             <a href="index.html" 
-               style="position: absolute; top: 15px; right: 15px; color: #dc2626; text-decoration: none; font-family: Arial, sans-serif; font-size: 40px; font-weight: bold; line-height: 1; cursor: pointer; transition: transform 0.2s;"
+               style="position: absolute; top: -25px; right: 15px; color: #dc2626; text-decoration: none; font-family: Arial, sans-serif; font-size: 40px; font-weight: bold; line-height: 1; cursor: pointer; transition: transform 0.2s;"
                onmouseover="this.style.transform='scale(1.2)'" 
                onmouseout="this.style.transform='scale(1)'"
                title="Voltar para o início">&times;</a>
 
-            <h2 style="font-size: 40px;">Área Restrita</h2>
-            <p>Insira suas credenciais para gerenciar o site</p>
+            <img src="https://picsum.photos/id/64/300/300" alt="Foto de Perfil" 
+                 style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin: 0 auto 20px auto; display: block; border: 4px solid #25D366; box-shadow: 0 0 15px #25D366, 0 0 25px #dc2626; animation: vibrarBorda 0.8s infinite alternate;">
 
-            <input type="text" id="authID" class="campo-autenticacao" placeholder="Digite o ID de usuário">
-            <input type="password" id="authSenha" class="campo-autenticacao" placeholder="Digite a senha">
+            <h2 style="font-size: 40px; color: #ffffff; margin-bottom: 5px;">Área Restrita</h2>
+            <p style="color: #94a3b8; margin-bottom: 20px;">Insira suas credenciais para gerenciar o site</p>
 
-            <button type="button" class="btn-acessar" onclick="validarAcessoPainel()">ENTRAR</button><br>
+            <input type="text" id="authID" class="campo-autenticacao" placeholder="Digite o ID de usuário" style="background: rgba(255,255,255,0.07); color: #fff; border: 1px solid rgba(255,255,255,0.2); width: 100%; max-width: 300px; margin: 0 auto; display: block;">
+            
+            <div class="wrapper-senha">
+                <input type="password" id="authSenha" class="campo-autenticacao" placeholder="Digite a senha" style="background: rgba(255,255,255,0.07); color: #fff; border: 1px solid rgba(255,255,255,0.2); width: 100%; padding-right: 45px; box-sizing: border-box; margin: 0;">
+                <button type="button" class="btn-olhinho" onclick="alternarVisibilidadeSenha()" id="btnOlhinho">👁️</button>
+            </div>
+
+            <button type="button" class="btn-acessar" onclick="validarAcessoPainel()" style="margin-top: 20px;">ENTRAR</button><br>
 
             <a href="https://api.whatsapp.com/send?phone=5562995679219&text=Eu%20gostaria%20de%20saber%20a%20senha%20para%20editar%20o%20site" 
                target="_blank" 
@@ -169,9 +337,24 @@
             <div id="erroAuth" class="msg-erro">ID ou Senha incorretos!</div>
         </div>
     </div>
-    <!--🔒🔒🔒🔒⬆⬆⬆⬆🔒🔒🔒🔒-->
-   
-    <div class="w-full max-w-md pt-4 px-4 flex justify-between items-center z-10">
+
+    <script>
+        function alternarVisibilidadeSenha() {
+            const campoSenha = document.getElementById('authSenha');
+            const btnOlhinho = document.getElementById('btnOlhinho');
+            
+            if (campoSenha.type === 'password') {
+                campoSenha.type = 'text';
+                btnOlhinho.textContent = '🙈'; // Muda o ícone para macaco cobrindo os olhos ou olho cortado
+            } else {
+                campoSenha.type = 'password';
+                btnOlhinho.textContent = '👁️'; // Volta para o olho aberto
+            }
+        }
+    </script>
+</div>
+
+ <div class="w-full max-w-md pt-4 px-4 flex justify-between items-center z-10">
         <a href="Hospedagem-img.html" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-xl text-xs font-bold shadow transition-all flex items-center gap-1">
             <i class="fa fa-image"></i> HOSPEDAR IMG
         </a>
@@ -182,8 +365,7 @@
 
     <div class="w-full max-w-md pt-8 pb-4 px-4 flex flex-col items-center text-center relative">
         <div class="perfil-arredondado shadow-md relative mb-3">
-            <img 
-                src="https://picsum.photos/id/64/300/300" 
+            <img src="https://i.ibb.co/pvMryQ3r/88783.png" 
                 alt="Foto de Perfil" 
                 class="w-full h-full object-cover"
             >
@@ -196,10 +378,29 @@
             <h1 class="text-2xl font-bold text-[#44403c]">Mayckon</h1>
             <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer hover:text-blue-800" onclick="abrirModalComDados('Nome-Perfil', 'Alterar Nome do Perfil')"></i>
         </div>
+        
+        <div class="flex justify-center mt-3">
+            <button id="btnStatusToggle" onclick="alternarStatus()" class="flex items-center bg-gray-200 border-2 border-gray-300 rounded-full p-1 w-28 cursor-pointer transition-all duration-300 focus:outline-none">
+                <div id="statusEsquerdo" class="flex-1 text-center font-bold text-xs text-white bg-green-500 rounded-full py-1">
+                    ON
+                </div>
+                <div id="statusDireito" class="flex-1 text-center font-bold text-xs text-gray-400 rounded-full py-1">
+                    OFF
+                </div>
+            </button>
+        </div>
+               
         <p class="text-sm italic text-[#78716c] mt-1 flex items-center gap-3 justify-center">
             Realçando a beleza das suas unhas ✨
             <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer" onclick="abrirModalComDados('Slogan-Perfil', 'Alterar Slogan')"></i>
         </p>
+        
+        <div class="mt-4 flex justify-center">
+    <button onclick="abrirModalCarrossel()" class="bg-amber-600 hover:bg-amber-700 text-white px-5 py-2 rounded-xl text-xs font-bold shadow transition-all flex items-center gap-2">
+        <i class="fa fa-images"></i> EDITAR: CARROSSEL DE FOTOS
+    </button>
+</div>
+
     </div>
 
     <div class="w-full max-w-md px-4 mt-4">
@@ -295,97 +496,8 @@
                     <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer hover:text-blue-800" onclick="abrirModalComDados('Preco-Esmaltacao', 'Preço: Esmaltação')"></i>
                 </div>
             </div>
-
         </div>
-
-        <div class="flex items-center justify-between mt-8 mb-4 border-l-4 border-[#b45309] pl-2">
-            <h2 class="text-xl font-bold text-[#44403c]">Imagens de Inspiração</h2>
-            <button onclick="adicionarNovaImagemInspiracaoDinamica()" class="bg-[#b45309] hover:bg-amber-800 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow transition-all" title="Criar mais imagem de inspiração">
-                <i class="fa fa-plus"></i>
-            </button>
-        </div>
-
-        <div class="bg-white rounded-2xl p-4 shadow-sm border border-orange-50/50 grid grid-cols-2 gap-4 mb-4" id="containerImagensInspiracao">
-            <div class="flex flex-col items-center justify-center p-2 border border-gray-100 rounded-xl relative group">
-                <div class="w-full h-32 rounded-xl overflow-hidden border border-gray-200">
-                    <img id="img-insp-id-1" src="https://i.ibb.co/pvMryQ3r/88783.png" alt="Modelo 1" class="w-full h-full object-cover">
-                </div>
-                <span class="text-sm font-bold mt-2 text-gray-700">Modelo 1</span>
-                <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer absolute top-3 right-3 bg-white/80 p-1 rounded-full shadow" onclick="abrirModalInspiracaoDireto(1)"></i>
-            </div>
-            <div class="flex flex-col items-center justify-center p-2 border border-gray-100 rounded-xl relative group">
-                <div class="w-full h-32 rounded-xl overflow-hidden border border-gray-200">
-                    <img id="img-insp-id-2" src="https://i.ibb.co/pvMryQ3r/88783.png" alt="Modelo 2" class="w-full h-full object-cover">
-                </div>
-                <span class="text-sm font-bold mt-2 text-gray-700">Modelo 2</span>
-                <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer absolute top-3 right-3 bg-white/80 p-1 rounded-full shadow" onclick="abrirModalInspiracaoDireto(2)"></i>
-            </div>
-            <div class="flex flex-col items-center justify-center p-2 border border-gray-100 rounded-xl relative group">
-                <div class="w-full h-32 rounded-xl overflow-hidden border border-gray-200">
-                    <img id="img-insp-id-3" src="https://i.ibb.co/pvMryQ3r/88783.png" alt="Modelo 3" class="w-full h-full object-cover">
-                </div>
-                <span class="text-sm font-bold mt-2 text-gray-700">Modelo 3</span>
-                <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer absolute top-3 right-3 bg-white/80 p-1 rounded-full shadow" onclick="abrirModalInspiracaoDireto(3)"></i>
-            </div>
-            <div class="flex flex-col items-center justify-center p-2 border border-gray-100 rounded-xl relative group">
-                <div class="w-full h-32 rounded-xl overflow-hidden border border-gray-200">
-                    <img id="img-insp-id-4" src="https://i.ibb.co/pvMryQ3r/88783.png" alt="Modelo 4" class="w-full h-full object-cover">
-                </div>
-                <span class="text-sm font-bold mt-2 text-gray-700">Modelo 4</span>
-                <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer absolute top-3 right-3 bg-white/80 p-1 rounded-full shadow" onclick="abrirModalInspiracaoDireto(4)"></i>
-            </div>
-            <div class="flex flex-col items-center justify-center p-2 border border-gray-100 rounded-xl relative group">
-                <div class="w-full h-32 rounded-xl overflow-hidden border border-gray-200">
-                    <img id="img-insp-id-5" src="https://i.ibb.co/pvMryQ3r/88783.png" alt="Modelo 5" class="w-full h-full object-cover">
-                </div>
-                <span class="text-sm font-bold mt-2 text-gray-700">Modelo 5</span>
-                <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer absolute top-3 right-3 bg-white/80 p-1 rounded-full shadow" onclick="abrirModalInspiracaoDireto(5)"></i>
-            </div>
-            <div class="flex flex-col items-center justify-center p-2 border border-gray-100 rounded-xl relative group">
-                <div class="w-full h-32 rounded-xl overflow-hidden border border-gray-200">
-                    <img id="img-insp-id-6" src="https://i.ibb.co/pvMryQ3r/88783.png" alt="Modelo 6" class="w-full h-full object-cover">
-                </div>
-                <span class="text-sm font-bold mt-2 text-gray-700">Modelo 6</span>
-                <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer absolute top-3 right-3 bg-white/80 p-1 rounded-full shadow" onclick="abrirModalInspiracaoDireto(6)"></i>
-            </div>
-        </div>
-
-        <div class="flex items-center justify-between mt-8 mb-4 border-l-4 border-blue-600 pl-2">
-            <h2 class="text-xl font-bold text-[#44403c]">Catálogo de Cores</h2>
-            <div class="flex gap-2">
-                <button onclick="abrirModalCriadorHexa()" class="bg-amber-500 hover:bg-amber-600 text-white px-2.5 py-1 rounded-xl text-xs font-semibold flex items-center gap-1 transition-all" title="Criar cor em Hexadecimal">
-                    <i class="fa fa-paint-brush"></i> Criador Hexa
-                </button>
-                <button onclick="abrirModalCores()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-xl text-xs font-semibold flex items-center gap-1 transition-all">
-                    <i class="fa fa-plus"></i> Gerenciar Cor
-                </button>
-            </div>
-        </div>
-
-        <div class="bg-white rounded-2xl p-4 shadow-sm border border-orange-50/50 grid grid-cols-4 gap-4" id="containerCores">
-            <div class="flex flex-col items-center justify-center p-2 border border-gray-100 rounded-xl relative group">
-                <div class="w-10 h-10 rounded-full border border-gray-300 bg-red-500 shadow-inner"></div>
-                <span class="text-[10px] font-bold mt-1 text-gray-500">COR_1</span>
-                <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer absolute -top-1 -right-1 opacity-90" onclick="abrirModalCoresDireto(1)"></i>
-            </div>
-            <div class="flex flex-col items-center justify-center p-2 border border-gray-100 rounded-xl relative group">
-                <div class="w-10 h-10 rounded-full border border-gray-300 bg-pink-400 shadow-inner"></div>
-                <span class="text-[10px] font-bold mt-1 text-gray-500">COR_2</span>
-                <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer absolute -top-1 -right-1 opacity-90" onclick="abrirModalCoresDireto(2)"></i>
-            </div>
-            <div class="flex flex-col items-center justify-center p-2 border border-gray-100 rounded-xl relative group">
-                <div class="w-10 h-10 rounded-full border border-gray-300 bg-purple-600 shadow-inner"></div>
-                <span class="text-[10px] font-bold mt-1 text-gray-500">COR_3</span>
-                <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer absolute -top-1 -right-1 opacity-90" onclick="abrirModalCoresDireto(3)"></i>
-            </div>
-            <div class="flex flex-col items-center justify-center p-2 border border-gray-100 rounded-xl relative group">
-                <div class="w-10 h-10 rounded-full border border-gray-300 bg-amber-500 shadow-inner"></div>
-                <span class="text-[10px] font-bold mt-1 text-gray-500">COR_200</span>
-                <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer absolute -top-1 -right-1 opacity-90" onclick="abrirModalCoresDireto(200)"></i>
-            </div>
-        </div>
-
-        <div class="flex items-center justify-between mt-8 mb-4 border-l-4 border-emerald-600 pl-2">
+<div class="flex items-center justify-between mt-8 mb-4 border-l-4 border-emerald-600 pl-2">
             <h2 class="text-xl font-bold text-[#44403c]">Nossos Produtos</h2>
             <button onclick="adicionarNovoProdutoDinamico()" class="bg-emerald-600 hover:bg-emerald-700 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow transition-all" title="Criar mais produto">
                 <i class="fa fa-plus"></i>
@@ -481,164 +593,168 @@
                 </div>
             </div>
         </div>
+
+        <div class="flex items-center justify-between mt-8 mb-4 border-l-4 border-purple-600 pl-2">
+            <h2 class="text-xl font-bold text-[#44403c]">Catálogo de Cores</h2>
+            <button onclick="abrirModalCores()" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded-xl text-xs font-bold shadow transition-all flex items-center gap-1">
+                <i class="fa fa-palette"></i> Gerenciar Cores
+            </button>
+        </div>
+        <div id="containerCores" class="grid grid-cols-4 gap-3 bg-white p-4 rounded-2xl shadow-sm border border-orange-50/50">
+            </div>
+
+        <div class="flex items-center justify-between mt-8 mb-4 border-l-4 border-blue-600 pl-2">
+            <h2 class="text-xl font-bold text-[#44403c]">Imagens de Inspiração</h2>
+            <button onclick="adicionarNovaImagemInspiracaoDinamica()" class="bg-blue-600 hover:bg-blue-700 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow transition-all">
+                <i class="fa fa-plus"></i>
+            </button>
+        </div>
+               <div id="containerImagensInspiracao" class="grid grid-cols-2 gap-4">
+            <div class="flex flex-col items-center justify-center p-2 border border-gray-100 rounded-xl relative bg-white">
+                <div class="w-full h-32 rounded-xl overflow-hidden border border-gray-200">
+                    <img id="img-insp-id-1" src="https://picsum.photos/id/102/300/300" alt="Modelo 1" class="w-full h-full object-cover">
+                </div>
+                <span class="text-sm font-bold mt-2 text-gray-700">Modelo 1</span>
+                <i class="fa fa-pencil text-blue-600 text-xl cursor-pointer absolute top-3 right-3 bg-white/80 p-1 rounded-full shadow" onclick="abrirModalNovoServico('INSPIRACAO_DINA'); document.getElementById('novoServicoNumeroA').value = 1;"></i>
+            </div>
+
+            <div class="flex flex-col items-center justify-center p-2 border border-gray-100 rounded-xl relative bg-white">
+                <div class="w-full h-32 rounded-xl overflow-hidden border border-gray-200">
+                    <img id="img-insp-id-2" src="https://picsum.photos/id/103/300/300" alt="Modelo 2" class="w-full h-full object-cover">
+                </div>
+                <span class="text-sm font-bold mt-2 text-gray-700">Modelo 2</span>
+                <i class="fa fa-pencil text-blue-600 text-xl cursor-pointer absolute top-3 right-3 bg-white/80 p-1 rounded-full shadow" onclick="abrirModalNovoServico('INSPIRACAO_DINA'); document.getElementById('novoServicoNumeroA').value = 2;"></i>
+            </div>
+
+            <div class="flex flex-col items-center justify-center p-2 border border-gray-100 rounded-xl relative bg-white">
+                <div class="w-full h-32 rounded-xl overflow-hidden border border-gray-200">
+                    <img id="img-insp-id-3" src="https://picsum.photos/id/104/300/300" alt="Modelo 3" class="w-full h-full object-cover">
+                </div>
+                <span class="text-sm font-bold mt-2 text-gray-700">Modelo 3</span>
+                <i class="fa fa-pencil text-blue-600 text-xl cursor-pointer absolute top-3 right-3 bg-white/80 p-1 rounded-full shadow" onclick="abrirModalNovoServico('INSPIRACAO_DINA'); document.getElementById('novoServicoNumeroA').value = 3;"></i>
+            </div>
+
+            <div class="flex flex-col items-center justify-center p-2 border border-gray-100 rounded-xl relative bg-white">
+                <div class="w-full h-32 rounded-xl overflow-hidden border border-gray-200">
+                    <img id="img-insp-id-4" src="https://picsum.photos/id/106/300/300" alt="Modelo 4" class="w-full h-full object-cover">
+                </div>
+                <span class="text-sm font-bold mt-2 text-gray-700">Modelo 4</span>
+                <i class="fa fa-pencil text-blue-600 text-xl cursor-pointer absolute top-3 right-3 bg-white/80 p-1 rounded-full shadow" onclick="abrirModalNovoServico('INSPIRACAO_DINA'); document.getElementById('novoServicoNumeroA').value = 4;"></i>
+            </div>
+
+            <div class="flex flex-col items-center justify-center p-2 border border-gray-100 rounded-xl relative bg-white">
+                <div class="w-full h-32 rounded-xl overflow-hidden border border-gray-200">
+                    <img id="img-insp-id-5" src="https://picsum.photos/id/107/300/300" alt="Modelo 5" class="w-full h-full object-cover">
+                </div>
+                <span class="text-sm font-bold mt-2 text-gray-700">Modelo 5</span>
+                <i class="fa fa-pencil text-blue-600 text-xl cursor-pointer absolute top-3 right-3 bg-white/80 p-1 rounded-full shadow" onclick="abrirModalNovoServico('INSPIRACAO_DINA'); document.getElementById('novoServicoNumeroA').value = 5;"></i>
+            </div>
+
+            <div class="flex flex-col items-center justify-center p-2 border border-gray-100 rounded-xl relative bg-white">
+                <div class="w-full h-32 rounded-xl overflow-hidden border border-gray-200">
+                    <img id="img-insp-id-6" src="https://picsum.photos/id/108/300/300" alt="Modelo 6" class="w-full h-full object-cover">
+                </div>
+                <span class="text-sm font-bold mt-2 text-gray-700">Modelo 6</span>
+                <i class="fa fa-pencil text-blue-600 text-xl cursor-pointer absolute top-3 right-3 bg-white/80 p-1 rounded-full shadow" onclick="abrirModalNovoServico('INSPIRACAO_DINA'); document.getElementById('novoServicoNumeroA').value = 6;"></i>
+            </div>
+        </div>
+
     </div>
 
     <div class="modal" id="modalEdicao">
         <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-sm mx-4">
             <h3 class="text-lg font-bold text-gray-700 mb-4 text-center" id="tituloModal">Preencha os dados</h3>
-
             <input type="hidden" id="valorColunaA">
-
             <div class="mb-5">
                 <label class="block text-sm font-medium text-gray-600 mb-1">Insira a nova informação</label>
-                <input 
-                    type="text" 
-                    id="valorColunaB" 
-                    placeholder="Digite o novo valor..." 
-                    class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600"
-                >
+                <input type="text" id="valorColunaB" placeholder="Digite o novo valor..." class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600">
             </div>
-
             <div class="flex gap-3">
-                <button id="btnFechar" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 font-medium py-2 rounded-xl transition-all text-sm">
-                    Cancelar
-                </button>
-                <button id="btnSalvarEnviar" class="flex-1 bg-[#b45309] hover:bg-amber-800 text-white font-medium py-2 rounded-xl transition-all text-sm">
-                    Salvar e Enviar
-                </button>
+                <button id="btnFechar" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 font-medium py-2 rounded-xl transition-all text-sm">Cancelar</button>
+                <button id="btnSalvarEnviar" class="flex-1 bg-[#b45309] hover:bg-amber-800 text-white font-medium py-2 rounded-xl transition-all text-sm">Salvar e Enviar</button>
             </div>
-
             <div id="mensagemModal" class="mt-4 text-center text-sm font-medium hidden"></div>
-        </div>
-    </div>
-
-
-    <div class="modal" id="modalCores">
-        <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-sm mx-4">
-            <h3 class="text-lg font-bold text-gray-700 mb-4 text-center">Gerenciar Cores do Catálogo</h3>
-
-            <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-600 mb-1">Cor (Nome em inglês ou #Hexadecimal):</label>
-                <input 
-                    type="text" 
-                    id="corValorB" 
-                    placeholder="Ex: red, pink, #FF00FF..." 
-                    class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600"
-                >
-            </div>
-
-            <div class="mb-5">
-                <label class="block text-sm font-medium text-gray-600 mb-1">Número do Identificador (1 até 200):</label>
-                <input 
-                    type="number" 
-                    id="corNumeroA" 
-                    min="1" 
-                    max="200"
-                    placeholder="Digite o número correspondente..." 
-                    class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600"
-                >
-            </div>
-
-            <div class="flex gap-3">
-                <button id="btnFecharCores" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 font-medium py-2 rounded-xl transition-all text-sm">
-                    Cancelar
-                </button>
-                <button id="btnSalvarCores" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-xl transition-all text-sm">
-                    Salvar Cor
-                </button>
-            </div>
-
-            <div id="mensagemModalCores" class="mt-4 text-center text-sm font-medium hidden"></div>
-        </div>
-    </div>
-
-    <div class="modal" id="modalCriadorHexa">
-        <div class="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md mx-4 relative">
-            <button onclick="fecharModalCriadorHexa()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition-all text-xl font-bold">
-                <i class="fa fa-times"></i>
-            </button>
-
-            <h3 class="text-xl font-bold text-gray-800 mb-2 text-center flex items-center justify-center gap-2">
-                <i class="fa fa-paint-brush text-amber-500"></i> Criador de Cores Perfeitas
-            </h3>
-            <p class="text-xs text-gray-500 text-center mb-6">Escolha e visualize sua cor exata em tempo real para colocar no catálogo</p>
-
-            <div class="flex flex-col items-center justify-center mb-6">
-                <div id="previewCorHexa" class="w-24 h-24 rounded-full border-4 border-white shadow-xl bg-orange-500 transition-all duration-150"></div>
-                <span class="text-xs font-semibold text-gray-400 mt-2">Visualização da Cor</span>
-            </div>
-
-            <div class="mb-5">
-                <label class="block text-sm font-medium text-gray-600 mb-2 text-center">Arraste para escolher a cor exata:</label>
-                <input 
-                    type="color" 
-                    id="inputSeletorCor" 
-                    value="#f97316"
-                    class="w-full h-12 rounded-xl cursor-pointer border border-gray-200 p-1 bg-white shadow-sm"
-                    oninput="atualizarCriadorDeCor(this.value)"
-                >
-            </div>
-
-            <div class="mb-6">
-                <label class="block text-sm font-medium text-gray-600 mb-1">Código Hexadecimal gerado:</label>
-                <div class="relative flex items-center">
-                    <input 
-                        type="text" 
-                        id="txtCodigoHexaGerado" 
-                        value="#f97316" 
-                        readonly 
-                        class="w-full pl-4 pr-24 py-3 border border-gray-200 rounded-xl font-mono text-center font-bold text-gray-800 bg-gray-50 focus:outline-none"
-                    >
-                    <button onclick="copiarCodigoHexaCriado()" class="absolute right-2 bg-gray-800 hover:bg-black text-white px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1">
-                        <i class="fa fa-clone"></i> Copiar
-                    </button>
-                </div>
-            </div>
-
-            <div id="alertaCopiadoSucesso" class="text-center text-xs text-green-600 font-bold hidden transition-all">
-                <i class="fa fa-check-circle"></i> Código copiado com sucesso! Só colar no seu gerenciador.
-            </div>
         </div>
     </div>
 
     <div class="modal" id="modalNovoServico">
         <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-sm mx-4">
-            <h3 class="text-lg font-bold text-gray-700 mb-4 text-center" id="tituloModalNovoServico">Editar Informação</h3>
-
-            <input type="hidden" id="tipoCampoNovoServico"> <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-600 mb-1" id="labelCampoNovoServico">Inserir Informação (Coluna B):</label>
-                <input 
-                    type="text" 
-                    id="novoServicoValorB" 
-                    placeholder="Digite o novo valor..." 
-                    class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600"
-                >
+            <h3 class="text-lg font-bold text-gray-700 mb-4 text-center" id="tituloModalNovoServico">Editar Item</h3>
+            <input type="hidden" id="tipoCampoNovoServico">
+            <div class="mb-3">
+                <label id="labelCampoNovoServico" class="block text-sm font-medium text-gray-600 mb-1">Valor:</label>
+                <input type="text" id="novoServicoValorB" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600">
             </div>
-
             <div class="mb-5">
-                <label class="block text-sm font-medium text-gray-600 mb-1" id="labelNumeroNovoServico">Numeração do Identificador (7 até 20):</label>
-                <input 
-                    type="number" 
-                    id="novoServicoNumeroA" 
-                    min="1" 
-                    max="20"
-                    placeholder="Digite um número..." 
-                    class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600"
-                >
+                <label id="labelNumeroNovoServico" class="block text-sm font-medium text-gray-600 mb-1">Identificador:</label>
+                <input type="number" id="novoServicoNumeroA" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600">
             </div>
-
             <div class="flex gap-3">
-                <button id="btnFecharNovoServico" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 font-medium py-2 rounded-xl transition-all text-sm">
-                    Cancelar
-                </button>
-                <button id="btnSalvarNovoServico" class="flex-1 bg-[#b45309] hover:bg-amber-800 text-white font-medium py-2 rounded-xl transition-all text-sm">
-                    Salvar e Enviar
-                </button>
+                <button id="btnFecharNovoServico" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 font-medium py-2 rounded-xl transition-all text-sm">Cancelar</button>
+                <button id="btnSalvarNovoServico" class="flex-1 bg-[#b45309] hover:bg-amber-800 text-white font-medium py-2 rounded-xl transition-all text-sm">Salvar e Enviar</button>
             </div>
-
             <div id="mensagemModalNovoServico" class="mt-4 text-center text-sm font-medium hidden"></div>
         </div>
     </div>
+
+    <div class="modal" id="modalCarrossel">
+        <div class="bg-white rounded-2xl shadow-xl p-4 w-full max-w-md mx-4 max-h-[85vh] flex flex-col">
+            <div class="flex justify-between items-center mb-4 border-b pb-2">
+                <h3 class="text-lg font-bold text-gray-700">Imagens do Carrossel</h3>
+                <button onclick="fecharModalCarrossel()" class="text-gray-500 hover:text-gray-700 text-xl font-bold">&times;</button>
+            </div>
+            <div class="space-y-4 overflow-y-auto pr-1 flex-1" id="listaImagensCarrossel"></div>
+        </div>
+    </div>
+
+    <div class="modal" id="modalAlterarLinkCarrossel">
+        <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-sm mx-4">
+            <h3 class="text-lg font-bold text-gray-700 mb-4 text-center" id="tituloModalLink">Alterar Imagem do Carrossel</h3>
+            <input type="hidden" id="carrosselIdAtual">
+            <div class="mb-5">
+                <label class="block text-sm font-medium text-gray-600 mb-1">Insira a URL / Link da Imagem</label>
+                <input type="text" id="inputLinkCarrossel" placeholder="https://linkdaimagem.com/foto.jpg" class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600">
+            </div>
+            <div class="flex gap-3">
+                <button onclick="fecharModalLinkCarrossel()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 font-medium py-2 rounded-xl transition-all text-sm">Cancelar</button>
+                <button id="btnConfirmarAlterarCarrossel" onclick="enviarLinkCarrossel()" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-xl transition-all text-sm">Alterar</button>
+            </div>
+            <div id="msgModalCarrossel" class="mt-4 text-center text-sm font-medium hidden"></div>
+        </div>
+    </div>
+
+    <div class="modal" id="modalCores">
+        <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md mx-4">
+            <div class="flex justify-between items-center mb-4 border-b pb-2">
+                <h3 class="text-lg font-bold text-gray-700">Gerenciador de Cores</h3>
+                <button id="btnFecharCores" class="text-gray-500 hover:text-gray-700 text-xl font-bold">&times;</button>
+            </div>
+            
+            <div id="listaCoresInterna" class="grid grid-cols-4 gap-2 mb-4 max-h-40 overflow-y-auto p-1 bg-gray-50 rounded-xl">
+                </div>
+
+            <button onclick="document.getElementById('formularioNovaCor').classList.toggle('hidden')" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-2 px-4 rounded-xl text-xs mb-3">
+                + Adicionar Nova Cor
+            </button>
+
+            <div id="formularioNovaCor" class="space-y-3 hidden">
+                <div>
+                    <label class="block text-sm font-medium text-gray-600 mb-1">Selecione ou digite a Cor (Hex/Nome):</label>
+                    <div class="flex gap-2">
+                        <input type="color" id="seletorCorDinamico" oninput="document.getElementById('corValorB').value = this.value" class="h-10 w-12 rounded-lg border border-gray-200 cursor-pointer">
+                        <input type="text" id="corValorB" placeholder="Ex: #ff0000 ou pink" class="flex-1 px-4 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-purple-500">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-600 mb-1">Número do Identificador (1 a 200):</label>
+                    <input type="number" id="corNumeroA" min="1" max="200" placeholder="Ex: 5" class="w-full px-4 py-2 border border-gray-200 rounded-xl focus:outline-none focus:border-purple-500">
+                </div>
+                <button type="button" id="btnConfirmarAdicionar" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 rounded-xl text-sm shadow">Confirmar Criação</button>
+            </div>
+            <div id="mensagemModalCores" class="mt-4 text-center text-sm font-medium hidden"></div>
+        </div>
+    </div>
+    
     <script>
         const LINK_APP_SCRIPT = "https://script.google.com/macros/s/AKfycbyCwlZqYZ0lJ-wgRg4eHKWuU-_qDjIGJdoh3x1bP18WCOJO6eE4llk_-8Ny2vzX6G0/exec";
 
@@ -650,15 +766,14 @@
         const tituloModal = document.getElementById('tituloModal');
         const mensagemModal = document.getElementById('mensagemModal');
 
-        // Seletores dos Novos Elementos de Cores
+        // Seletores dos Elementos de Cores
         const modalCores = document.getElementById('modalCores');
         const btnFecharCores = document.getElementById('btnFecharCores');
-        const btnSalvarCores = document.getElementById('btnSalvarCores');
         const corValorB = document.getElementById('corValorB');
         const corNumeroA = document.getElementById('corNumeroA');
         const mensagemModalCores = document.getElementById('mensagemModalCores');
 
-        // Seletores do Novo Modal para Serviços Dinâmicos
+        // Seletores do Modal para Serviços Dinâmicos
         const modalNovoServico = document.getElementById('modalNovoServico');
         const btnFecharNovoServico = document.getElementById('btnFecharNovoServico');
         const btnSalvarNovoServico = document.getElementById('btnSalvarNovoServico');
@@ -671,29 +786,14 @@
         const mensagemModalNovoServico = document.getElementById('mensagemModalNovoServico');
         const containerListaServicos = document.getElementById('containerListaServicos');
         const containerListaProdutos = document.getElementById('containerListaProdutos');
-
-        // Novos seletores do Criador Hexadecimal Dinâmico
-        const modalCriadorHexa = document.getElementById('modalCriadorHexa');
-        const previewCorHexa = document.getElementById('previewCorHexa');
-        const txtCodigoHexaGerado = document.getElementById('txtCodigoHexaGerado');
-        const inputSeletorCor = document.getElementById('inputSeletorCor');
-        const alertaCopiadoSucesso = document.getElementById('alertaCopiadoSucesso');
-
         const containerImagensInspiracao = document.getElementById('containerImagensInspiracao');
 
-        /*
-          ========================================================================
-          📌 CENTRAL DE CONTROLE DOS TEXTOS DA COLUNA A
-          Abaixo você pode ver exatamente o que cada lápis envia para a Coluna A.
-          Se quiser alterar o termo enviado, mude o valor correspondente aqui dentro.
-          ========================================================================
-        */
         const MapeamentoColunaA = {
-            'img-perfil': 'img-perfil',                     // Lápis da Imagem de Perfil
-            'Nome-Perfil': 'Nome-Perfil',                   // Lápis do Nome Principal
-            'Slogan-Perfil': 'Sobre-Perfil',               // Lápis do Slogan/Frase
+            'img-perfil': 'img-perfil',                     
+            'Nome-Perfil': 'Nome-Perfil',                   
+            'Slogan-Perfil': 'Sobre-Perfil',               
 
-            // Nomes dos Serviços (Coluna A)
+            // Nomes dos Serviços 
             'Servico-Postica-Simples': 'SERVICO_NOME_1',
             'Servico-Postica-Luxo': 'SERVICO_NOME_2',
             'Servico-Mao-Simples': 'SERVICO_NOME_3',
@@ -701,7 +801,7 @@
             'Servico-Pe-Mao-Completo': 'SERVICO_NOME_5',
             'Servico-Esmaltacao': 'SERVICO_NOME_6',
 
-            // Preços dos Serviços (Coluna A)
+            // Preços dos Serviços
             'Preco-Postica-Simples': 'SERVICO_PRECO_1',
             'Preco-Postica-Luxo': 'SERVICO_PRECO_2',
             'Preco-Mao-Simples': 'SERVICO_PRECO_3',
@@ -710,13 +810,9 @@
             'Preco-Esmaltacao': 'SERVICO_PRECO_6'
         };
 
-        // Função universal executada no clique do lápis
         function abrirModalComDados(codigoChave, tituloAmigavel) {
             tituloModal.textContent = `Editando: ${tituloAmigavel}`;
-            
-            // Pega o valor exato definido no painel MapeamentoColunaA acima
             inputA.value = MapeamentoColunaA[codigoChave] || codigoChave; 
-            
             inputB.value = ''; 
             modal.classList.add('aberto');
         }
@@ -727,8 +823,8 @@
         });
 
         btnSalvarEnviar.addEventListener('click', async () => {
-            const valorA = inputA.value; // Pega o nome configurado do lápis
-            const valorB = inputB.value.trim(); // Pega o texto digitado pelo usuário
+            const valorA = inputA.value; 
+            const valorB = inputB.value.trim(); 
 
             if (!valorB) {
                 mostrarMensagem('O campo não pode ficar vazio!', 'text-red-500');
@@ -742,9 +838,7 @@
                 await fetch(LINK_APP_SCRIPT, {
                     method: 'POST',
                     mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         colunaA: valorA,
                         colunaB: valorB
@@ -774,36 +868,63 @@
             mensagemModal.classList.remove('hidden');
         }
 
-        /* ==================== NOVAS FUNÇÕES EXCLUSIVAS PARA O MODAL DE CORES ==================== */
-        
-        // Abre abrindo o modal de cor de forma limpa
+        /* ==================== FUNÇÕES DO MODAL DE CORES ==================== */
+        const listaCoresInterna = document.getElementById('listaCoresInterna');
+        const btnConfirmarAdicionar = document.getElementById('btnConfirmarAdicionar');
+
         function abrirModalCores() {
-            corValorB.value = '';
+            document.getElementById('formularioNovaCor').classList.add('hidden');
             corNumeroA.value = '';
-            modalCores.classList.add('aberto');
-        }
-
-        // Abre injetando diretamente o número da cor clicada pelo lápis individual
-        function abrirModalCoresDireto(numero) {
             corValorB.value = '';
-            corNumeroA.value = numero;
+            atualizarListaCoresInterna();
             modalCores.classList.add('aberto');
         }
 
-        // Fechar modal de cores
+        function abrirModalCoresDireto(numero) {
+            abrirModalCores();
+            document.getElementById('formularioNovaCor').classList.remove('hidden');
+            corNumeroA.value = numero;
+        }
+
         btnFecharCores.addEventListener('click', () => {
             modalCores.classList.remove('aberto');
             mensagemModalCores.classList.add('hidden');
         });
 
-        // Envio do formulário de cores de 2 campos
-        btnSalvarCores.addEventListener('click', async () => {
+        function atualizarListaCoresInterna() {
+            listaCoresInterna.innerHTML = '';
+            let listaSalva = JSON.parse(localStorage.getItem('catalogoCoresSalvas') || '[]');
+
+            if(listaSalva.length === 0) {
+                listaSalva = [
+                    { id: 1, valor: '#ef4444' },
+                    { id: 2, valor: '#f472b6' },
+                    { id: 3, valor: '#9333ea' },
+                    { id: 200, valor: '#f59e0b' }
+                ];
+                localStorage.setItem('catalogoCoresSalvas', JSON.stringify(listaSalva));
+            }
+
+            listaSalva.forEach(item => {
+                const elemento = `
+                <div class="flex flex-col items-center justify-center p-2 bg-white border border-gray-200 rounded-xl relative">
+                    <div class="w-12 h-12 rounded-full border border-gray-300 shadow-inner flex items-center justify-center text-[9px] font-black text-white uppercase" style="background-color: ${item.valor}; text-shadow: 1px 1px 2px rgba(0,0,0,0.6);">
+                        Cor ${item.id}
+                    </div>
+                    <button onclick="removerCorSistema(${item.id})" class="absolute -top-1 -right-1 bg-red-500 hover:bg-red-600 text-white w-4 h-4 rounded-full flex items-center justify-center text-[9px] shadow">
+                        &times;
+                    </button>
+                </div>`;
+                listaCoresInterna.insertAdjacentHTML('beforeend', elemento);
+            });
+        }
+
+        btnConfirmarAdicionar.addEventListener('click', async () => {
             const valorCor = corValorB.value.trim();
             const numeroIdentificador = parseInt(corNumeroA.value);
 
-            // Validações básicas obrigatórias
             if (!valorCor) {
-                mostrarMensagemCores('Insira uma cor válida (nome ou hex)!', 'text-red-500');
+                mostrarMensagemCores('Insira uma cor válida!', 'text-red-500');
                 return;
             }
             if (isNaN(numeroIdentificador) || numeroIdentificador < 1 || numeroIdentificador > 200) {
@@ -811,42 +932,74 @@
                 return;
             }
 
-            // Montagem da regra solicitada: Prefixo COR_ + o número digitado
             const colunaAFormatada = `COR_${numeroIdentificador}`;
 
             try {
-                btnSalvarCores.disabled = true;
-                btnSalvarCores.textContent = 'Enviando...';
+                btnConfirmarAdicionar.disabled = true;
+                btnConfirmarAdicionar.textContent = 'Gravando...';
 
                 await fetch(LINK_APP_SCRIPT, {
                     method: 'POST',
                     mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        colunaA: colunaAFormatada, // Envia 'COR_1', 'COR_2', etc.
-                        colunaB: valorCor          // Envia o nome ou código da cor
+                        colunaA: colunaAFormatada,
+                        colunaB: valorCor
                     })
                 });
 
-                mostrarMensagemCores('✅ Cor enviada com sucesso!', 'text-green-500');
+                let listaSalva = JSON.parse(localStorage.getItem('catalogoCoresSalvas') || '[]');
+                listaSalva = listaSalva.filter(c => c.id !== numeroIdentificador);
+                listaSalva.push({ id: numeroIdentificador, valor: valorCor });
+                listaSalva.sort((a,b) => a.id - b.id);
+                localStorage.setItem('catalogoCoresSalvas', JSON.stringify(listaSalva));
+
+                mostrarMensagemCores('✅ Nova cor adicionada e salva!', 'text-green-500');
+                atualizarListaCoresInterna();
+                atualizarPainelPrincipalCores(); 
 
                 setTimeout(() => {
-                    modalCores.classList.remove('aberto');
+                    document.getElementById('formularioNovaCor').classList.add('hidden');
                     mensagemModalCores.classList.add('hidden');
-                    corValorB.value = '';
                     corNumeroA.value = '';
-                }, 1500);
+                    corValorB.value = '';
+                }, 1200);
 
             } catch (erro) {
-                console.error('Erro:', erro);
-                mostrarMensagemCores('❌ Erro ao enviar a cor!', 'text-red-500');
+                console.error(erro);
+                mostrarMensagemCores('❌ Erro ao processar envio!', 'text-red-500');
             } finally {
-                btnSalvarCores.disabled = false;
-                btnSalvarCores.textContent = 'Salvar Cor';
+                btnConfirmarAdicionar.disabled = false;
+                btnConfirmarAdicionar.textContent = 'Confirmar Criação';
             }
         });
+
+        function removerCorSistema(id) {
+            let listaSalva = JSON.parse(localStorage.getItem('catalogoCoresSalvas') || '[]');
+            listaSalva = listaSalva.filter(c => c.id !== id);
+            localStorage.setItem('catalogoCoresSalvas', JSON.stringify(listaSalva));
+            atualizarListaCoresInterna();
+            atualizarPainelPrincipalCores();
+        }
+
+        function atualizarPainelPrincipalCores() {
+            const containerCores = document.getElementById('containerCores');
+            if(!containerCores) return;
+            containerCores.innerHTML = '';
+
+            let listaSalva = JSON.parse(localStorage.getItem('catalogoCoresSalvas') || '[]');
+            listaSalva.forEach(item => {
+                const blocoHTML = `
+                <div class="flex flex-col items-center justify-center p-2 border border-gray-100 rounded-xl relative group">
+                    <div class="w-10 h-10 rounded-full border border-gray-300 shadow-inner flex items-center justify-center text-[8px] font-black text-white uppercase" style="background-color: ${item.valor}; text-shadow: 1px 1px 1px rgba(0,0,0,0.5);">
+                        Cor ${item.id}
+                    </div>
+                    <span class="text-[10px] font-bold mt-1 text-gray-500">COR_${item.id}</span>
+                    <i class="fa fa-pencil text-blue-600 text-lg cursor-pointer absolute -top-1 -right-1 opacity-90" onclick="abrirModalCoresDireto(${item.id})"></i>
+                </div>`;
+                containerCores.insertAdjacentHTML('beforeend', blocoHTML);
+            });
+        }
 
         function mostrarMensagemCores(texto, classeCor) {
             mensagemModalCores.textContent = texto;
@@ -854,12 +1007,9 @@
             mensagemModalCores.classList.remove('hidden');
         }
 
-
-        /* ==================== NOVAS FUNÇÕES PARA CRIAR SERVIÇOS E SEU MODAL DE DOIS CAMPOS ==================== */
-
-        // Função para abrir o modal de 2 campos dos novos serviços dinâmicos
+        /* ==================== SERVIÇOS E PRODUTOS DINÂMICOS ==================== */
         function abrirModalNovoServico(tipo) {
-            tipoCampoNovoServico.value = tipo; // 'NOME', 'PRECO', 'PRODUTO_IMG', 'PRODUTO_NOME', 'PRODUTO_PRECO', 'INSPIRACAO_DINA'
+            tipoCampoNovoServico.value = tipo; 
             novoServicoValorB.value = '';
             novoServicoNumeroA.value = '';
             
@@ -867,14 +1017,13 @@
                 tituloModalNovoServico.textContent = "Editar Nome do Novo Serviço";
                 labelCampoNovoServico.textContent = "Nome do Serviço (Coluna B):";
                 labelNumeroNovoServico.textContent = "Numeração do Identificador (7 até 20):";
-                novoServicoNumeroA.min = 7;
-                novoServicoNumeroA.max = 20;
+                novoServicoNumeroA.min = 1; novoServicoNumeroA.max = 20;
                 novoServicoValorB.placeholder = "Ex: Qual serviço?...";
             } else if(tipo === 'PRECO') {
                 tituloModalNovoServico.textContent = "Editar Preço do Novo Serviço";
                 labelCampoNovoServico.textContent = "Preço do Serviço (Coluna B):";
                 labelNumeroNovoServico.textContent = "Numeração do Identificador (7 até 20):";
-                novoServicoNumeroA.min = 7;
+                novoServicoNumeroA.min = 7; 
                 novoServicoNumeroA.max = 20;
                 novoServicoValorB.placeholder = "Ex: R$ 35,00...";
             } else if(tipo === 'PRODUTO_IMG') {
@@ -890,7 +1039,7 @@
                 labelNumeroNovoServico.textContent = "Numeração do Identificador (1 até 20):";
                 novoServicoNumeroA.min = 1;
                 novoServicoNumeroA.max = 20;
-                novoServicoValorB.placeholder = "Ex: Coca Cola...";
+                novoServicoValorB.placeholder = "Ex: Esmalte Premium...";
             } else if(tipo === 'PRODUTO_PRECO') {
                 tituloModalNovoServico.textContent = "Editar Preço do Produto";
                 labelCampoNovoServico.textContent = "Preço do Produto (Coluna B):";
@@ -902,15 +1051,13 @@
                 tituloModalNovoServico.textContent = "Editar Imagem Inspiração";
                 labelCampoNovoServico.textContent = "URL da Imagem (Coluna B):";
                 labelNumeroNovoServico.textContent = "Fim do Prefixo (Permitido de 7 até 30):";
-                novoServicoNumeroA.min = 7;
+                novoServicoNumeroA.min = 1; 
                 novoServicoNumeroA.max = 30;
                 novoServicoValorB.placeholder = "Ex: https://link-da-imagem.jpg...";
             }
-            
             modalNovoServico.classList.add('aberto');
         }
 
-        // Atalho rápido para injetar tipo e número pré-definidos no modal dos produtos
         function abrirModalProdutosDireto(subTipo, numero) {
             abrirModalNovoServico(`PRODUTO_${subTipo}`);
             novoServicoNumeroA.value = numero;
@@ -931,14 +1078,13 @@
                 return;
             }
             
-            // Valida faixas de numeração baseadas no tipo selecionado
             if(tipo.startsWith('PRODUTO')) {
                 if(isNaN(numeroA) || numeroA < 1 || numeroA > 20) {
                     mostrarMensagemNovoServico('O número do produto deve ser entre 1 e 20!', 'text-red-500');
                     return;
                 }
             } else if(tipo === 'INSPIRACAO_DINA') {
-                if(isNaN(numeroA) || numeroA < 7 || numeroA > 30) {
+                if(isNaN(numeroA) || numeroA < 1 || numeroA > 30) {
                     mostrarMensagemNovoServico('A numeração do prefixo deve ser entre 7 e 30!', 'text-red-500');
                     return;
                 }
@@ -949,14 +1095,13 @@
                 }
             }
 
-            // Define a string correta que irá para a coluna A baseada na escolha
             let colunaAFormatada = "";
             if (tipo === 'NOME' || tipo === 'PRECO') {
                 colunaAFormatada = `SERVICO_${tipo}_${numeroA}`;
             } else if (tipo === 'INSPIRACAO_DINA') {
                 colunaAFormatada = `IMG_INSPIRACAO_${numeroA}`;
             } else {
-                colunaAFormatada = `${tipo}_${numeroA}`; // Gera PRODUTO_IMG_1, PRODUTO_NOME_1, etc.
+                colunaAFormatada = `${tipo}_${numeroA}`; 
             }
 
             try {
@@ -966,19 +1111,15 @@
                 await fetch(LINK_APP_SCRIPT, {
                     method: 'POST',
                     mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         colunaA: colunaAFormatada,
                         colunaB: valorB
                     })
                 });
 
-                // Mantém o valor gravado na tela no localStorage local para persistência
                 localStorage.setItem(`${tipo}_ID_${numeroA}`, valorB);
                 
-                // Atualiza visualmente o campo modificado sem apagar nada
                 if(tipo === 'NOME') {
                     const textoNome = document.getElementById(`txt-nome-id-${numeroA}`);
                     if(textoNome) textoNome.childNodes[0].textContent = valorB + " ";
@@ -1000,11 +1141,7 @@
                 }
 
                 mostrarMensagemNovoServico('✅ Enviado com sucesso!', 'text-green-500');
-
-                setTimeout(() => {
-                    modalNovoServico.classList.remove('aberto');
-                    mensagemModalNovoServico.classList.add('hidden');
-                }, 1500);
+                setTimeout(() => { modalNovoServico.classList.remove('aberto'); }, 1500);
 
             } catch (erro) {
                 console.error(erro);
@@ -1021,31 +1158,26 @@
             mensagemModalNovoServico.classList.remove('hidden');
         }
 
-        // Função nova para remover um bloco de serviço específico criado dinamicamente
         function removerServicoDinamico(botaoLixeira, idIndex) {
             const elementoServico = botaoLixeira.closest('.classe-servico-dinamico');
             if (elementoServico) {
                 elementoServico.remove();
                 localStorage.removeItem(`NOME_ID_${idIndex}`);
                 localStorage.removeItem(`PRECO_ID_${idIndex}`);
-                
                 let ordensAtuais = JSON.parse(localStorage.getItem('ordemServicosExtras') || '[]');
                 ordensAtuais = ordensAtuais.filter(item => item !== idIndex);
                 localStorage.setItem('ordemServicosExtras', JSON.stringify(ordensAtuais));
             }
         }
 
-        // Função que injeta o HTML do serviço igual ao Pé Simples com lixeira no topo esquerdo e salva no localStorage para persistência
         function adicionarNovoServicoDinamico() {
             let ordensAtuais = JSON.parse(localStorage.getItem('ordemServicosExtras') || '[]');
             let novoIdIndex = ordensAtuais.length > 0 ? Math.max(...ordensAtuais) + 1 : 7;
             ordensAtuais.push(novoIdIndex);
             localStorage.setItem('ordemServicosExtras', JSON.stringify(ordensAtuais));
-
             renderizarBlocoServico(novoIdIndex, "Qual serviço?", "R$ 30,00");
         }
 
-        // Função auxiliar isolada para montar o HTML do serviço na tela preservando os seletores e ids
         function renderizarBlocoServico(idIndex, nomePadrao, precoPadrao) {
             const nomeGravado = localStorage.getItem(`NOME_ID_${idIndex}`) || nomePadrao;
             const precoGravado = localStorage.getItem(`PRECO_ID_${idIndex}`) || precoPadrao;
@@ -1060,19 +1192,16 @@
                         ${nomeGravado}
                         <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer hover:text-blue-800" onclick="abrirModalNovoServico('NOME')"></i>
                     </h3>
-                    <p class="text-xs text-gray-400 mt-1">Cutilagem e esmaltação tradicional das unhas dos pés.</p>
+                    <p class="text-xs text-gray-400 mt-1">Cutilagem e esmaltação tradicional.</p>
                 </div>
                 <div id="txt-preco-id-${idIndex}" class="text-right font-bold text-[#c2410c] whitespace-nowrap flex items-center gap-2 mt-2">
                     ${precoGravado}
                     <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer hover:text-blue-800" onclick="abrirModalNovoServico('PRECO')"></i>
                 </div>
             </div>`;
-            
             containerListaServicos.insertAdjacentHTML('beforeend', estruturaHTML);
         }
 
-        /* ==================== NOVAS FUNÇÕES PARA CRIAR PRODUTOS DINÂMICOS EXTRA (BOTÃO +) ==================== */
-        
         function removerProdutoDinamico(botaoLixeira, idIndex) {
             const elementoProduto = botaoLixeira.closest('.classe-produto-dinamico');
             if (elementoProduto) {
@@ -1080,7 +1209,6 @@
                 localStorage.removeItem(`PRODUTO_IMG_ID_${idIndex}`);
                 localStorage.removeItem(`PRODUTO_NOME_ID_${idIndex}`);
                 localStorage.removeItem(`PRODUTO_PRECO_ID_${idIndex}`);
-                
                 let ordensProds = JSON.parse(localStorage.getItem('ordemProdutosExtras') || '[]');
                 ordensProds = ordensProds.filter(item => item !== idIndex);
                 localStorage.setItem('ordemProdutosExtras', JSON.stringify(ordensProds));
@@ -1089,10 +1217,9 @@
 
         function adicionarNovoProdutoDinamico() {
             let ordensProds = JSON.parse(localStorage.getItem('ordemProdutosExtras') || '[]');
-            let novoIdIndex = ordensProds.length > 0 ? Math.max(...ordensProds) + 1 : 5; // Começa no ID 5 por sequência
+            let novoIdIndex = ordensProds.length > 0 ? Math.max(...ordensProds) + 1 : 5;
             ordensProds.push(novoIdIndex);
             localStorage.setItem('ordemProdutosExtras', JSON.stringify(ordensProds));
-
             renderizarBlocoProduto(novoIdIndex, "https://picsum.photos/id/64/300/300", "NOVO PRODUTO", "R$ 14,00");
         }
 
@@ -1103,7 +1230,7 @@
 
             const estruturaHTML = `
             <div class="bg-white rounded-2xl p-4 shadow-sm border border-orange-50/50 flex items-center gap-4 relative classe-produto-dinamico pt-8" data-id-index="${idIndex}">
-                <button onclick="removerProdutoDinamico(this, ${idIndex})" class="absolute top-2 left-3 text-red-500 hover:text-red-700 text-xs transition-all" title="Remover este produto">
+                <button onclick="removerProdutoDinamico(this, ${idIndex})" class="absolute top-2 left-3 text-red-500 hover:text-red-700 text-xs transition-all">
                     <i class="fa fa-trash"></i> Excluir
                 </button>
                 <div class="w-16 h-16 rounded-xl overflow-hidden border border-gray-100 relative shrink-0">
@@ -1126,48 +1253,7 @@
                     <button class="w-6 h-6 rounded-full bg-white border border-orange-100 shadow-sm flex items-center justify-center text-gray-500 font-bold hover:bg-gray-50 text-xs">+</button>
                 </div>
             </div>`;
-
             containerListaProdutos.insertAdjacentHTML('beforeend', estruturaHTML);
-        }
-
-        /* ==================== NOVAS FUNÇÕES COMPLEMENTARES DO CRIADOR HEXADECIMAL DE CORES ==================== */
-        
-        function abrirModalCriadorHexa() {
-            alertaCopiadoSucesso.classList.add('hidden');
-            modalCriadorHexa.classList.add('aberto');
-        }
-
-        function fecharModalCriadorHexa() {
-            modalCriadorHexa.classList.remove('aberto');
-        }
-
-        function atualizarCriadorDeCor(codigoHexadecimal) {
-            previewCorHexa.style.backgroundColor = codigoHexadecimal;
-            txtCodigoHexaGerado.value = codigoHexadecimal;
-            alertaCopiadoSucesso.classList.add('hidden'); // Oculta o aviso de cópia se ele mudar de cor
-        }
-
-        function copiarCodigoHexaCriado() {
-            txtCodigoHexaGerado.select();
-            txtCodigoHexaGerado.setSelectionRange(0, 99999); // Suporte para dispositivos móveis
-            
-            navigator.clipboard.writeText(txtCodigoHexaGerado.value).then(() => {
-                alertaCopiadoSucesso.classList.remove('hidden');
-                setTimeout(() => {
-                    alertaCopiadoSucesso.classList.add('hidden');
-                }, 3000);
-            }).catch(err => {
-                console.error('Falha ao copiar:', err);
-            });
-        }
-
-        /* ==================== NOVAS FUNÇÕES EXCLUSIVAS PARA AS IMAGENS DE INSPIRAÇÃO ==================== */
-
-        function abrirModalInspiracaoDireto(numero) {
-            tituloModal.textContent = `Editando: Modelo ${numero}`;
-            inputA.value = `IMG_INSPIRACAO_${numero}`;
-            inputB.value = '';
-            modal.classList.add('aberto');
         }
 
         function removerImagemInspiracaoDinamica(botaoLixeira, idIndex) {
@@ -1175,7 +1261,6 @@
             if (elementoInsp) {
                 elementoInsp.remove();
                 localStorage.removeItem(`INSPIRACAO_DINA_ID_${idIndex}`);
-                
                 let ordensInsps = JSON.parse(localStorage.getItem('ordemImagensInspiracaoExtras') || '[]');
                 ordensInsps = ordensInsps.filter(item => item !== idIndex);
                 localStorage.setItem('ordemImagensInspiracaoExtras', JSON.stringify(ordensInsps));
@@ -1185,16 +1270,10 @@
         function adicionarNovaImagemInspiracaoDinamica() {
             let ordensInsps = JSON.parse(localStorage.getItem('ordemImagensInspiracaoExtras') || '[]');
             let novoIdIndex = ordensInsps.length > 0 ? Math.max(...ordensInsps) + 1 : 7;
-            
-            if (novoIdIndex > 30) {
-                alert("O limite máximo de imagens de inspiração extras (30) foi atingido!");
-                return;
-            }
-            
+            if (novoIdIndex > 30) { alert("Limite máximo atingido!"); return; }
             ordensInsps.push(novoIdIndex);
             localStorage.setItem('ordemImagensInspiracaoExtras', JSON.stringify(ordensInsps));
-
-            renderizarBlocoImagemInspiracao(novoIdIndex, "https://i.ibb.co/pvMryQ3r/88783.png");
+            renderizarBlocoImagemInspiracao(novoIdIndex, "https://picsum.photos/id/119/300/300");
         }
 
         function renderizarBlocoImagemInspiracao(idIndex, imgPadrao) {
@@ -1202,22 +1281,133 @@
 
             const estruturaHTML = `
             <div class="flex flex-col items-center justify-center p-2 border border-gray-100 rounded-xl relative group classe-inspiracao-dinamica" data-id-index="${idIndex}">
-                <button onclick="removerImagemInspiracaoDinamica(this, ${idIndex})" class="absolute top-2 left-2 text-red-500 hover:text-red-700 text-[10px] bg-white/90 px-1 py-0.5 rounded shadow transition-all" title="Remover esta imagem">
+                <button onclick="removerImagemInspiracaoDinamica(this, ${idIndex})" class="absolute top-2 left-2 text-red-500 hover:text-red-700 text-[10px] bg-white/90 px-1 py-0.5 rounded shadow transition-all">
                     <i class="fa fa-trash"></i>
                 </button>
                 <div class="w-full h-32 rounded-xl overflow-hidden border border-gray-200">
                     <img id="img-insp-id-${idIndex}" src="${imgGravada}" alt="Modelo ${idIndex}" class="w-full h-full object-cover">
                 </div>
                 <span class="text-sm font-bold mt-2 text-gray-700">Modelo ${idIndex}</span>
-                <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer absolute top-3 right-3 bg-white/80 p-1 rounded-full shadow" onclick="abrirModalNovoServico('INSPIRACAO_DINA'); document.getElementById('novoServicoNumeroA').value = ${idIndex};"></i>
+                <i class="fa fa-pencil text-blue-600 text-xl cursor-pointer absolute top-3 right-3 bg-white/80 p-1 rounded-full shadow" onclick="abrirModalNovoServico('INSPIRACAO_DINA'); document.getElementById('novoServicoNumeroA').value = ${idIndex};"></i>
             </div>`;
-
             containerImagensInspiracao.insertAdjacentHTML('beforeend', estruturaHTML);
         }
+    
+        /* ==================== SISTEMA DO CARROSSEL ==================== */
+        const modalCarrossel = document.getElementById('modalCarrossel');
+        const modalAlterarLinkCarrossel = document.getElementById('modalAlterarLinkCarrossel');
+        const listaImagensCarrossel = document.getElementById('listaImagensCarrossel');
+        const inputLinkCarrossel = document.getElementById('inputLinkCarrossel');
+        const carrosselIdAtual = document.getElementById('carrosselIdAtual');
+        const msgModalCarrossel = document.getElementById('msgModalCarrossel');
+        const btnConfirmarAlterarCarrossel = document.getElementById('btnConfirmarAlterarCarrossel');
 
-        // Carrega os blocos extras salvos quando a página for recarregada
+        function abrirModalCarrossel() {
+            listaImagensCarrossel.innerHTML = ''; 
+            for (let i = 1; i <= 17; i++) {
+                const linkSalvo = localStorage.getItem(`CARROSSEL_LINK_${i}`) || `https://picsum.photos/400/125?random=${i}`;
+                const itemHTML = `
+                <div class="relative w-full h-24 rounded-xl overflow-hidden border border-gray-200 bg-gray-100 shrink-0">
+                    <img id="img-carrossel-preview-${i}" src="${linkSalvo}" class="w-full h-full object-cover" alt="Carrossel ${i}">
+                    <div class="absolute top-2 left-2 bg-black/60 text-white text-[10px] px-2 py-0.5 rounded-md font-bold">FOTO ${i}</div>
+                    <button onclick="abrirModalLinkCarrossel(${i})" class="absolute bottom-2 right-2 bg-white text-blue-600 hover:bg-gray-100 p-2 rounded-full shadow-lg transition-all flex items-center justify-center w-8 h-8">
+                        <i class="fa fa-pencil text-base"></i>
+                    </button>
+                </div>`;
+                listaImagensCarrossel.insertAdjacentHTML('beforeend', itemHTML);
+            }
+            modalCarrossel.classList.add('aberto');
+        }
+
+        function fecharModalCarrossel() { modalCarrossel.classList.remove('aberto'); }
+
+        function abrirModalLinkCarrossel(numero) {
+            carrosselIdAtual.value = numero;
+            document.getElementById('tituloModalLink').textContent = `Alterar Imagem da Posição ${numero}`;
+            inputLinkCarrossel.value = localStorage.getItem(`CARROSSEL_LINK_${numero}`) || '';
+            msgModalCarrossel.classList.add('hidden');
+            modalAlterarLinkCarrossel.classList.add('aberto');
+        }
+
+        function fecharModalLinkCarrossel() { modalAlterarLinkCarrossel.classList.remove('aberto'); }
+
+        async function enviarLinkCarrossel() {
+            const numero = carrosselIdAtual.value;
+            const urlInserida = inputLinkCarrossel.value.trim();
+
+            if (!urlInserida) {
+                mostrarMsgCarrossel('Por favor, insira uma URL válida!', 'text-red-500');
+                return;
+            }
+
+            const colunaAFormatada = `CARROCEL_IMG_${numero}`;
+
+            try {
+                btnConfirmarAlterarCarrossel.disabled = true;
+                btnConfirmarAlterarCarrossel.textContent = 'Enviando...';
+
+                await fetch(LINK_APP_SCRIPT, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        colunaA: colunaAFormatada, 
+                        colunaB: urlInserida         
+                    })
+                });
+
+                localStorage.setItem(`CARROSSEL_LINK_${numero}`, urlInserida);
+                const imgPreview = document.getElementById(`img-carrossel-preview-${numero}`);
+                if(imgPreview) imgPreview.src = urlInserida;
+
+                mostrarMsgCarrossel('✅ Link atualizado com sucesso!', 'text-green-500');
+                setTimeout(() => { fecharModalLinkCarrossel(); }, 1200);
+
+            } catch (erro) {
+                console.error(erro);
+                mostrarMsgCarrossel('❌ Erro ao enviar os dados!', 'text-red-500');
+            } finally {
+                btnConfirmarAlterarCarrossel.disabled = false;
+                btnConfirmarAlterarCarrossel.textContent = 'Alterar';
+            }
+        }
+
+        function mostrarMsgCarrossel(texto, classeCor) {
+            msgModalCarrossel.textContent = texto;
+            msgModalCarrossel.className = `mt-4 text-center text-sm font-medium ${classeCor}`;
+            msgModalCarrossel.classList.remove('hidden');
+        }
+
+        let statusAtual = true; 
+        async function alternarStatus() {
+            statusAtual = !statusAtual; 
+            const btn = document.getElementById('btnStatusToggle');
+            const esquerdo = document.getElementById('statusEsquerdo');
+            const direito = document.getElementById('statusDireito');
+            let dadosEnvio = {};
+
+            if (statusAtual) {
+                esquerdo.className = "flex-1 text-center font-bold text-xs text-white bg-green-500 rounded-full py-1";
+                direito.className = "flex-1 text-center font-bold text-xs text-gray-400 rounded-full py-1";
+                dadosEnvio = { colunaA: "STATUS_ON_OF", colunaB: "Disponível" };
+            } else {
+                esquerdo.className = "flex-1 text-center font-bold text-xs text-gray-400 rounded-full py-1";
+                direito.className = "flex-1 text-center font-bold text-xs text-white bg-red-500 rounded-full py-1 efeito-piscando";
+                dadosEnvio = { colunaA: "STATUS_ON_OF", colunaB: "Indisponível" };
+            }
+
+            try {
+                await fetch(LINK_APP_SCRIPT, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(dadosEnvio)
+                });
+            } catch (erro) { console.error(erro); }
+        }
+
+        /* ==================== CARREGAMENTO DA PÁGINA ==================== */
         window.addEventListener('DOMContentLoaded', () => {
-            // Inicializa a persistência local dos 4 primeiros produtos fixos caso o usuário já possua dados customizados
             for(let p = 1; p <= 4; p++) {
                 const imgLocal = localStorage.getItem(`PRODUTO_IMG_ID_${p}`);
                 const nomeLocal = localStorage.getItem(`PRODUTO_NOME_ID_${p}`);
@@ -1226,39 +1416,31 @@
                 if(nomeLocal) document.getElementById(`txt-prod-nome-id-${p}`).childNodes[0].textContent = nomeLocal + " ";
                 if(precoLocal) document.getElementById(`txt-prod-preco-id-${p}`).childNodes[0].textContent = precoLocal + " ";
             }
-
-            // Inicializa a persistência das 6 imagens de inspiração fixas iniciais
-            for(let i = 1; i <= 6; i++) {
-                const imgInspLocal = localStorage.getItem(`IMG_INSPIRACAO_${i}`);
-                if(imgInspLocal) document.getElementById(`img-insp-id-${i}`).src = imgInspLocal;
+                for(let i = 1; i <= 6; i++) {
+            const inspLocal = localStorage.getItem(`INSPIRACAO_DINA_ID_${i}`);
+            if(inspLocal) {
+                const tagImg = document.getElementById(`img-insp-id-${i}`);
+                if(tagImg) tagImg.src = inspLocal;
             }
+        }
 
-            // Carrega os serviços adicionais dinâmicos salvos
             let ordensSalvas = JSON.parse(localStorage.getItem('ordemServicosExtras') || '[]');
-            ordensSalvas.forEach(idIndex => {
-                renderizarBlocoServico(idIndex, "Qual serviço?", "R$ 30,00");
-            });
+            ordensSalvas.forEach(idIndex => { renderizarBlocoServico(idIndex, "Qual serviço?", "R$ 30,00"); });
 
-            // Carrega os produtos adicionais dinâmicos salvos pelo botão +
             let ordensProdsSalvas = JSON.parse(localStorage.getItem('ordemProdutosExtras') || '[]');
-            ordensProdsSalvas.forEach(idIndex => {
-                renderizarBlocoProduto(idIndex, "https://picsum.photos/id/64/300/300", "NOVO PRODUTO", "R$ 14,00");
-            });
+            ordensProdsSalvas.forEach(idIndex => { renderizarBlocoProduto(idIndex, "https://picsum.photos/id/64/300/300", "NOVO PRODUTO", "R$ 14,00"); });
 
-            // Carrega as imagens de inspiração adicionais dinâmicas salvas pelo botão +
             let ordensInspsSalvas = JSON.parse(localStorage.getItem('ordemImagensInspiracaoExtras') || '[]');
-            ordensInspsSalvas.forEach(idIndex => {
-                renderizarBlocoImagemInspiracao(idIndex, "https://picsum.photos/id/119/300/300");
-            });
+            ordensInspsSalvas.forEach(idIndex => { renderizarBlocoImagemInspiracao(idIndex, "https://picsum.photos/id/119/300/300"); });
+            
+            atualizarPainelPrincipalCores();
         });
 
-        //🔒🔒🔒🔒⬇⬇⬇⬇🔒🔒🔒🔒
-        // 🔒 Sistema de Validação Segura via JSONP
+        /* ==================== SISTEMA DE VALIDAÇÃO SECURA ==================== */
         function validarAcessoPainel() {
             const usuarioInput = document.getElementById('authID').value.trim();
             const senhaInput = document.getElementById('authSenha').value.trim();
             const divErro = document.getElementById('erroAuth');
-
             const urlBackend = "https://script.google.com/macros/s/AKfycbxnFPcHlGE0qldY0LBW1YEwRyyNt9Oeh_NqAXEnjM2srfwgvElum5JmfSYmPqP6NzhJZA/exec";
 
             if (!usuarioInput || !senhaInput) {
@@ -1270,7 +1452,6 @@
 
             window[nomeCallback] = function(resultado) {
                 const telaBloqueio = document.getElementById('bloqueio-seguranca');
-
                 if (resultado && resultado.autorizado === true) {
                     if (telaBloqueio) telaBloqueio.style.display = 'none';
                     if (divErro) divErro.style.display = 'none';
@@ -1278,34 +1459,25 @@
                     if (divErro) divErro.style.display = 'block';
                     document.getElementById('authSenha').value = '';
                 }
-
                 document.body.removeChild(scriptElemento);
                 delete window[nomeCallback];
             };
 
             const parametros = `?usuario=${encodeURIComponent(usuarioInput)}&senha=${encodeURIComponent(senhaInput)}&callback=${nomeCallback}`;
-
             const scriptElemento = document.createElement('script');
             scriptElemento.src = urlBackend + parametros;
-
             scriptElemento.onerror = function() {
-                alert("Erro de autenticação: Verifique sua conexão ou a configuração do script.");
+                alert("Erro de autenticação.");
                 if (divErro) divErro.style.display = 'block';
                 document.body.removeChild(scriptElemento);
                 delete window[nomeCallback];
             };
-
             document.body.appendChild(scriptElemento);
         }
 
         document.getElementById('authSenha').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                validarAcessoPainel();
-            }
+            if (e.key === 'Enter') { validarAcessoPainel(); }
         });
-
-        //🔒🔒🔒🔒⬆⬆⬆⬆🔒🔒🔒🔒
     </script>
-
 </body>
 </html>
