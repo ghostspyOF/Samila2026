@@ -700,21 +700,11 @@
         // URLs de Integração das Planilhas fornecidas
         const GOOGLE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQSWhQS9nFk5UFshZhLgd5B2osW21IkcmEIqakuh8g01U0tcmhXSNyaWfgHisVuRTOa_vVApLTGWNeT/pub?output=csv";
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby16kn4aalxao7R8ZP89nzuCJ7JVI0tWbLpiPMt9lCU6VT847yYpFYVklArN3TmSNuH/exec";
-
-                const servicos = [];
-
+               
         // Lista de cores atualizada contendo os nomes
+        const servicos = [];
         let listaCoresObj = []; // Agora começa vazia e será preenchida pela planilha
-
-        const inspiracoes = [
-            { id: "insp1", tipo: "mao", url: "https://images.unsplash.com/photo-1604654894610-df490651e56c?w=300", nome: "Mão Delicada Rosa" },
-            { id: "insp2", tipo: "mao", url: "https://images.unsplash.com/photo-1632345031435-8797b2d58045?w=300", nome: "Alongamento com Glitter" },
-            { id: "insp3", tipo: "pe", url: "https://images.unsplash.com/photo-1519415510236-718bdfcd89c9?w=300", nome: "Pé Francesinha Clássica" },
-            { id: "insp4", tipo: "pe", url: "https://images.unsplash.com/photo-1535242208474-9a2793260ca8?w=300", nome: "Pé Clean Natural" }
-        ];
-
-       
-                // Lista de produtos começa vazia e será preenchida APENAS pela planilha
+        let inspiracoes = []; // Começa vazia e será preenchida dinamicamente pela planilha
         let produtosMimos = [];    
         let selecaoCoresAtuais = []; 
         let selecaoInspiracaoAtual = null;
@@ -734,6 +724,7 @@
         popularSelectServicos();
         renderizarGradeCores(); 
         renderizarListaMimos();
+        renderizarGradeInspiracao();
     }, 2000);
 };
 
@@ -1337,7 +1328,22 @@ if (idElemento === "CONFIG_VALOR_NUMERO") {
                         }
                         return;
                     }
-               //___________
+               //_____Fim______===
+                                        // --- CONFIGURAÇÃO: IMAGENS DE INSPIRAÇÃO DINÂMICAS DA PLANILHA ---
+                    if (idElemento.startsWith("IMG_INSPIRACAO_")) {
+                        if (conteudo && conteudo !== "-" && conteudo !== "") {
+                            const numeroInsp = idElemento.replace("IMG_INSPIRACAO_", "");
+                            inspiracoes.push({
+                                id: "insp" + numeroInsp,
+                                url: conteudo,
+                                nome: "Modelo " + numeroInsp
+                            });
+                            console.log(`Sucesso: Inspiração ${idElemento} adicionada com o link: ${conteudo}`);
+                        }
+                        return;
+                    }
+
+               //_____fim______===
                     if (elemento) {
                         const tag = elemento.tagName.toLowerCase();
                         
