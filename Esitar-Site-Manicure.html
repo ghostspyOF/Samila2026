@@ -93,11 +93,14 @@
     </div>
 
     <div class="w-full max-w-md px-4 mt-4">
-        <div class="flex items-center gap-2 mb-4 border-l-4 border-[#b45309] pl-2">
+        <div class="flex items-center justify-between mb-4 border-l-4 border-[#b45309] pl-2">
             <h2 class="text-xl font-bold text-[#44403c]">Nossos Serviços</h2>
+            <button onclick="adicionarNovoServicoDinamico()" class="bg-[#b45309] hover:bg-amber-800 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow transition-all" title="Criar mais serviço">
+                <i class="fa fa-plus"></i>
+            </button>
         </div>
 
-        <div class="space-y-4">
+        <div class="space-y-4" id="containerListaServicos">
 
             <div class="bg-white rounded-2xl p-4 shadow-sm border border-orange-50/50 flex justify-between items-start relative">
                 <div class="pr-4 flex-1">
@@ -108,7 +111,7 @@
                     <p class="text-xs text-gray-400 mt-1">Aplicação rápida com acabamento natural e esmaltação simples.</p>
                 </div>
                 <div class="text-right font-bold text-[#c2410c] whitespace-nowrap flex items-center gap-2">
-                    R$ 35,00
+                    R$ 12,00
                     <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer hover:text-blue-800" onclick="abrirModalComDados('Preco-Postica-Simples', 'Preço: Postiça Realista Simples')"></i>
                 </div>
             </div>
@@ -187,9 +190,14 @@
 
         <div class="flex items-center justify-between mt-8 mb-4 border-l-4 border-blue-600 pl-2">
             <h2 class="text-xl font-bold text-[#44403c]">Catálogo de Cores</h2>
-            <button onclick="abrirModalCores()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-xl text-xs font-semibold flex items-center gap-1 transition-all">
-                <i class="fa fa-plus"></i> Gerenciar Cor
-            </button>
+            <div class="flex gap-2">
+                <button onclick="abrirModalCriadorHexa()" class="bg-amber-500 hover:bg-amber-600 text-white px-2.5 py-1 rounded-xl text-xs font-semibold flex items-center gap-1 transition-all" title="Criar cor em Hexadecimal">
+                    <i class="fa fa-paint-brush"></i> Criador Hexa
+                </button>
+                <button onclick="abrirModalCores()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-xl text-xs font-semibold flex items-center gap-1 transition-all">
+                    <i class="fa fa-plus"></i> Gerenciar Cor
+                </button>
+            </div>
         </div>
 
         <div class="bg-white rounded-2xl p-4 shadow-sm border border-orange-50/50 grid grid-cols-4 gap-4" id="containerCores">
@@ -214,7 +222,104 @@
                 <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer absolute -top-1 -right-1 opacity-90" onclick="abrirModalCoresDireto(200)"></i>
             </div>
         </div>
+
+        <div class="flex items-center justify-between mt-8 mb-4 border-l-4 border-emerald-600 pl-2">
+            <h2 class="text-xl font-bold text-[#44403c]">Nossos Produtos</h2>
+            <button onclick="adicionarNovoProdutoDinamico()" class="bg-emerald-600 hover:bg-emerald-700 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow transition-all" title="Criar mais produto">
+                <i class="fa fa-plus"></i>
+            </button>
         </div>
+
+        <div class="space-y-4" id="containerListaProdutos">
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-orange-50/50 flex items-center gap-4 relative">
+                <div class="w-16 h-16 rounded-xl overflow-hidden border border-gray-100 relative shrink-0">
+                    <img id="img-prod-id-1" src="https://picsum.photos/id/64/300/300" alt="Produto" class="w-full h-full object-cover">
+                    <i class="fa fa-pencil text-blue-600 text-xl cursor-pointer absolute bottom-0 right-0 bg-white/90 p-0.5 rounded-tl shadow" onclick="abrirModalProdutosDireto('IMG', 1)"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <h3 id="txt-prod-nome-id-1" class="font-bold text-[#44403c] text-base truncate flex items-center gap-1.5">
+                        PRODUTO 1
+                        <i class="fa fa-pencil text-blue-600 text-lg cursor-pointer hover:text-blue-800" onclick="abrirModalProdutosDireto('NOME', 1)"></i>
+                    </h3>
+                    <div id="txt-prod-preco-id-1" class="text-sm font-semibold text-[#c2410c] mt-0.5 flex items-center gap-1.5">
+                        R$ 14,00
+                        <i class="fa fa-pencil text-blue-600 text-lg cursor-pointer hover:text-blue-800" onclick="abrirModalProdutosDireto('PRECO', 1)"></i>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2.5 border border-orange-100/80 rounded-full px-2.5 py-1 bg-orange-50/30 shrink-0">
+                    <button class="w-6 h-6 rounded-full bg-white border border-orange-100 shadow-sm flex items-center justify-center text-gray-500 font-bold hover:bg-gray-50 text-xs">-</button>
+                    <span class="text-sm font-bold text-gray-700">0</span>
+                    <button class="w-6 h-6 rounded-full bg-white border border-orange-100 shadow-sm flex items-center justify-center text-gray-500 font-bold hover:bg-gray-50 text-xs">+</button>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-orange-50/50 flex items-center gap-4 relative">
+                <div class="w-16 h-16 rounded-xl overflow-hidden border border-gray-100 relative shrink-0">
+                    <img id="img-prod-id-2" src="https://picsum.photos/id/64/300/300" alt="Produto" class="w-full h-full object-cover">
+                    <i class="fa fa-pencil text-blue-600 text-xl cursor-pointer absolute bottom-0 right-0 bg-white/90 p-0.5 rounded-tl shadow" onclick="abrirModalProdutosDireto('IMG', 2)"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <h3 id="txt-prod-nome-id-2" class="font-bold text-[#44403c] text-base truncate flex items-center gap-1.5">
+                        PRODUTO 2
+                        <i class="fa fa-pencil text-blue-600 text-lg cursor-pointer hover:text-blue-800" onclick="abrirModalProdutosDireto('NOME', 2)"></i>
+                    </h3>
+                    <div id="txt-prod-preco-id-2" class="text-sm font-semibold text-[#c2410c] mt-0.5 flex items-center gap-1.5">
+                        R$ 14,00
+                        <i class="fa fa-pencil text-blue-600 text-lg cursor-pointer hover:text-blue-800" onclick="abrirModalProdutosDireto('PRECO', 2)"></i>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2.5 border border-orange-100/80 rounded-full px-2.5 py-1 bg-orange-50/30 shrink-0">
+                    <button class="w-6 h-6 rounded-full bg-white border border-orange-100 shadow-sm flex items-center justify-center text-gray-500 font-bold hover:bg-gray-50 text-xs">-</button>
+                    <span class="text-sm font-bold text-gray-700">0</span>
+                    <button class="w-6 h-6 rounded-full bg-white border border-orange-100 shadow-sm flex items-center justify-center text-gray-500 font-bold hover:bg-gray-50 text-xs">+</button>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-orange-50/50 flex items-center gap-4 relative">
+                <div class="w-16 h-16 rounded-xl overflow-hidden border border-gray-100 relative shrink-0">
+                    <img id="img-prod-id-3" src="https://picsum.photos/id/64/300/300" alt="Produto" class="w-full h-full object-cover">
+                    <i class="fa fa-pencil text-blue-600 text-xl cursor-pointer absolute bottom-0 right-0 bg-white/90 p-0.5 rounded-tl shadow" onclick="abrirModalProdutosDireto('IMG', 3)"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <h3 id="txt-prod-nome-id-3" class="font-bold text-[#44403c] text-base truncate flex items-center gap-1.5">
+                        PRODUTO 3
+                        <i class="fa fa-pencil text-blue-600 text-lg cursor-pointer hover:text-blue-800" onclick="abrirModalProdutosDireto('NOME', 3)"></i>
+                    </h3>
+                    <div id="txt-prod-preco-id-3" class="text-sm font-semibold text-[#c2410c] mt-0.5 flex items-center gap-1.5">
+                        R$ 14,00
+                        <i class="fa fa-pencil text-blue-600 text-lg cursor-pointer hover:text-blue-800" onclick="abrirModalProdutosDireto('PRECO', 3)"></i>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2.5 border border-orange-100/80 rounded-full px-2.5 py-1 bg-orange-50/30 shrink-0">
+                    <button class="w-6 h-6 rounded-full bg-white border border-orange-100 shadow-sm flex items-center justify-center text-gray-500 font-bold hover:bg-gray-50 text-xs">-</button>
+                    <span class="text-sm font-bold text-gray-700">0</span>
+                    <button class="w-6 h-6 rounded-full bg-white border border-orange-100 shadow-sm flex items-center justify-center text-gray-500 font-bold hover:bg-gray-50 text-xs">+</button>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-orange-50/50 flex items-center gap-4 relative">
+                <div class="w-16 h-16 rounded-xl overflow-hidden border border-gray-100 relative shrink-0">
+                    <img id="img-prod-id-4" src="https://picsum.photos/id/64/300/300" alt="Produto" class="w-full h-full object-cover">
+                    <i class="fa fa-pencil text-blue-600 text-xl cursor-pointer absolute bottom-0 right-0 bg-white/90 p-0.5 rounded-tl shadow" onclick="abrirModalProdutosDireto('IMG', 4)"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <h3 id="txt-prod-nome-id-4" class="font-bold text-[#44403c] text-base truncate flex items-center gap-1.5">
+                        PRODUTO 4
+                        <i class="fa fa-pencil text-blue-600 text-lg cursor-pointer hover:text-blue-800" onclick="abrirModalProdutosDireto('NOME', 4)"></i>
+                    </h3>
+                    <div id="txt-prod-preco-id-4" class="text-sm font-semibold text-[#c2410c] mt-0.5 flex items-center gap-1.5">
+                        R$ 14,00
+                        <i class="fa fa-pencil text-blue-600 text-lg cursor-pointer hover:text-blue-800" onclick="abrirModalProdutosDireto('PRECO', 4)"></i>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2.5 border border-orange-100/80 rounded-full px-2.5 py-1 bg-orange-50/30 shrink-0">
+                    <button class="w-6 h-6 rounded-full bg-white border border-orange-100 shadow-sm flex items-center justify-center text-gray-500 font-bold hover:bg-gray-50 text-xs">-</button>
+                    <span class="text-sm font-bold text-gray-700">0</span>
+                    <button class="w-6 h-6 rounded-full bg-white border border-orange-100 shadow-sm flex items-center justify-center text-gray-500 font-bold hover:bg-gray-50 text-xs">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="modal" id="modalEdicao">
         <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-sm mx-4">
@@ -284,6 +389,94 @@
             <div id="mensagemModalCores" class="mt-4 text-center text-sm font-medium hidden"></div>
         </div>
     </div>
+
+    <div class="modal" id="modalCriadorHexa">
+        <div class="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md mx-4 relative">
+            <button onclick="fecharModalCriadorHexa()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition-all text-xl font-bold">
+                <i class="fa fa-times"></i>
+            </button>
+
+            <h3 class="text-xl font-bold text-gray-800 mb-2 text-center flex items-center justify-center gap-2">
+                <i class="fa fa-paint-brush text-amber-500"></i> Criador de Cores Perfeitas
+            </h3>
+            <p class="text-xs text-gray-500 text-center mb-6">Escolha e visualize sua cor exata em tempo real para colocar no catálogo</p>
+
+            <div class="flex flex-col items-center justify-center mb-6">
+                <div id="previewCorHexa" class="w-24 h-24 rounded-full border-4 border-white shadow-xl bg-orange-500 transition-all duration-150"></div>
+                <span class="text-xs font-semibold text-gray-400 mt-2">Visualização da Cor</span>
+            </div>
+
+            <div class="mb-5">
+                <label class="block text-sm font-medium text-gray-600 mb-2 text-center">Arraste para escolher a cor exata:</label>
+                <input 
+                    type="color" 
+                    id="inputSeletorCor" 
+                    value="#f97316"
+                    class="w-full h-12 rounded-xl cursor-pointer border border-gray-200 p-1 bg-white shadow-sm"
+                    oninput="atualizarCriadorDeCor(this.value)"
+                >
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-600 mb-1">Código Hexadecimal gerado:</label>
+                <div class="relative flex items-center">
+                    <input 
+                        type="text" 
+                        id="txtCodigoHexaGerado" 
+                        value="#f97316" 
+                        readonly 
+                        class="w-full pl-4 pr-24 py-3 border border-gray-200 rounded-xl font-mono text-center font-bold text-gray-800 bg-gray-50 focus:outline-none"
+                    >
+                    <button onclick="copiarCodigoHexaCriado()" class="absolute right-2 bg-gray-800 hover:bg-black text-white px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1">
+                        <i class="fa fa-clone"></i> Copiar
+                    </button>
+                </div>
+            </div>
+
+            <div id="alertaCopiadoSucesso" class="text-center text-xs text-green-600 font-bold hidden transition-all">
+                <i class="fa fa-check-circle"></i> Código copiado com sucesso! Só colar no seu gerenciador.
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modalNovoServico">
+        <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-sm mx-4">
+            <h3 class="text-lg font-bold text-gray-700 mb-4 text-center" id="tituloModalNovoServico">Editar Informação</h3>
+
+            <input type="hidden" id="tipoCampoNovoServico"> <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-600 mb-1" id="labelCampoNovoServico">Inserir Informação (Coluna B):</label>
+                <input 
+                    type="text" 
+                    id="novoServicoValorB" 
+                    placeholder="Digite o novo valor..." 
+                    class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600"
+                >
+            </div>
+
+            <div class="mb-5">
+                <label class="block text-sm font-medium text-gray-600 mb-1" id="labelNumeroNovoServico">Numeração do Identificador (7 até 20):</label>
+                <input 
+                    type="number" 
+                    id="novoServicoNumeroA" 
+                    min="1" 
+                    max="20"
+                    placeholder="Digite um número..." 
+                    class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600"
+                >
+            </div>
+
+            <div class="flex gap-3">
+                <button id="btnFecharNovoServico" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 font-medium py-2 rounded-xl transition-all text-sm">
+                    Cancelar
+                </button>
+                <button id="btnSalvarNovoServico" class="flex-1 bg-[#b45309] hover:bg-amber-800 text-white font-medium py-2 rounded-xl transition-all text-sm">
+                    Salvar e Enviar
+                </button>
+            </div>
+
+            <div id="mensagemModalNovoServico" class="mt-4 text-center text-sm font-medium hidden"></div>
+        </div>
+    </div>
     <script>
         const LINK_APP_SCRIPT = "https://script.google.com/macros/s/AKfycbyCwlZqYZ0lJ-wgRg4eHKWuU-_qDjIGJdoh3x1bP18WCOJO6eE4llk_-8Ny2vzX6G0/exec";
 
@@ -302,6 +495,27 @@
         const corValorB = document.getElementById('corValorB');
         const corNumeroA = document.getElementById('corNumeroA');
         const mensagemModalCores = document.getElementById('mensagemModalCores');
+
+        // Seletores do Novo Modal para Serviços Dinâmicos
+        const modalNovoServico = document.getElementById('modalNovoServico');
+        const btnFecharNovoServico = document.getElementById('btnFecharNovoServico');
+        const btnSalvarNovoServico = document.getElementById('btnSalvarNovoServico');
+        const novoServicoValorB = document.getElementById('novoServicoValorB');
+        const novoServicoNumeroA = document.getElementById('novoServicoNumeroA');
+        const tipoCampoNovoServico = document.getElementById('tipoCampoNovoServico');
+        const tituloModalNovoServico = document.getElementById('tituloModalNovoServico');
+        const labelCampoNovoServico = document.getElementById('labelCampoNovoServico');
+        const labelNumeroNovoServico = document.getElementById('labelNumeroNovoServico');
+        const mensagemModalNovoServico = document.getElementById('mensagemModalNovoServico');
+        const containerListaServicos = document.getElementById('containerListaServicos');
+        const containerListaProdutos = document.getElementById('containerListaProdutos');
+
+        // Novos seletores do Criador Hexadecimal Dinâmico
+        const modalCriadorHexa = document.getElementById('modalCriadorHexa');
+        const previewCorHexa = document.getElementById('previewCorHexa');
+        const txtCodigoHexaGerado = document.getElementById('txtCodigoHexaGerado');
+        const inputSeletorCor = document.getElementById('inputSeletorCor');
+        const alertaCopiadoSucesso = document.getElementById('alertaCopiadoSucesso');
 
         /*
           ========================================================================
@@ -475,6 +689,321 @@
             mensagemModalCores.className = `mt-4 text-center text-sm font-medium ${classeCor}`;
             mensagemModalCores.classList.remove('hidden');
         }
+
+
+        /* ==================== NOVAS FUNÇÕES PARA CRIAR SERVIÇOS E SEU MODAL DE DOIS CAMPOS ==================== */
+
+        // Função para abrir o modal de 2 campos dos novos serviços dinâmicos
+        function abrirModalNovoServico(tipo) {
+            tipoCampoNovoServico.value = tipo; // 'NOME', 'PRECO', 'PRODUTO_IMG', 'PRODUTO_NOME', 'PRODUTO_PRECO'
+            novoServicoValorB.value = '';
+            novoServicoNumeroA.value = '';
+            
+            if(tipo === 'NOME') {
+                tituloModalNovoServico.textContent = "Editar Nome do Novo Serviço";
+                labelCampoNovoServico.textContent = "Nome do Serviço (Coluna B):";
+                labelNumeroNovoServico.textContent = "Numeração do Identificador (7 até 20):";
+                novoServicoNumeroA.min = 7;
+                novoServicoNumeroA.max = 20;
+                novoServicoValorB.placeholder = "Ex: Qual serviço?...";
+            } else if(tipo === 'PRECO') {
+                tituloModalNovoServico.textContent = "Editar Preço do Novo Serviço";
+                labelCampoNovoServico.textContent = "Preço do Serviço (Coluna B):";
+                labelNumeroNovoServico.textContent = "Numeração do Identificador (7 até 20):";
+                novoServicoNumeroA.min = 7;
+                novoServicoNumeroA.max = 20;
+                novoServicoValorB.placeholder = "Ex: R$ 35,00...";
+            } else if(tipo === 'PRODUTO_IMG') {
+                tituloModalNovoServico.textContent = "Editar Imagem do Produto";
+                labelCampoNovoServico.textContent = "URL da Imagem (Coluna B):";
+                labelNumeroNovoServico.textContent = "Numeração do Identificador (1 até 20):";
+                novoServicoNumeroA.min = 1;
+                novoServicoNumeroA.max = 20;
+                novoServicoValorB.placeholder = "Ex: https://link-da-imagem.jpg...";
+            } else if(tipo === 'PRODUTO_NOME') {
+                tituloModalNovoServico.textContent = "Editar Nome do Produto";
+                labelCampoNovoServico.textContent = "Nome do Produto (Coluna B):";
+                labelNumeroNovoServico.textContent = "Numeração do Identificador (1 até 20):";
+                novoServicoNumeroA.min = 1;
+                novoServicoNumeroA.max = 20;
+                novoServicoValorB.placeholder = "Ex: PEIXEE...";
+            } else if(tipo === 'PRODUTO_PRECO') {
+                tituloModalNovoServico.textContent = "Editar Preço do Produto";
+                labelCampoNovoServico.textContent = "Preço do Produto (Coluna B):";
+                labelNumeroNovoServico.textContent = "Numeração do Identificador (1 até 20):";
+                novoServicoNumeroA.min = 1;
+                novoServicoNumeroA.max = 20;
+                novoServicoValorB.placeholder = "Ex: R$ 14,00...";
+            }
+            
+            modalNovoServico.classList.add('aberto');
+        }
+
+        // Atalho rápido para injetar tipo e número pré-definidos no modal dos produtos
+        function abrirModalProdutosDireto(subTipo, numero) {
+            abrirModalNovoServico(`PRODUTO_${subTipo}`);
+            novoServicoNumeroA.value = numero;
+        }
+
+        btnFecharNovoServico.addEventListener('click', () => {
+            modalNovoServico.classList.remove('aberto');
+            mensagemModalNovoServico.classList.add('hidden');
+        });
+
+        btnSalvarNovoServico.addEventListener('click', async () => {
+            const tipo = tipoCampoNovoServico.value;
+            const valorB = novoServicoValorB.value.trim();
+            const numeroA = parseInt(novoServicoNumeroA.value);
+
+            if(!valorB) {
+                mostrarMensagemNovoServico('Preencha o primeiro campo!', 'text-red-500');
+                return;
+            }
+            
+            // Valida faixas de numeração baseadas no tipo selecionado
+            if(tipo.startsWith('PRODUTO')) {
+                if(isNaN(numeroA) || numeroA < 1 || numeroA > 20) {
+                    mostrarMensagemNovoServico('O número do produto deve ser entre 1 e 20!', 'text-red-500');
+                    return;
+                }
+            } else {
+                if(isNaN(numeroA) || numeroA < 7 || numeroA > 20) {
+                    mostrarMensagemNovoServico('O número do serviço deve ser entre 7 e 20!', 'text-red-500');
+                    return;
+                }
+            }
+
+            // Define a string correta que irá para a coluna A baseada na escolha
+            let colunaAFormatada = "";
+            if (tipo === 'NOME' || tipo === 'PRECO') {
+                colunaAFormatada = `SERVICO_${tipo}_${numeroA}`;
+            } else {
+                colunaAFormatada = `${tipo}_${numeroA}`; // Gera PRODUTO_IMG_1, PRODUTO_NOME_1, etc.
+            }
+
+            try {
+                btnSalvarNovoServico.disabled = true;
+                btnSalvarNovoServico.textContent = 'Enviando...';
+
+                await fetch(LINK_APP_SCRIPT, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        colunaA: colunaAFormatada,
+                        colunaB: valorB
+                    })
+                });
+
+                // Mantém o valor gravado na tela no localStorage local para persistência
+                localStorage.setItem(`${tipo}_ID_${numeroA}`, valorB);
+                
+                // Atualiza visualmente o campo modificado sem apagar nada
+                if(tipo === 'NOME') {
+                    const textoNome = document.getElementById(`txt-nome-id-${numeroA}`);
+                    if(textoNome) textoNome.childNodes[0].textContent = valorB + " ";
+                } else if(tipo === 'PRECO') {
+                    const textoPreco = document.getElementById(`txt-preco-id-${numeroA}`);
+                    if(textoPreco) textoPreco.childNodes[0].textContent = valorB + " ";
+                } else if(tipo === 'PRODUTO_IMG') {
+                    const tagImg = document.getElementById(`img-prod-id-${numeroA}`);
+                    if(tagImg) tagImg.src = valorB;
+                } else if(tipo === 'PRODUTO_NOME') {
+                    const txtProdNome = document.getElementById(`txt-prod-nome-id-${numeroA}`);
+                    if(txtProdNome) txtProdNome.childNodes[0].textContent = valorB + " ";
+                } else if(tipo === 'PRODUTO_PRECO') {
+                    const txtProdPreco = document.getElementById(`txt-prod-preco-id-${numeroA}`);
+                    if(txtProdPreco) txtProdPreco.childNodes[0].textContent = valorB + " ";
+                }
+
+                mostrarMensagemNovoServico('✅ Enviado com sucesso!', 'text-green-500');
+
+                setTimeout(() => {
+                    modalNovoServico.classList.remove('aberto');
+                    mensagemModalNovoServico.classList.add('hidden');
+                }, 1500);
+
+            } catch (erro) {
+                console.error(erro);
+                mostrarMensagemNovoServico('❌ Erro ao enviar os dados!', 'text-red-500');
+            } finally {
+                btnSalvarNovoServico.disabled = false;
+                btnSalvarNovoServico.textContent = 'Salvar e Enviar';
+            }
+        });
+
+        function mostrarMensagemNovoServico(texto, classeCor) {
+            mensagemModalNovoServico.textContent = texto;
+            mensagemModalNovoServico.className = `mt-4 text-center text-sm font-medium ${classeCor}`;
+            mensagemModalNovoServico.classList.remove('hidden');
+        }
+
+        // Função nova para remover um bloco de serviço específico criado dinamicamente
+        function removerServicoDinamico(botaoLixeira, idIndex) {
+            const elementoServico = botaoLixeira.closest('.classe-servico-dinamico');
+            if (elementoServico) {
+                elementoServico.remove();
+                localStorage.removeItem(`NOME_ID_${idIndex}`);
+                localStorage.removeItem(`PRECO_ID_${idIndex}`);
+                
+                let ordensAtuais = JSON.parse(localStorage.getItem('ordemServicosExtras') || '[]');
+                ordensAtuais = ordensAtuais.filter(item => item !== idIndex);
+                localStorage.setItem('ordemServicosExtras', JSON.stringify(ordensAtuais));
+            }
+        }
+
+        // Função que injeta o HTML do serviço igual ao Pé Simples com lixeira no topo esquerdo e salva no localStorage para persistência
+        function adicionarNovoServicoDinamico() {
+            let ordensAtuais = JSON.parse(localStorage.getItem('ordemServicosExtras') || '[]');
+            let novoIdIndex = ordensAtuais.length > 0 ? Math.max(...ordensAtuais) + 1 : 7;
+            ordensAtuais.push(novoIdIndex);
+            localStorage.setItem('ordemServicosExtras', JSON.stringify(ordensAtuais));
+
+            renderizarBlocoServico(novoIdIndex, "Qual serviço?", "R$ 30,00");
+        }
+
+        // Função auxiliar isolada para montar o HTML do serviço na tela preservando os seletores e ids
+        function renderizarBlocoServico(idIndex, nomePadrao, precoPadrao) {
+            const nomeGravado = localStorage.getItem(`NOME_ID_${idIndex}`) || nomePadrao;
+            const precoGravado = localStorage.getItem(`PRECO_ID_${idIndex}`) || precoPadrao;
+
+            const estruturaHTML = `
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-orange-50/50 flex justify-between items-start relative classe-servico-dinamico pt-6" data-id-index="${idIndex}">
+                <button onclick="removerServicoDinamico(this, ${idIndex})" class="absolute top-2 left-3 text-red-500 hover:text-red-700 text-sm transition-all" title="Remover este serviço">
+                    <i class="fa fa-trash"></i> Excluir
+                </button>
+                <div class="pr-4 flex-1 mt-2">
+                    <h3 id="txt-nome-id-${idIndex}" class="font-bold text-gray-800 text-base flex items-center gap-2">
+                        ${nomeGravado}
+                        <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer hover:text-blue-800" onclick="abrirModalNovoServico('NOME')"></i>
+                    </h3>
+                    <p class="text-xs text-gray-400 mt-1">Cutilagem e esmaltação tradicional das unhas dos pés.</p>
+                </div>
+                <div id="txt-preco-id-${idIndex}" class="text-right font-bold text-[#c2410c] whitespace-nowrap flex items-center gap-2 mt-2">
+                    ${precoGravado}
+                    <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer hover:text-blue-800" onclick="abrirModalNovoServico('PRECO')"></i>
+                </div>
+            </div>`;
+            
+            containerListaServicos.insertAdjacentHTML('beforeend', estruturaHTML);
+        }
+
+        /* ==================== NOVAS FUNÇÕES PARA CRIAR PRODUTOS DINÂMICOS EXTRA (BOTÃO +) ==================== */
+        
+        function removerProdutoDinamico(botaoLixeira, idIndex) {
+            const elementoProduto = botaoLixeira.closest('.classe-produto-dinamico');
+            if (elementoProduto) {
+                elementoProduto.remove();
+                localStorage.removeItem(`PRODUTO_IMG_ID_${idIndex}`);
+                localStorage.removeItem(`PRODUTO_NOME_ID_${idIndex}`);
+                localStorage.removeItem(`PRODUTO_PRECO_ID_${idIndex}`);
+                
+                let ordensProds = JSON.parse(localStorage.getItem('ordemProdutosExtras') || '[]');
+                ordensProds = ordensProds.filter(item => item !== idIndex);
+                localStorage.setItem('ordemProdutosExtras', JSON.stringify(ordensProds));
+            }
+        }
+
+        function adicionarNovoProdutoDinamico() {
+            let ordensProds = JSON.parse(localStorage.getItem('ordemProdutosExtras') || '[]');
+            let novoIdIndex = ordensProds.length > 0 ? Math.max(...ordensProds) + 1 : 5; // Começa no ID 5 por sequência
+            ordensProds.push(novoIdIndex);
+            localStorage.setItem('ordemProdutosExtras', JSON.stringify(ordensProds));
+
+            renderizarBlocoProduto(novoIdIndex, "https://picsum.photos/id/64/300/300", "NOVO PRODUTO", "R$ 14,00");
+        }
+
+        function renderizarBlocoProduto(idIndex, imgPadrao, nomePadrao, precoPadrao) {
+            const imgGravada = localStorage.getItem(`PRODUTO_IMG_ID_${idIndex}`) || imgPadrao;
+            const nomeGravado = localStorage.getItem(`PRODUTO_NOME_ID_${idIndex}`) || nomePadrao;
+            const precoGravado = localStorage.getItem(`PRODUTO_PRECO_ID_${idIndex}`) || precoPadrao;
+
+            const estruturaHTML = `
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-orange-50/50 flex items-center gap-4 relative classe-produto-dinamico pt-8" data-id-index="${idIndex}">
+                <button onclick="removerProdutoDinamico(this, ${idIndex})" class="absolute top-2 left-3 text-red-500 hover:text-red-700 text-xs transition-all" title="Remover este produto">
+                    <i class="fa fa-trash"></i> Excluir
+                </button>
+                <div class="w-16 h-16 rounded-xl overflow-hidden border border-gray-100 relative shrink-0">
+                    <img id="img-prod-id-${idIndex}" src="${imgGravada}" alt="Produto" class="w-full h-full object-cover">
+                    <i class="fa fa-pencil text-blue-600 text-xl cursor-pointer absolute bottom-0 right-0 bg-white/90 p-0.5 rounded-tl shadow" onclick="abrirModalProdutosDireto('IMG', ${idIndex})"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <h3 id="txt-prod-nome-id-${idIndex}" class="font-bold text-[#44403c] text-base truncate flex items-center gap-1.5">
+                        ${nomeGravado}
+                        <i class="fa fa-pencil text-blue-600 text-lg cursor-pointer hover:text-blue-800" onclick="abrirModalProdutosDireto('NOME', ${idIndex})"></i>
+                    </h3>
+                    <div id="txt-prod-preco-id-${idIndex}" class="text-sm font-semibold text-[#c2410c] mt-0.5 flex items-center gap-1.5">
+                        ${precoGravado}
+                        <i class="fa fa-pencil text-blue-600 text-lg cursor-pointer hover:text-blue-800" onclick="abrirModalProdutosDireto('PRECO', ${idIndex})"></i>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2.5 border border-orange-100/80 rounded-full px-2.5 py-1 bg-orange-50/30 shrink-0">
+                    <button class="w-6 h-6 rounded-full bg-white border border-orange-100 shadow-sm flex items-center justify-center text-gray-500 font-bold hover:bg-gray-50 text-xs">-</button>
+                    <span class="text-sm font-bold text-gray-700">0</span>
+                    <button class="w-6 h-6 rounded-full bg-white border border-orange-100 shadow-sm flex items-center justify-center text-gray-500 font-bold hover:bg-gray-50 text-xs">+</button>
+                </div>
+            </div>`;
+
+            containerListaProdutos.insertAdjacentHTML('beforeend', estruturaHTML);
+        }
+
+        /* ==================== NOVAS FUNÇÕES COMPLEMENTARES DO CRIADOR HEXADECIMAL DE CORES ==================== */
+        
+        function abrirModalCriadorHexa() {
+            alertaCopiadoSucesso.classList.add('hidden');
+            modalCriadorHexa.classList.add('aberto');
+        }
+
+        function fecharModalCriadorHexa() {
+            modalCriadorHexa.classList.remove('aberto');
+        }
+
+        function atualizarCriadorDeCor(codigoHexadecimal) {
+            previewCorHexa.style.backgroundColor = codigoHexadecimal;
+            txtCodigoHexaGerado.value = codigoHexadecimal;
+            alertaCopiadoSucesso.classList.add('hidden'); // Oculta o aviso de cópia se ele mudar de cor
+        }
+
+        function copiarCodigoHexaCriado() {
+            txtCodigoHexaGerado.select();
+            txtCodigoHexaGerado.setSelectionRange(0, 99999); // Suporte para dispositivos móveis
+            
+            navigator.clipboard.writeText(txtCodigoHexaGerado.value).then(() => {
+                alertaCopiadoSucesso.classList.remove('hidden');
+                setTimeout(() => {
+                    alertaCopiadoSucesso.classList.add('hidden');
+                }, 3000);
+            }).catch(err => {
+                console.error('Falha ao copiar:', err);
+            });
+        }
+
+        // Carrega os blocos extras salvos quando a página for recarregada
+        window.addEventListener('DOMContentLoaded', () => {
+            // Inicializa a persistência local dos 4 primeiros produtos fixos caso o usuário já possua dados customizados
+            for(let p = 1; p <= 4; p++) {
+                const imgLocal = localStorage.getItem(`PRODUTO_IMG_ID_${p}`);
+                const nomeLocal = localStorage.getItem(`PRODUTO_NOME_ID_${p}`);
+                const precoLocal = localStorage.getItem(`PRODUTO_PRECO_ID_${p}`);
+                if(imgLocal) document.getElementById(`img-prod-id-${p}`).src = imgLocal;
+                if(nomeLocal) document.getElementById(`txt-prod-nome-id-${p}`).childNodes[0].textContent = nomeLocal + " ";
+                if(precoLocal) document.getElementById(`txt-prod-preco-id-${p}`).childNodes[0].textContent = precoLocal + " ";
+            }
+
+            // Carrega os serviços adicionais dinâmicos salvos
+            let ordensSalvas = JSON.parse(localStorage.getItem('ordemServicosExtras') || '[]');
+            ordensSalvas.forEach(idIndex => {
+                renderizarBlocoServico(idIndex, "Qual serviço?", "R$ 30,00");
+            });
+
+            // Carrega os produtos adicionais dinâmicos salvos pelo botão +
+            let ordensProdsSalvas = JSON.parse(localStorage.getItem('ordemProdutosExtras') || '[]');
+            ordensProdsSalvas.forEach(idIndex => {
+                renderizarBlocoProduto(idIndex, "https://picsum.photos/id/64/300/300", "NOVO PRODUTO", "R$ 14,00");
+            });
+        });
     </script>
 
 </body>
