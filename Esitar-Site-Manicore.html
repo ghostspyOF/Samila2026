@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mayckon - Unhas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#b45309', // Tom marrom dos títulos
+                        accent: '#e11d48',  // Tom dos preços
+                        bgGradientStart: '#fee2e2', // Rosa claro do topo
+                        bgGradientEnd: '#ffffff',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .perfil-arredondado {
+                width: 120px;
+                height: 120px;
+                border-radius: 50%;
+                overflow: hidden;
+                border: 3px solid #ffffff;
+                position: relative;
+            }
+            .icone-edicao-topo {
+                position: absolute;
+                bottom: 0px;
+                right: 0px;
+                background-color: #ffffff;
+                color: #2563eb; /* Azul */
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            }
+            /* Modal */
+            .modal {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0,0,0,0.5);
+                align-items: center;
+                justify-content: center;
+                z-index: 50;
+            }
+            .modal.aberto {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-[#ffedd5] via-white to-white min-h-screen flex flex-col items-center pb-24 font-sans text-[#44403c]">
+
+    <div class="w-full max-w-md pt-8 pb-4 px-4 flex flex-col items-center text-center relative">
+        <div class="perfil-arredondado shadow-md relative mb-3">
+            <img 
+                src="https://picsum.photos/id/64/300/300" 
+                alt="Foto de Perfil" 
+                class="w-full h-full object-cover"
+            >
+            <div class="icone-edicao-topo" onclick="abrirModalComDados('img-perfil', 'Alterar Imagem de Perfil')" title="Editar Foto">
+                <i class="fa fa-pencil text-2xl"></i>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-3 justify-center">
+            <h1 class="text-2xl font-bold text-[#44403c]">Mayckon</h1>
+            <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer hover:text-blue-800" onclick="abrirModalComDados('Nome-Perfil', 'Alterar Nome do Perfil')"></i>
+        </div>
+        <p class="text-sm italic text-[#78716c] mt-1 flex items-center gap-3 justify-center">
+            Realçando a beleza das suas unhas ✨
+            <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer" onclick="abrirModalComDados('Slogan-Perfil', 'Alterar Slogan')"></i>
+        </p>
+    </div>
+
+    <div class="w-full max-w-md px-4 mt-4">
+        <div class="flex items-center gap-2 mb-4 border-l-4 border-[#b45309] pl-2">
+            <h2 class="text-xl font-bold text-[#44403c]">Nossos Serviços</h2>
+        </div>
+
+        <div class="space-y-4">
+
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-orange-50/50 flex justify-between items-start relative">
+                <div class="pr-4 flex-1">
+                    <h3 class="font-bold text-gray-800 text-base flex items-center gap-2">
+                        Postiça Realista Simples
+                        <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer hover:text-blue-800" onclick="abrirModalComDados('Servico-Postica-Simples', 'Nome: Postiça Realista Simples')"></i>
+                    </h3>
+                    <p class="text-xs text-gray-400 mt-1">Aplicação rápida com acabamento natural e esmaltação simples.</p>
+                </div>
+                <div class="text-right font-bold text-[#c2410c] whitespace-nowrap flex items-center gap-2">
+                    R$ 12,00
+                    <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer hover:text-blue-800" onclick="abrirModalComDados('Preco-Postica-Simples', 'Preço: Postiça Realista Simples')"></i>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-orange-50/50 flex justify-between items-start relative">
+                <div class="pr-4 flex-1">
+                    <h3 class="font-bold text-gray-800 text-base flex items-center gap-2">
+                        Postiça Realista Luxo
+                        <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer hover:text-blue-800" onclick="abrirModalComDados('Servico-Postica-Luxo', 'Nome: Postiça Realista Luxo')"></i>
+                    </h3>
+                    <p class="text-xs text-gray-400 mt-1">Aplicação detalhada, alta durabilidade e decorações premium inclusas.</p>
+                </div>
+                <div class="text-right font-bold text-[#c2410c] whitespace-nowrap flex items-center gap-2">
+                    R$ 45,00
+                    <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer hover:text-blue-800" onclick="abrirModalComDados('Preco-Postica-Luxo', 'Preço: Postiça Realista Luxo')"></i>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-orange-50/50 flex justify-between items-start relative">
+                <div class="pr-4 flex-1">
+                    <h3 class="font-bold text-gray-800 text-base flex items-center gap-2">
+                        Mão Simples
+                        <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer hover:text-blue-800" onclick="abrirModalComDados('Servico-Mao-Simples', 'Nome: Mão Simples')"></i>
+                    </h3>
+                    <p class="text-xs text-gray-400 mt-1">Cutilagem e esmaltação tradicional das unhas das mãos.</p>
+                </div>
+                <div class="text-right font-bold text-[#c2410c] whitespace-nowrap flex items-center gap-2">
+                    R$ 30,00
+                    <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer hover:text-blue-800" onclick="abrirModalComDados('Preco-Mao-Simples', 'Preço: Mão Simples')"></i>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-orange-50/50 flex justify-between items-start relative">
+                <div class="pr-4 flex-1">
+                    <h3 class="font-bold text-gray-800 text-base flex items-center gap-2">
+                        Pé Simples
+                        <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer hover:text-blue-800" onclick="abrirModalComDados('Servico-Pe-Simples', 'Nome: Pé Simples')"></i>
+                    </h3>
+                    <p class="text-xs text-gray-400 mt-1">Cutilagem e esmaltação tradicional das unhas dos pés.</p>
+                </div>
+                <div class="text-right font-bold text-[#c2410c] whitespace-nowrap flex items-center gap-2">
+                    R$ 30,00
+                    <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer hover:text-blue-800" onclick="abrirModalComDados('Preco-Pe-Simples', 'Preço: Pé Simples')"></i>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-orange-50/50 flex justify-between items-start relative">
+                <div class="pr-4 flex-1">
+                    <h3 class="font-bold text-gray-800 text-base flex items-center gap-2">
+                        Pé e Mão Completo
+                        <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer hover:text-blue-800" onclick="abrirModalComDados('Servico-Pe-Mao-Completo', 'Nome: Pé e Mão Completo')"></i>
+                    </h3>
+                    <p class="text-xs text-gray-400 mt-1">Combo completo de tratamento para pés e mãos com desconto especial.</p>
+                </div>
+                <div class="text-right font-bold text-[#c2410c] whitespace-nowrap flex items-center gap-2">
+                    R$ 50,00
+                    <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer hover:text-blue-800" onclick="abrirModalComDados('Preco-Pe-Mao-Completo', 'Preço: Pé e Mão Completo')"></i>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-orange-50/50 flex justify-between items-start relative">
+                <div class="pr-4 flex-1">
+                    <h3 class="font-bold text-gray-800 text-base flex items-center gap-2">
+                        Esmaltação
+                        <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer hover:text-blue-800" onclick="abrirModalComDados('Servico-Esmaltacao', 'Nome: Esmaltação')"></i>
+                    </h3>
+                    <p class="text-xs text-gray-400 mt-1">Apenas troca de esmalte de forma rápida e prática.</p>
+                </div>
+                <div class="text-right font-bold text-[#c2410c] whitespace-nowrap flex items-center gap-2">
+                    R$ 25,00
+                    <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer hover:text-blue-800" onclick="abrirModalComDados('Preco-Esmaltacao', 'Preço: Esmaltação')"></i>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="flex items-center justify-between mt-8 mb-4 border-l-4 border-blue-600 pl-2">
+            <h2 class="text-xl font-bold text-[#44403c]">Catálogo de Cores</h2>
+            <button onclick="abrirModalCores()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-xl text-xs font-semibold flex items-center gap-1 transition-all">
+                <i class="fa fa-plus"></i> Gerenciar Cor
+            </button>
+        </div>
+
+        <div class="bg-white rounded-2xl p-4 shadow-sm border border-orange-50/50 grid grid-cols-4 gap-4" id="containerCores">
+            <div class="flex flex-col items-center justify-center p-2 border border-gray-100 rounded-xl relative group">
+                <div class="w-10 h-10 rounded-full border border-gray-300 bg-red-500 shadow-inner"></div>
+                <span class="text-[10px] font-bold mt-1 text-gray-500">COR_1</span>
+                <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer absolute -top-1 -right-1 opacity-90" onclick="abrirModalCoresDireto(1)"></i>
+            </div>
+            <div class="flex flex-col items-center justify-center p-2 border border-gray-100 rounded-xl relative group">
+                <div class="w-10 h-10 rounded-full border border-gray-300 bg-pink-400 shadow-inner"></div>
+                <span class="text-[10px] font-bold mt-1 text-gray-500">COR_2</span>
+                <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer absolute -top-1 -right-1 opacity-90" onclick="abrirModalCoresDireto(2)"></i>
+            </div>
+            <div class="flex flex-col items-center justify-center p-2 border border-gray-100 rounded-xl relative group">
+                <div class="w-10 h-10 rounded-full border border-gray-300 bg-purple-600 shadow-inner"></div>
+                <span class="text-[10px] font-bold mt-1 text-gray-500">COR_3</span>
+                <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer absolute -top-1 -right-1 opacity-90" onclick="abrirModalCoresDireto(3)"></i>
+            </div>
+            <div class="flex flex-col items-center justify-center p-2 border border-gray-100 rounded-xl relative group">
+                <div class="w-10 h-10 rounded-full border border-gray-300 bg-amber-500 shadow-inner"></div>
+                <span class="text-[10px] font-bold mt-1 text-gray-500">COR_200</span>
+                <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer absolute -top-1 -right-1 opacity-90" onclick="abrirModalCoresDireto(200)"></i>
+            </div>
+        </div>
+        </div>
+
+    <div class="modal" id="modalEdicao">
+        <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-sm mx-4">
+            <h3 class="text-lg font-bold text-gray-700 mb-4 text-center" id="tituloModal">Preencha os dados</h3>
+
+            <input type="hidden" id="valorColunaA">
+
+            <div class="mb-5">
+                <label class="block text-sm font-medium text-gray-600 mb-1">Insira a nova informação (Coluna B):</label>
+                <input 
+                    type="text" 
+                    id="valorColunaB" 
+                    placeholder="Digite o novo valor..." 
+                    class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600"
+                >
+            </div>
+
+            <div class="flex gap-3">
+                <button id="btnFechar" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 font-medium py-2 rounded-xl transition-all text-sm">
+                    Cancelar
+                </button>
+                <button id="btnSalvarEnviar" class="flex-1 bg-[#b45309] hover:bg-amber-800 text-white font-medium py-2 rounded-xl transition-all text-sm">
+                    Salvar e Enviar
+                </button>
+            </div>
+
+            <div id="mensagemModal" class="mt-4 text-center text-sm font-medium hidden"></div>
+        </div>
+    </div>
+
+
+    <div class="modal" id="modalCores">
+        <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-sm mx-4">
+            <h3 class="text-lg font-bold text-gray-700 mb-4 text-center">Gerenciar Cores do Catálogo</h3>
+
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-600 mb-1">Cor (Nome em inglês ou #Hexadecimal):</label>
+                <input 
+                    type="text" 
+                    id="corValorB" 
+                    placeholder="Ex: red, pink, #FF00FF..." 
+                    class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600"
+                >
+            </div>
+
+            <div class="mb-5">
+                <label class="block text-sm font-medium text-gray-600 mb-1">Número do Identificador (1 até 200):</label>
+                <input 
+                    type="number" 
+                    id="corNumeroA" 
+                    min="1" 
+                    max="200"
+                    placeholder="Digite o número correspondente..." 
+                    class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600"
+                >
+            </div>
+
+            <div class="flex gap-3">
+                <button id="btnFecharCores" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 font-medium py-2 rounded-xl transition-all text-sm">
+                    Cancelar
+                </button>
+                <button id="btnSalvarCores" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-xl transition-all text-sm">
+                    Salvar Cor
+                </button>
+            </div>
+
+            <div id="mensagemModalCores" class="mt-4 text-center text-sm font-medium hidden"></div>
+        </div>
+    </div>
+    <script>
+        const LINK_APP_SCRIPT = "https://script.google.com/macros/s/AKfycbyCwlZqYZ0lJ-wgRg4eHKWuU-_qDjIGJdoh3x1bP18WCOJO6eE4llk_-8Ny2vzX6G0/exec";
+
+        const modal = document.getElementById('modalEdicao');
+        const btnFechar = document.getElementById('btnFechar');
+        const btnSalvarEnviar = document.getElementById('btnSalvarEnviar');
+        const inputA = document.getElementById('valorColunaA');
+        const inputB = document.getElementById('valorColunaB');
+        const tituloModal = document.getElementById('tituloModal');
+        const mensagemModal = document.getElementById('mensagemModal');
+
+        // Seletores dos Novos Elementos de Cores
+        const modalCores = document.getElementById('modalCores');
+        const btnFecharCores = document.getElementById('btnFecharCores');
+        const btnSalvarCores = document.getElementById('btnSalvarCores');
+        const corValorB = document.getElementById('corValorB');
+        const corNumeroA = document.getElementById('corNumeroA');
+        const mensagemModalCores = document.getElementById('mensagemModalCores');
+
+        /*
+          ========================================================================
+          📌 CENTRAL DE CONTROLE DOS TEXTOS DA COLUNA A
+          Abaixo você pode ver exatamente o que cada lápis envia para a Coluna A.
+          Se quiser alterar o termo enviado, mude o valor correspondente aqui dentro.
+          ========================================================================
+        */
+        const MapeamentoColunaA = {
+            'img-perfil': 'img-perfil',                     // Lápis da Imagem de Perfil
+            'Nome-Perfil': 'Nome-Perfil',                   // Lápis do Nome Principal
+            'Slogan-Perfil': 'Sobre-Perfil',               // Lápis do Slogan/Frase
+
+            // Nomes dos Serviços (Coluna A)
+            'Servico-Postica-Simples': 'NOME_POSTICA_SIMPLES',
+            'Servico-Postica-Luxo': 'NOME_POSTICA_LUXO',
+            'Servico-Mao-Simples': 'NOME_MAO_SIMPLES',
+            'Servico-Pe-Simples': 'NOME_PE_SIMPLES',
+            'Servico-Pe-Mao-Completo': 'NOME_PE_MAO',
+            'Servico-Esmaltacao': 'NOME_ESMALTACAO',
+
+            // Preços dos Serviços (Coluna A)
+            'Preco-Postica-Simples': 'PRECO_POSTICA_SIMPLES',
+            'Preco-Postica-Luxo': 'PRECO_POSTICA_LUXO',
+            'Preco-Mao-Simples': 'PRECO_MAO_SIMPLES',
+            'Preco-Pe-Simples': 'PRECO_PE_SIMPLES',
+            'Preco-Pe-Mao-Completo': 'PRECO_PE_MAO',
+            'Preco-Esmaltacao': 'PRECO_ESMALTACAO'
+        };
+
+        // Função universal executada no clique do lápis
+        function abrirModalComDados(codigoChave, tituloAmigavel) {
+            tituloModal.textContent = `Editando: ${tituloAmigavel}`;
+            
+            // Pega o valor exato definido no painel MapeamentoColunaA acima
+            inputA.value = MapeamentoColunaA[codigoChave] || codigoChave; 
+            
+            inputB.value = ''; 
+            modal.classList.add('aberto');
+        }
+
+        btnFechar.addEventListener('click', () => {
+            modal.classList.remove('aberto');
+            mensagemModal.classList.add('hidden');
+        });
+
+        btnSalvarEnviar.addEventListener('click', async () => {
+            const valorA = inputA.value; // Pega o nome configurado do lápis
+            const valorB = inputB.value.trim(); // Pega o texto digitado pelo usuário
+
+            if (!valorB) {
+                mostrarMensagem('O campo não pode ficar vazio!', 'text-red-500');
+                return;
+            }
+
+            try {
+                btnSalvarEnviar.disabled = true;
+                btnSalvarEnviar.textContent = 'Enviando...';
+
+                await fetch(LINK_APP_SCRIPT, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        colunaA: valorA,
+                        colunaB: valorB
+                    })
+                });
+
+                mostrarMensagem('✅ Alteração enviada com sucesso!', 'text-green-500');
+
+                setTimeout(() => {
+                    modal.classList.remove('aberto');
+                    mensagemModal.classList.add('hidden');
+                    inputB.value = '';
+                }, 1500);
+
+            } catch (erro) {
+                console.error('Erro:', erro);
+                mostrarMensagem('❌ Erro ao enviar os dados!', 'text-red-500');
+            } finally {
+                btnSalvarEnviar.disabled = false;
+                btnSalvarEnviar.textContent = 'Salvar e Enviar';
+            }
+        });
+
+        function mostrarMensagem(texto, classeCor) {
+            mensagemModal.textContent = texto;
+            mensagemModal.className = `mt-4 text-center text-sm font-medium ${classeCor}`;
+            mensagemModal.classList.remove('hidden');
+        }
+
+        /* ==================== NOVAS FUNÇÕES EXCLUSIVAS PARA O MODAL DE CORES ==================== */
+        
+        // Abre abrindo o modal de cor de forma limpa
+        function abrirModalCores() {
+            corValorB.value = '';
+            corNumeroA.value = '';
+            modalCores.classList.add('aberto');
+        }
+
+        // Abre injetando diretamente o número da cor clicada pelo lápis individual
+        function abrirModalCoresDireto(numero) {
+            corValorB.value = '';
+            corNumeroA.value = numero;
+            modalCores.classList.add('aberto');
+        }
+
+        // Fechar modal de cores
+        btnFecharCores.addEventListener('click', () => {
+            modalCores.classList.remove('aberto');
+            mensagemModalCores.classList.add('hidden');
+        });
+
+        // Envio do formulário de cores de 2 campos
+        btnSalvarCores.addEventListener('click', async () => {
+            const valorCor = corValorB.value.trim();
+            const numeroIdentificador = parseInt(corNumeroA.value);
+
+            // Validações básicas obrigatórias
+            if (!valorCor) {
+                mostrarMensagemCores('Insira uma cor válida (nome ou hex)!', 'text-red-500');
+                return;
+            }
+            if (isNaN(numeroIdentificador) || numeroIdentificador < 1 || numeroIdentificador > 200) {
+                mostrarMensagemCores('O número precisa estar entre 1 e 200!', 'text-red-500');
+                return;
+            }
+
+            // Montagem da regra solicitada: Prefixo COR_ + o número digitado
+            const colunaAFormatada = `COR_${numeroIdentificador}`;
+
+            try {
+                btnSalvarCores.disabled = true;
+                btnSalvarCores.textContent = 'Enviando...';
+
+                await fetch(LINK_APP_SCRIPT, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        colunaA: colunaAFormatada, // Envia 'COR_1', 'COR_2', etc.
+                        colunaB: valorCor          // Envia o nome ou código da cor
+                    })
+                });
+
+                mostrarMensagemCores('✅ Cor enviada com sucesso!', 'text-green-500');
+
+                setTimeout(() => {
+                    modalCores.classList.remove('aberto');
+                    mensagemModalCores.classList.add('hidden');
+                    corValorB.value = '';
+                    corNumeroA.value = '';
+                }, 1500);
+
+            } catch (erro) {
+                console.error('Erro:', erro);
+                mostrarMensagemCores('❌ Erro ao enviar a cor!', 'text-red-500');
+            } finally {
+                btnSalvarCores.disabled = false;
+                btnSalvarCores.textContent = 'Salvar Cor';
+            }
+        });
+
+        function mostrarMensagemCores(texto, classeCor) {
+            mensagemModalCores.textContent = texto;
+            mensagemModalCores.className = `mt-4 text-center text-sm font-medium ${classeCor}`;
+            mensagemModalCores.classList.remove('hidden');
+        }
+    </script>
+
+</body>
+</html>
