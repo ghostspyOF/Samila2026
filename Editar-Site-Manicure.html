@@ -327,7 +327,16 @@
                 <button type="button" class="btn-olhinho" onclick="alternarVisibilidadeSenha()" id="btnOlhinho">👁️</button>
             </div>
 
-            <button type="button" class="btn-acessar" onclick="validarAcessoPainel()" style="margin-top: 20px;">ENTRAR</button><br>
+           <button type="button" id="btnEntrar" class="btn-acessar" onclick="validarAcessoPainel()" style="margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 10px;">
+    <span id="textoBotao">ENTRAR</span>
+    <span id="spinnerBotao" style="display: none; width: 18px; height: 18px; border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: #fff; animation: girarSpinner 0.8s linear infinite;"></span>
+           </button>
+
+<style>
+    @keyframes girarSpinner {
+        to { transform: rotate(360deg); }
+    }
+</style>
 
             <a href="https://api.whatsapp.com/send?phone=5562995679219&text=Eu%20gostaria%20de%20saber%20a%20senha%20para%20editar%20o%20site" 
                target="_blank" 
@@ -1699,54 +1708,69 @@ async function removerProdutoDinamico(botaoLixeira, idIndex) {
         });
     //===🔒🔒🔒🔒 Sistema de Validação Segura via JSONP
         function validarAcessoPainel() {
-            const usuarioInput = document.getElementById('authID').value.trim();
-            const senhaInput = document.getElementById('authSenha').value.trim();
-            const divErro = document.getElementById('erroAuth');
+    const usuarioInput = document.getElementById('authID').value.trim();
+    const senhaInput = document.getElementById('authSenha').value.trim();
+    const divErro = document.getElementById('erroAuth');
+    
+    // Pegar os elementos do botão
+    const btnEntrar = document.getElementById('btnEntrar');
+    const textoBotao = document.getElementById('textoBotao');
+    const spinnerBotao = document.getElementById('spinnerBotao');
 
-            const urlBackend = "https://script.google.com/macros/s/AKfycbxnFPcHlGE0qldY0LBW1YEwRyyNt9Oeh_NqAXEnjM2srfwgvElum5JmfSYmPqP6NzhJZA/exec";
+    const urlBackend = "https://script.google.com/macros/s/AKfycbxnFPcHlGE0qldY0LBW1YEwRyyNt9Oeh_NqAXEnjM2srfwgvElum5JmfSYmPqP6NzhJZA/exec";
 
-            if (!usuarioInput || !senhaInput) {
-                if (divErro) divErro.style.display = 'block';
-                return;
-            }
+    if (!usuarioInput || !senhaInput) {
+        if (divErro) divErro.style.display = 'block';
+        return;
+    }
 
-            const nomeCallback = 'meuCallbackOuvinte_' + Math.round(Math.random() * 1000000);
+    // === ATIVA O SPINNER AQUI (assim que clica) ===
+    if (btnEntrar) btnEntrar.disabled = true; // Impede cliques repetidos
+    if (textoBotao) textoBotao.style.display = 'none';
+    if (spinnerBotao) spinnerBotao.style.display = 'block';
 
-            window[nomeCallback] = function(resultado) {
-                const telaBloqueio = document.getElementById('bloqueio-seguranca');
+    const nomeCallback = 'meuCallbackOuvinte_' + Math.round(Math.random() * 1000000);
 
-                if (resultado && resultado.autorizado === true) {
-                    if (telaBloqueio) telaBloqueio.style.display = 'none';
-                    if (divErro) divErro.style.display = 'none';
-                } else {
-                    if (divErro) divErro.style.display = 'block';
-                    document.getElementById('authSenha').value = '';
-                }
+    window[nomeCallback] = function(resultado) {
+        const telaBloqueio = document.getElementById('bloqueio-seguranca');
 
-                document.body.removeChild(scriptElemento);
-                delete window[nomeCallback];
-            };
+        // === DESATIVA O SPINNER NO SUCESSO OU ERRO DE CREDENCIAIS ===
+        if (btnEntrar) btnEntrar.disabled = false;
+        if (textoBotao) textoBotao.style.display = 'block';
+        if (spinnerBotao) spinnerBotao.style.display = 'none';
 
-            const parametros = `?usuario=${encodeURIComponent(usuarioInput)}&senha=${encodeURIComponent(senhaInput)}&callback=${nomeCallback}`;
-
-            const scriptElemento = document.createElement('script');
-            scriptElemento.src = urlBackend + parametros;
-
-            scriptElemento.onerror = function() {
-                alert("Erro de autenticação: Verifique sua conexão ou a configuração do script.");
-                if (divErro) divErro.style.display = 'block';
-                document.body.removeChild(scriptElemento);
-                delete window[nomeCallback];
-            };
-
-            document.body.appendChild(scriptElemento);
+        if (resultado && resultado.autorizado === true) {
+            if (telaBloqueio) telaBloqueio.style.display = 'none';
+            if (divErro) divErro.style.display = 'none';
+        } else {
+            if (divErro) divErro.style.display = 'block';
+            document.getElementById('authSenha').value = '';
         }
 
-        document.getElementById('authSenha').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                validarAcessoPainel();
-            }
-        });
+        document.body.removeChild(scriptElemento);
+        delete window[nomeCallback];
+    };
+
+    const parametros = `?usuario=${encodeURIComponent(usuarioInput)}&senha=${encodeURIComponent(senhaInput)}&callback=${nomeCallback}`;
+
+    const scriptElemento = document.createElement('script');
+    scriptElemento.src = urlBackend + parametros;
+
+    scriptElemento.onerror = function() {
+        // === DESATIVA O SPINNER SE CASO CAIR NO ERRO DE REDE ===
+        if (btnEntrar) btnEntrar.disabled = false;
+        if (textoBotao) textoBotao.style.display = 'block';
+        if (spinnerBotao) spinnerBotao.style.display = 'none';
+
+        alert("Erro de autenticação: Verifique sua conexão ou a configuração do script.");
+        if (divErro) divErro.style.display = 'block';
+        document.body.removeChild(scriptElemento);
+        delete window[nomeCallback];
+    };
+
+    document.body.appendChild(scriptElemento);
+}
+
      //===🔒🔒🔒🔒
     </script>
 
