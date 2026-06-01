@@ -695,35 +695,13 @@
             <span>Admin</span>
         </a>
     </nav>
-<span id="NOME_POSTICA_SIMPLES" style="display:none;"></span>
-<span id="NOME_POSTICA_LUXO" style="display:none;"></span>
-<span id="NOME_MAO_SIMPLES" style="display:none;"></span>
-<span id="NOME_PE_SIMPLES" style="display:none;"></span>
-<span id="NOME_PE_MAO" style="display:none;"></span>
-<span id="NOME_ESMALTACAO" style="display:none;"></span>
-    
-    
-<span id="PRECO_POSTICA_SIMPLES" style="display:none;"></span>
-<span id="PRECO_POSTICA_LUXO" style="display:none;"></span>
-<span id="PRECO_MAO_SIMPLES" style="display:none;"></span>
-<span id="PRECO_PE_SIMPLES" style="display:none;"></span>
-<span id="PRECO_PE_MAO" style="display:none;"></span>
-<span id="PRECO_ESMALTACAO" style="display:none;"></span>
-
 
     <script>
         // URLs de Integração das Planilhas fornecidas
         const GOOGLE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQSWhQS9nFk5UFshZhLgd5B2osW21IkcmEIqakuh8g01U0tcmhXSNyaWfgHisVuRTOa_vVApLTGWNeT/pub?output=csv";
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby16kn4aalxao7R8ZP89nzuCJ7JVI0tWbLpiPMt9lCU6VT847yYpFYVklArN3TmSNuH/exec";
 
-        const servicos = [
-            { id: 1, nome: "Postiça Realista Simples", desc: "Aplicação rápida com acabamento natural e esmaltação simples.", preco: 35.00 },
-            { id: 2, nome: "Postiça Realista Luxo", desc: "Aplicação detalhada, alta durabilidade e decorações premium inclusas.", preco: 45.00 },
-            { id: 3, nome: "Mão Simples", desc: "Cutilagem e esmaltação tradicional das unhas das mãos.", preco: 30.00 },
-            { id: 4, nome: "Pé Simples", desc: "Cutilagem e esmaltação tradicional das unhas dos pés.", preco: 30.00 },
-            { id: 5, nome: "Pé e Mão Completo", desc: "Combo completo de tratamento para pés e mãos com desconto especial.", preco: 50.00 },
-            { id: 6, nome: "Esmaltação", desc: "Apenas troca de esmalte de forma rápida e prática.", preco: 25.00 }
-        ];
+                const servicos = [];
 
         // Lista de cores atualizada contendo os nomes
         let listaCoresObj = []; // Agora começa vazia e será preenchida pela planilha
@@ -737,49 +715,27 @@
 
        
                 // Lista de produtos começa vazia e será preenchida APENAS pela planilha
-        const produtosMimos = [];
-
-    
+        let produtosMimos = [];    
         let selecaoCoresAtuais = []; 
         let selecaoInspiracaoAtual = null;
         let carrinhoMimos = {}; 
         let horariosBloqueadosDoServidor = []; 
 
         // MODIFIQUE PARA FICAR ASSIM:
-                     window.onload = function() {
-            renderizarGradeInspiracao();
-            configurarFiltroDataMinima();
-            buscarHorariosPlanilha();
+            window.onload = function() {
+    renderizarGradeInspiracao();
+    configurarFiltroDataMinima();
+    buscarHorariosPlanilha();
 
-            // Aguarda 1.5 segundos para a planilha carregar tudo
-            setTimeout(function() {
-                // --- ATUALIZAÇÃO DOS NOMES VIA PLANILHA ---
-                if(document.getElementById('NOME_POSTICA_SIMPLES')) {
-                    servicos[0].nome = document.getElementById('NOME_POSTICA_SIMPLES').textContent || servicos[0].nome;
-                    servicos[1].nome = document.getElementById('NOME_POSTICA_LUXO').textContent || servicos[1].nome;
-                    servicos[2].nome = document.getElementById('NOME_MAO_SIMPLES').textContent || servicos[2].nome;
-                    servicos[3].nome = document.getElementById('NOME_PE_SIMPLES').textContent || servicos[3].nome;
-                    servicos[4].nome = document.getElementById('NOME_PE_MAO').textContent || servicos[4].nome;
-                    servicos[5].nome = document.getElementById('NOME_ESMALTACAO').textContent || servicos[5].nome;
-                }
-
-                // --- ATUALIZAÇÃO DOS PREÇOS VIA PLANILHA ---
-                if(document.getElementById('PRECO_POSTICA_SIMPLES').textContent) {
-                    servicos[0].preco = parseFloat(document.getElementById('PRECO_POSTICA_SIMPLES').textContent.replace(',', '.')) || servicos[0].preco;
-                    servicos[1].preco = parseFloat(document.getElementById('PRECO_POSTICA_LUXO').textContent.replace(',', '.')) || servicos[1].preco;
-                    servicos[2].preco = parseFloat(document.getElementById('PRECO_MAO_SIMPLES').textContent.replace(',', '.')) || servicos[2].preco;
-                    servicos[3].preco = parseFloat(document.getElementById('PRECO_PE_SIMPLES').textContent.replace(',', '.')) || servicos[3].preco;
-                    servicos[4].preco = parseFloat(document.getElementById('PRECO_PE_MAO').textContent.replace(',', '.')) || servicos[4].preco;
-                    servicos[5].preco = parseFloat(document.getElementById('PRECO_ESMALTACAO').textContent.replace(',', '.')) || servicos[5].preco;
-                }
-                
-                // Renderiza os serviços e a grade de cores vinda da planilha
-                renderizarServicos();
-                popularSelectServicos();
-                renderizarGradeCores(); 
-                renderizarListaMimos(); // Mapeia e desenha os produtos vindos da planilha
-            }, 1500);
-        };
+    // Aguarda 2 segundos para dar tempo do sistema Admin injetar os dados da planilha
+    setTimeout(function() {
+        // Renderiza os serviços trazidos dinamicamente pela planilha
+        renderizarServicos();
+        popularSelectServicos();
+        renderizarGradeCores(); 
+        renderizarListaMimos();
+    }, 2000);
+};
 
 
 
@@ -1319,7 +1275,30 @@ if (idElemento === "CONFIG_VALOR_NUMERO") {
     console.log(`Sucesso: Valor por número definido para: R$ ${window.valorPorNumero}`);
     return;
 }
-                    
+                                        // --- CONFIGURAÇÃO: SERVIÇOS DINÂMICOS DA PLANILHA ---
+                    if (idElemento.startsWith("SERVICO_")) {
+                        if (conteudo && conteudo !== "-" && conteudo !== "") {
+                            const partes = idElemento.split("_"); // Ex: ["SERVICO", "NOME", "1"]
+                            const tipoDado = partes[1]; // NOME, PRECO ou DESC
+                            const numId = partes[2]; // 1, 2, 3...
+                            const itemId = parseInt(numId, 10);
+
+                            // Encontra ou cria o objeto do serviço no array
+                            let serv = servicos.find(s => s.id === itemId);
+                            if (!serv) {
+                                serv = { id: itemId, nome: "", desc: "Serviço disponível para agendamento.", preco: 0 };
+                                servicos.push(serv);
+                            }
+
+                            if (tipoDado === "NOME") serv.nome = conteudo;
+                            if (tipoDado === "DESC") serv.desc = conteudo;
+                            if (tipoDado === "PRECO") serv.preco = parseFloat(conteudo.replace(',', '.')) || 0;
+                            
+                            console.log(`Sucesso: Serviço ${idElemento} atualizado com: ${conteudo}`);
+                        }
+                        return;
+                    }
+
                                         // --- CONFIGURAÇÃO: PRODUTOS DINÂMICOS DA PLANILHA ---
                     if (idElemento.startsWith("PRODUTO_")) {
                         if (conteudo && conteudo !== "-" && conteudo !== "") {
@@ -1389,6 +1368,8 @@ if (idElemento === "CONFIG_VALOR_NUMERO") {
                     }
                 }
             });
+            
+            renderizarListaMimos();
 
         } catch (e) {
             console.error("Erro ao carregar planilha:", e);
