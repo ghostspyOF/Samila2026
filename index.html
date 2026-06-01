@@ -690,7 +690,7 @@
             <i class="fa-solid fa-laptop-code"></i>
             <span>Criar Site</span>
         </div>
-        <a href="Editar-Site-Manicure.html" target="_blank" class="aba-nav" style="text-decoration: none;">
+        <a href="#" target="_blank" class="aba-nav" style="text-decoration: none;">
             <i class="fa-solid fa-user-shield"></i>
             <span>Admin</span>
         </a>
@@ -735,54 +735,52 @@
             { id: "insp4", tipo: "pe", url: "https://images.unsplash.com/photo-1535242208474-9a2793260ca8?w=300", nome: "Pé Clean Natural" }
         ];
 
-        // Lista de produtos atualizada incluindo imagens reais
-        const produtosMimos = [
-            { id: "p1", nome: "Coca-Cola", preco: 5.00, img: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=150" },
-            { id: "p2", nome: "Heineken", preco: 10.00, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTN5IRuC7Eb2Fs9bREb58EjVC3rIALBJGID-fHMSmTXfnMtn0DwfugaLy4&s=10" },
-            { id: "p3", nome: "Kit Unhas Postiças Extras", preco: 15.00, img: "https://images.unsplash.com/photo-1604654894610-df490651e56c?w=150" },
-            { id: "p4", nome: "Colar Delicado", preco: 12.00, img: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=150" }
-        ];
+       
+                // Lista de produtos começa vazia e será preenchida APENAS pela planilha
+        const produtosMimos = [];
 
+    
         let selecaoCoresAtuais = []; 
         let selecaoInspiracaoAtual = null;
         let carrinhoMimos = {}; 
         let horariosBloqueadosDoServidor = []; 
 
         // MODIFIQUE PARA FICAR ASSIM:
-              window.onload = function() {
-    renderizarGradeInspiracao();
-    renderizarListaMimos();
-    configurarFiltroDataMinima();
-    buscarHorariosPlanilha();
+                     window.onload = function() {
+            renderizarGradeInspiracao();
+            configurarFiltroDataMinima();
+            buscarHorariosPlanilha();
 
-    // Aguarda 1.5 segundos para a planilha carregar tudo
-    setTimeout(function() {
-        // --- ATUALIZAÇÃO DOS NOMES VIA PLANILHA ---
-        if(document.getElementById('NOME_POSTICA_SIMPLES')) {
-            servicos[0].nome = document.getElementById('NOME_POSTICA_SIMPLES').textContent || servicos[0].nome;
-            servicos[1].nome = document.getElementById('NOME_POSTICA_LUXO').textContent || servicos[1].nome;
-            servicos[2].nome = document.getElementById('NOME_MAO_SIMPLES').textContent || servicos[2].nome;
-            servicos[3].nome = document.getElementById('NOME_PE_SIMPLES').textContent || servicos[3].nome;
-            servicos[4].nome = document.getElementById('NOME_PE_MAO').textContent || servicos[4].nome;
-            servicos[5].nome = document.getElementById('NOME_ESMALTACAO').textContent || servicos[5].nome;
-        }
+            // Aguarda 1.5 segundos para a planilha carregar tudo
+            setTimeout(function() {
+                // --- ATUALIZAÇÃO DOS NOMES VIA PLANILHA ---
+                if(document.getElementById('NOME_POSTICA_SIMPLES')) {
+                    servicos[0].nome = document.getElementById('NOME_POSTICA_SIMPLES').textContent || servicos[0].nome;
+                    servicos[1].nome = document.getElementById('NOME_POSTICA_LUXO').textContent || servicos[1].nome;
+                    servicos[2].nome = document.getElementById('NOME_MAO_SIMPLES').textContent || servicos[2].nome;
+                    servicos[3].nome = document.getElementById('NOME_PE_SIMPLES').textContent || servicos[3].nome;
+                    servicos[4].nome = document.getElementById('NOME_PE_MAO').textContent || servicos[4].nome;
+                    servicos[5].nome = document.getElementById('NOME_ESMALTACAO').textContent || servicos[5].nome;
+                }
 
-        // --- ATUALIZAÇÃO DOS PREÇOS VIA PLANILHA ---
-        if(document.getElementById('PRECO_POSTICA_SIMPLES').textContent) {
-            servicos[0].preco = parseFloat(document.getElementById('PRECO_POSTICA_SIMPLES').textContent.replace(',', '.')) || servicos[0].preco;
-            servicos[1].preco = parseFloat(document.getElementById('PRECO_POSTICA_LUXO').textContent.replace(',', '.')) || servicos[1].preco;
-            servicos[2].preco = parseFloat(document.getElementById('PRECO_MAO_SIMPLES').textContent.replace(',', '.')) || servicos[2].preco;
-            servicos[3].preco = parseFloat(document.getElementById('PRECO_PE_SIMPLES').textContent.replace(',', '.')) || servicos[3].preco;
-            servicos[4].preco = parseFloat(document.getElementById('PRECO_PE_MAO').textContent.replace(',', '.')) || servicos[4].preco;
-            servicos[5].preco = parseFloat(document.getElementById('PRECO_ESMALTACAO').textContent.replace(',', '.')) || servicos[5].preco;
-        }
-        
-        // Renderiza os serviços e a grade de cores vinda da planilha
-        renderizarServicos();
-        popularSelectServicos();
-        renderizarGradeCores(); 
-    }, 1500);
-};
+                // --- ATUALIZAÇÃO DOS PREÇOS VIA PLANILHA ---
+                if(document.getElementById('PRECO_POSTICA_SIMPLES').textContent) {
+                    servicos[0].preco = parseFloat(document.getElementById('PRECO_POSTICA_SIMPLES').textContent.replace(',', '.')) || servicos[0].preco;
+                    servicos[1].preco = parseFloat(document.getElementById('PRECO_POSTICA_LUXO').textContent.replace(',', '.')) || servicos[1].preco;
+                    servicos[2].preco = parseFloat(document.getElementById('PRECO_MAO_SIMPLES').textContent.replace(',', '.')) || servicos[2].preco;
+                    servicos[3].preco = parseFloat(document.getElementById('PRECO_PE_SIMPLES').textContent.replace(',', '.')) || servicos[3].preco;
+                    servicos[4].preco = parseFloat(document.getElementById('PRECO_PE_MAO').textContent.replace(',', '.')) || servicos[4].preco;
+                    servicos[5].preco = parseFloat(document.getElementById('PRECO_ESMALTACAO').textContent.replace(',', '.')) || servicos[5].preco;
+                }
+                
+                // Renderiza os serviços e a grade de cores vinda da planilha
+                renderizarServicos();
+                popularSelectServicos();
+                renderizarGradeCores(); 
+                renderizarListaMimos(); // Mapeia e desenha os produtos vindos da planilha
+            }, 1500);
+        };
+
 
 
     
@@ -873,16 +871,26 @@
             });
         }
 
-        function renderizarListaMimos() {
+                function renderizarListaMimos() {
             const container = document.getElementById('container-mimos-lista');
             container.innerHTML = "";
-            produtosMimos.forEach(p => {
+
+            // Filtra para remover qualquer produto que não tenha nome válido ou que tenha sido desativado com "-"
+            const produtosValidos = produtosMimos.filter(p => p.nome && p.nome.trim() !== "" && p.nome !== "-");
+
+            // Se não houver nenhum produto válido vindo da planilha, exibe uma mensagem ou deixa vazio
+            if (produtosValidos.length === 0) {
+                container.innerHTML = `<p style="text-align:center; py: 10px; opacity:0.6;">Nenhum produto disponível no momento.</p>`;
+                return;
+            }
+
+            produtosValidos.forEach(p => {
                 carrinhoMimos[p.id] = 0;
                 const item = document.createElement('div');
                 item.className = "produto-item";
                 item.innerHTML = `
                     <div class="produto-info-container">
-                        <img src="${p.img}" alt="${p.nome}" class="produto-img">
+                        <img src="${p.img || 'https://via.placeholder.com/150'}" alt="${p.nome}" class="produto-img">
                         <div>
                             <strong>${p.nome}</strong><br>
                             <span style="color:var(--cor-destaque); font-size:13px;">R$ ${p.preco.toFixed(2)}</span>
@@ -897,6 +905,7 @@
                 container.appendChild(item);
             });
         }
+
 
         function abrirModal(id) {
             document.getElementById(id).classList.add('aberto');
@@ -1310,27 +1319,30 @@ if (idElemento === "CONFIG_VALOR_NUMERO") {
     console.log(`Sucesso: Valor por número definido para: R$ ${window.valorPorNumero}`);
     return;
 }
+                    
+                                        // --- CONFIGURAÇÃO: PRODUTOS DINÂMICOS DA PLANILHA ---
+                    if (idElemento.startsWith("PRODUTO_")) {
+                        if (conteudo && conteudo !== "-" && conteudo !== "") {
+                            const partes = idElemento.split("_"); // Ex: ["PRODUTO", "NOME", "1"]
+                            const tipoDado = partes[1]; // NOME, PRECO ou IMG
+                            const numId = partes[2]; // 1, 2, 3...
+                            const itemId = "p" + numId;
 
-                    // --- CONFIGURAÇÃO: CHAVE PIX ---
-if (idElemento === "CONFIG_CHAVE_PIX") {
-    window.chavePixPlanilha = conteudo;
-    console.log(`Sucesso: Chave PIX definida para: ${window.chavePixPlanilha}`);
-    return;
-}
+                            // Encontra ou cria o objeto do produto no array
+                            let prod = produtosMimos.find(p => p.id === itemId);
+                            if (!prod) {
+                                prod = { id: itemId, nome: "", preco: 0, img: "" };
+                                produtosMimos.push(prod);
+                            }
 
-// 🔻 COLE ESTE NOVO BLOCO AQUI EMBAIXO: 🔻
-if (idElemento === "CONFIG_WHATSAPP_RECEBER") {
-    window.whatsappPlanilha = conteudo;
-    console.log(`Sucesso: WhatsApp definido para: ${window.whatsappPlanilha}`);
-    return;
-}
-// --- CONFIGURAÇÃO: LINKS DE PAGAMENTO DINÂMICOS ---
-if (idElemento.startsWith("LINK_")) {
-    const valorChave = idElemento.replace("LINK_", ""); // Extrai o valor (ex: "15.00")
-    window.linksPagamentoPlanilha[valorChave] = conteudo;
-    console.log(`Sucesso: Link para R$ ${valorChave} cadastrado: ${conteudo}`);
-    return;
-}
+                            if (tipoDado === "NOME") prod.nome = conteudo;
+                            if (tipoDado === "IMG") prod.img = conteudo;
+                            if (tipoDado === "PRECO") prod.preco = parseFloat(conteudo.replace(',', '.')) || 0;
+                            
+                            console.log(`Sucesso: Mimo ${idElemento} atualizado com: ${conteudo}`);
+                        }
+                        return;
+                    }
 
                     // --- ATUALIZAÇÃO DOS ELEMENTOS DO HTML ---
                     const elemento = document.getElementById(idElemento);
@@ -1346,8 +1358,7 @@ if (idElemento.startsWith("LINK_")) {
                         }
                         return;
                     }
-
-                    
+               //___________
                     if (elemento) {
                         const tag = elemento.tagName.toLowerCase();
                         
