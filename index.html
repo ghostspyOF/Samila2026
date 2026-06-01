@@ -27,31 +27,45 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
-
+    
         body {
             background-color: var(--cor-fundo);
             color: var(--cor-texto);
-            padding-bottom: 70px; /* Espaço para o rodapé fixo */
+            padding-bottom: 70px;
             overflow-x: hidden;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
         .container {
             width: 100%;
             max-width: 600px;
             margin: 0 auto;
-            padding: 15px;
+            padding: 20px 16px;
         }
 
-        /* --- ANIMAÇÕES --- */
+        /* --- ANIMAÇÕES EXCLUSIVAS E INOVADORAS --- */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ONDE MEXER (CSS): Nova animação para fazer o círculo redondo girar */
         @keyframes girar {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
+        }
+
+        /* Animação que faz o fundo do cabeçalho mudar de cor suavemente sozinho */
+        @keyframes gradienteVivo {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* O PISCANDO ELEGANTE: Efeito de pulso neon na foto de perfil */
+        @keyframes pulsoNeon {
+            0% { box-shadow: 0 0 0 0 rgba(225, 115, 115, 0.4); }
+            70% { box-shadow: 0 0 0 12px rgba(225, 115, 115, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(225, 115, 115, 0); }
         }
 
         .fa-spin-custom {
@@ -68,37 +82,115 @@
             display: block;
         }
 
-        /* --- CABEÇALHO --- */
+        /* --- CABEÇALHO INOVADOR E CRIATIVO --- */
         header {
             text-align: center;
-            padding: 20px 10px;
-            background: linear-gradient(135deg, var(--cor-principal), var(--cor-secundaria));
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
+            padding: 50px 20px 35px 20px;
+            /* Fundo com degradê animado em movimento constante */
+            background: linear-gradient(-45deg, #FFF5F5, #FFDAC1, #FFB7B2, #FFF5F5);
+            background-size: 400% 400%;
+            animation: gradienteVivo 12s ease infinite;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(255, 183, 178, 0.2);
+        }
+
+        .perfil-container {
+            position: relative;
+            display: inline-block;
             margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
 
         .perfil-foto {
-            width: 90px;
-            height: 90px;
+            width: 105px;
+            height: 105px;
             border-radius: 50%;
-            border: 3px solid var(--cor-branco);
+            border: 4px solid var(--cor-branco);
             object-fit: cover;
-            margin-bottom: 10px;
+            display: block;
+            /* Aplica o efeito pulsante neon ao redor da foto */
+            animation: pulsoNeon 2s infinite; 
         }
 
-        header h1 {
-            font-size: 24px;
-            font-weight: 700;
+     /* --- STATUS ONLINE COM BOLINHA PISCANDO --- */
+        .status-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 10px;
             margin-bottom: 5px;
         }
 
-        header p {
-            font-size: 14px;
-            font-style: italic;
-            opacity: 0.9;
+        /* A bolinha verde */
+        .bolinha-verde {
+            width: 8px;
+            height: 8px;
+            background-color: #2ecc71; /* Verde vivo */
+            border-radius: 50%;
+            position: relative;
         }
+
+        /* O PISCANDO REAL: Efeito de pulso exclusivo na bolinha verde */
+        .bolinha-verde::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #2ecc71;
+            border-radius: 50%;
+            top: 0;
+            left: 0;
+            animation: pulsoBolinha 1.8s infinite ease-in-out;
+        }
+
+        @keyframes pulsoBolinha {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(3); opacity: 0; }
+        }
+              /* Classe especial criada para mudar a cor da bolinha para vermelho caso esteja Indisponível */
+        .bolinha-vermelha {
+            background-color: #e74c3c !important; /* Vermelho vivo */
+        }
+        
+        .bolinha-vermelha::after {
+            background-color: #e74c3c !important;
+        }
+
+
+        /* Texto do Online */
+        .status-texto {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--cor-texto);
+            opacity: 0.8;
+        }
+
+        header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--cor-texto);
+            letter-spacing: -0.8px;
+            margin-bottom: 8px;
+            text-shadow: 1px 1px 0px var(--cor-branco); 
+        }
+
+        header p {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--cor-destaque);
+            background: rgba(255, 255, 255, 0.6);
+            padding: 6px 14px;
+            border-radius: 30px;
+            display: inline-block;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            line-height: 1.4;
+        }
+
 
         /* --- CARROSSEL AUTOMÁTICO --- */
         .carrossel-container {
@@ -110,27 +202,33 @@
             background-color: var(--cor-branco);
         }
 
+                /* --- CARROSSEL AUTOMÁTICO --- */
+        .carrossel-container {
+            width: 100%;
+            overflow: hidden; /* Garante que nada saia da tela */
+            position: relative;
+            margin: 15px 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            background-color: var(--cor-branco);
+        }
+
         .carrossel-trilho {
             display: flex;
-            width: 300%; /* Para 3 imagens fictícias em loop */
-            animation: deslizarCarrossel 12s infinite linear;
+            width: 100%; /* Deixe em 100% para o JavaScript controlar o movimento */
+            transition: transform 0.5s ease-in-out; /* Efeito suave de deslizar */
         }
 
         .carrossel-trilho img {
-            width: 33.333%;
-            height: 180px;
+            width: 50%; /* Define exatamente duas imagens por vez na tela */
+            min-width: 50%;
+            aspect-ratio: 1 / 1; /* Mantém o formato quadrado perfeito */
             object-fit: cover;
+            display: block;
+            padding: 0 4px; /* Espaçamento entre as fotos */
+            box-sizing: border-box;
         }
 
-        @keyframes deslizarCarrossel {
-            0% { transform: translateX(0); }
-            28% { transform: translateX(0); }
-            33% { transform: translateX(-33.333%); }
-            61% { transform: translateX(-33.333%); }
-            66% { transform: translateX(-66.666%); }
-            95% { transform: translateX(-66.666%); }
-            100% { transform: translateX(0); }
-        }
 
         /* --- ELEMENTOS DE UI REUTILIZÁVEIS --- */
         .titulo-secao {
@@ -477,10 +575,19 @@
 <body>
 
     <header>
-        <img id="img-perfil" src="" alt="Studio Samela" class="perfil-foto">
+        <div class="perfil-container">
+            <img id="img-perfil" src="" alt="Studio Samela" class="perfil-foto">
+        </div>
         <h1 id="Nome-Perfil">Studio Samela</h1>
-        <p id="Sobre-Perfil">Realçando a beleza das suas unhas ✨</p>
-    </header>
+        
+        <div class="status-container" id="STATUS_ON_OF">
+            <span class="bolinha-verde"></span>
+            <span class="status-texto">Verificando...</span>
+        </div>
+
+        <p id="Sobre-Perfil">✨ Design exclusivo para destacar suas unhas</p>
+    </header>       
+
 
     <main class="container">
 
@@ -489,9 +596,23 @@
             
             <div class="carrossel-container">
                 <div class="carrossel-trilho">
-                    <img src="https://images.unsplash.com/photo-1604654894610-df490651e56c?w=500" alt="Unhas 1">
-                    <img src="https://images.unsplash.com/photo-1632345031435-8797b2d58045?w=500" alt="Unhas 2">
-                    <img src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?w=500" alt="Unhas 3">
+                    <img id="CARROCEL_IMG_1" src="https://i.ibb.co/zhGDkTNt/90135.png" alt="Unhas 1">
+                    <img id="CARROCEL_IMG_2" src="https://i.ibb.co/q3BsV4KH/90148.png" alt="Unhas 2">
+                    <img id="CARROCEL_IMG_3" src="https://i.ibb.co/TDTKXVJ8/90154.png" alt="Unhas 3">
+                    <img id="CARROCEL_IMG_4" src="https://i.ibb.co/S4kkPkLf/90155.png" alt="Unhas 4">
+                    <img id="CARROCEL_IMG_5" src="https://i.ibb.co/7NSWCHnN/90157.png" alt="Unhas 5">
+                    <img id="CARROCEL_IMG_6" src="https://i.ibb.co/mFq2tFtZ/90156.png" alt="Unhas 6">
+                    <img id="CARROCEL_IMG_7" src="https://i.ibb.co/F4nmpPbk/90161.png" alt="Unhas 7">
+                    <img id="CARROCEL_IMG_8" src="https://i.ibb.co/VYMs0qwt/90160.png " alt="Unhas 8">
+                    <img id="CARROCEL_IMG_9" src="https://i.ibb.co/Vdg1x4q/90159.png" alt="Unhas 9">
+                    <img id="CARROCEL_IMG_10" src="https://i.ibb.co/4n8Hf5KW/90162.png" alt="Unhas 10">
+                    <img id="CARROCEL_IMG_11" src="https://i.ibb.co/h1RKWxxm/90163.png" alt="Unhas 11">
+                    <img id="CARROCEL_IMG_12" src="https://i.ibb.co/N2kFKMkQ/90164.png" alt="Unhas 12">
+                    <img id="CARROCEL_IMG_13" src="https://i.ibb.co/PZzD5fdD/90165.png" alt="Unhas 13">
+                    <img id="CARROCEL_IMG_14" src="https://i.ibb.co/gZCpztkj/90167.png" alt="Unhas 14">
+                    <img id="CARROCEL_IMG_15" src="https://i.ibb.co/KcdCKwDv/90168.png" alt="Unhas 15">
+                    <img id="CARROCEL_IMG_16" src="https://i.ibb.co/G3sJQnxF/90169.png" alt="Unhas 16"> 
+                    <img id="CARROCEL_IMG_17" src="https://i.ibb.co/j9LdMYrT/90166.png" alt="Unhas 16">                     
                 </div>
             </div>
 
@@ -690,7 +811,7 @@
             <i class="fa-solid fa-laptop-code"></i>
             <span>Criar Site</span>
         </div>
-        <a href="Esitar-Site-Manicure.html" target="_blank" class="aba-nav" style="text-decoration: none;">
+        <a href="#" target="_blank" class="aba-nav" style="text-decoration: none;">
             <i class="fa-solid fa-user-shield"></i>
             <span>Admin</span>
         </a>
@@ -1313,6 +1434,27 @@ if (idElemento === "CONFIG_VALOR_NUMERO") {
                         }
                         return;
                     }
+                    //===FIM
+                   // --- CONFIGURAÇÃO: STATUS DINÂMICO (ONLINE / OFFLINE) ---
+                    if (idElemento === "STATUS_ON_OF") {
+                        const containerStatus = document.getElementById("STATUS_ON_OF");
+                        if (containerStatus) {
+                            const indicadorBolinha = containerStatus.querySelector(".bolinha-verde");
+                            const campoTextoStatus = containerStatus.querySelector(".status-texto");
+
+                            if (conteudo.includes("Indisponível")) {
+                                // Se na planilha estiver Indisponível, muda o texto e aplica a cor vermelha
+                                campoTextoStatus.textContent = "Indisponível ";
+                                indicadorBolinha.classList.add("bolinha-vermelha");
+                            } else {
+                                // Caso contrário, mantém o padrão verde e o texto vindo da planilha
+                                campoTextoStatus.textContent = conteudo;
+                                indicadorBolinha.classList.remove("bolinha-vermelha");
+                            }
+                        }
+                        return; // Finaliza o processamento desta linha da planilha
+                    }
+
 
                     // --- ATUALIZAÇÃO DOS ELEMENTOS DO HTML ---
                     const elemento = document.getElementById(idElemento);
@@ -1389,6 +1531,30 @@ if (idElemento === "CONFIG_VALOR_NUMERO") {
     }
 })();
 //👆👆👆Sistema para Editar o site
+       // --- CONTROLE AUTOMÁTICO DO CARROSSEL (CORRIGIDO SEM ESPAÇO EM BRANCO) ---
+let indexCarrossel = 0;
+
+function rodarCarrossel() {
+    const trilho = document.querySelector('.carrossel-trilho');
+    const totalImagens = document.querySelectorAll('.carrossel-trilho img').length;
+    
+    // Como mostramos 2 imagens por vez, a última combinação na tela 
+    // será a penúltima imagem (index 7) junto com a última (index 8).
+    // Isso impede que o carrossel passe da linha de limite.
+    if (indexCarrossel >= totalImagens - 2) {
+        indexCarrossel = 0; // Volta para o início (imagens 1 e 2)
+    } else {
+        indexCarrossel++; // Avança de 1 em 1 imagem
+    }
+    
+    // Move o trilho suavemente
+    trilho.style.transform = `translateX(-${indexCarrossel * 50}%)`;
+}
+
+// Limpa qualquer temporizador antigo se houver e inicia o correto
+clearInterval(window.intervaloCarrossel);
+window.intervaloCarrossel = setInterval(rodarCarrossel, 1700);
+
     
     </script>
 </body>
