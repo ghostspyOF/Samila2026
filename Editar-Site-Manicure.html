@@ -239,10 +239,29 @@
     display: flex;
     justify-content: space-around;
     pointer-events: none;
-    z-index: 1; /* Fica atrás dos inputs, mas na frente do fundo */
-    opacity: 0.15; /* Bem sutil para não atrapalhar a digitação */
+    z-index: 1; 
+    opacity: 0.15; 
 }
-        /*Finaha do código de segurança 👆👆👆👆*/
+
+
+
+        /*
+        NÃO ESQUER DE COLOCAR ESSA INFORMAÇÃO NO APP ECRIPT DE EDIÇAO OU VALIDAÇAO
+        // ==========================================
+    // NOVO: CAPTURA E VALIDAÇÃO DA SENHA
+    // ==========================================
+    var senhaRecebida = dados.senha; // Captura a senha enviada pelo site
+    var senhaCorreta = "MJSR11"; // <-- ADICIONE SUA SENHA SECRETA AQUI TRRE AS ASPAS
+    
+    if (senhaRecebida !== senhaCorreta) {
+      return ContentService.createTextOutput(JSON.stringify({ 
+        "status": "erro", 
+        "mensagem": "Senha incorreta! Ação não autorizada." 
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+    // ==========================================
+        */
+        /*🔒🔒🔒🔒Finaha do código de segurança 👆👆👆👆*/
     </style>
 </head>
 <body class="bg-gradient-to-b from-[#ffedd5] via-white to-white min-h-screen flex flex-col items-center pb-24 font-sans text-[#44403c]">
