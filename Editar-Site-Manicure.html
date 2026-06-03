@@ -67,7 +67,7 @@
             }
         }
     
-                /* Animação para fazer o texto piscar em vermelho */
+            /* Animação para fazer o texto piscar em vermelho */
             @keyframes piscarVermelho {
                 0%, 100% { color: #ef4444; opacity: 1; }
                 50% { color: #b91c1c; opacity: 0.3; }
@@ -75,7 +75,7 @@
             .efeito-piscando {
                 animation: piscarVermelho 1s infinite;
             }
-        /*🔒🔒🔒TRAVA PARA QUALQUER SITE🔒🔒🔒*/
+        /*PASSO 1 DE 1 DA SEGURANÇA 👇👇👇🔒🔒🔒*/
         #bloqueio-seguranca {
             position: fixed;
             top: 0;
@@ -242,12 +242,13 @@
     z-index: 1; /* Fica atrás dos inputs, mas na frente do fundo */
     opacity: 0.15; /* Bem sutil para não atrapalhar a digitação */
 }
-
-     /*🔒🔒🔒*/
+        /*Finaha do código de segurança 👆👆👆👆*/
     </style>
 </head>
 <body class="bg-gradient-to-b from-[#ffedd5] via-white to-white min-h-screen flex flex-col items-center pb-24 font-sans text-[#44403c]">
- <!--🔒🔒🔒-->
+
+    <!--===PASSO 2 DE 4 DA SEGUNDA 👇👇👇👇🔐🔐🔐🔐-->
+
 <div id="bloqueio-seguranca">
     <style>
         @keyframes vibrarBorda {
@@ -258,7 +259,7 @@
         .wrapper-senha {
             position: relative;
             width: 100%;
-            max-width: 300px; /* Ajuste o tamanho de acordo com a sua classe campo-autenticacao */
+            max-width: 300px;
             margin: 10px auto 0 auto;
         }
         .btn-olhinho {
@@ -355,17 +356,18 @@
             
             if (campoSenha.type === 'password') {
                 campoSenha.type = 'text';
-                btnOlhinho.textContent = '🙈'; // Muda o ícone para macaco cobrindo os olhos ou olho cortado
+                btnOlhinho.textContent = '🙈';
             } else {
                 campoSenha.type = 'password';
-                btnOlhinho.textContent = '👁️'; // Volta para o olho aberto
+                btnOlhinho.textContent = '👁️';
             }
         }
     </script>
 </div>
+<!--===PASSO 2 DE 4 DA SEGUNDA 👆👆👆🔐🔐🔐🔐-->
 
- <!--🔒🔒🔒-->
-    <div class="w-full max-w-md pt-4 px-4 flex justify-between items-center z-10">
+
+<div class="w-full max-w-md pt-4 px-4 flex justify-between items-center z-10">
         <a href="Hospedagem-img.html" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-xl text-xs font-bold shadow transition-all flex items-center gap-1">
             <i class="fa fa-image"></i> HOSPEDAR IMG
         </a>
@@ -406,11 +408,10 @@
         </p>
         
         <div class="mt-4 flex justify-center">
-    <button onclick="abrirModalCarrossel()" class="bg-amber-600 hover:bg-amber-700 text-white px-5 py-2 rounded-xl text-xs font-bold shadow transition-all flex items-center gap-2">
-        <i class="fa fa-images"></i> EDITAR: CARROSSEL DE FOTOS
-    </button>
-</div>
-
+            <button onclick="abrirModalCarrossel()" class="bg-amber-600 hover:bg-amber-700 text-white px-5 py-2 rounded-xl text-xs font-bold shadow transition-all flex items-center gap-2">
+                <i class="fa fa-images"></i> EDITAR: CARROSSEL DE FOTOS
+            </button>
+        </div>
     </div>
 
     <div class="w-full max-w-md px-4 mt-4">
@@ -420,9 +421,7 @@
                 <i class="fa fa-plus"></i>
             </button>
         </div>
-<!--===Servicoa===-->       
-            <div class="space-y-4" id="containerListaServicos">
-
+        <div class="space-y-4" id="containerListaServicos">
             <div class="bg-white rounded-2xl p-4 shadow-sm border border-orange-50/50 flex justify-between items-start relative">
                 <div class="pr-4 flex-1">
                     <h3 class="font-bold text-gray-800 text-base flex items-center gap-2">
@@ -436,11 +435,9 @@
                     <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer hover:text-blue-800" onclick="abrirModalComDados('Preco-Postica-Simples', 'Preço: Postiça Realista Simples')"></i>
                 </div>
             </div>
-
         </div>
 
-<!--===Catalago de Cores===-->
-         <div class="flex items-center justify-between mt-8 mb-4 border-l-4 border-blue-600 pl-2">
+        <div class="flex items-center justify-between mt-8 mb-4 border-l-4 border-blue-600 pl-2">
             <h2 class="text-xl font-bold text-[#44403c]">Catálogo de Cores</h2>
             <div class="flex gap-2">
                 <button onclick="abrirModalCriadorHexa()" class="bg-amber-500 hover:bg-amber-600 text-white px-2.5 py-1 rounded-xl text-xs font-semibold flex items-center gap-1 transition-all" title="Criar cor em Hexadecimal">
@@ -452,37 +449,32 @@
             </div>
         </div>
 
-        <div class="bg-white rounded-2xl p-4 shadow-sm border border-orange-50/50 grid grid-cols-4 gap-4" id="containerCores">
-            </div>
+        <div class="bg-white rounded-2xl p-4 shadow-sm border border-orange-50/50 grid grid-cols-4 gap-4" id="containerCores"></div>
         
-            <div class="modal" id="modalCores">
-        <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-sm mx-4">
-            <h3 class="text-lg font-bold text-gray-700 mb-4 text-center" id="tituloModalCores">Gerenciar Cor</h3>
-
-            <input type="hidden" id="corNumeroA"> <div class="mb-5">
-                <label class="block text-sm font-medium text-gray-600 mb-1">Cor (Nome em inglês ou #Hexadecimal):</label>
-                <input 
-                    type="text" 
-                    id="corValorB" 
-                    placeholder="Ex: red, pink, #FF00FF..." 
-                    class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600"
-                >
+        <div class="modal" id="modalCores">
+            <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-sm mx-4">
+                <h3 class="text-lg font-bold text-gray-700 mb-4 text-center" id="tituloModalCores">Gerenciar Cor</h3>
+                <input type="hidden" id="corNumeroA"> 
+                <div class="mb-5">
+                    <label class="block text-sm font-medium text-gray-600 mb-1">Cor (Nome em inglês ou #Hexadecimal):</label>
+                    <input 
+                        type="text" 
+                        id="corValorB" 
+                        placeholder="Ex: red, pink, #FF00FF..." 
+                        class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600"
+                    >
+                </div>
+                <div class="flex gap-3">
+                    <button id="btnFecharCores" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 font-medium py-2 rounded-xl transition-all text-sm">
+                        Cancelar
+                    </button>
+                    <button id="btnSalvarCores" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-xl transition-all text-sm">
+                        Salvar Cor
+                    </button>
+                </div>
+                <div id="mensagemModalCores" class="mt-4 text-center text-sm font-medium hidden"></div>
             </div>
-
-            <div class="flex gap-3">
-                <button id="btnFecharCores" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 font-medium py-2 rounded-xl transition-all text-sm">
-                    Cancelar
-                </button>
-                <button id="btnSalvarCores" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-xl transition-all text-sm">
-                    Salvar Cor
-                </button>
-            </div>
-
-            <div id="mensagemModalCores" class="mt-4 text-center text-sm font-medium hidden"></div>
-        </div>
-    </div>     
-
-<!--===Img de Inspiracao===-->
+        </div>     
 
         <div class="flex items-center justify-between mt-8 mb-4 border-l-4 border-[#b45309] pl-2">
             <h2 class="text-xl font-bold text-[#44403c]">Imagens de Inspiração</h2>
@@ -500,8 +492,7 @@
                 <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer absolute top-3 right-3 bg-white/80 p-1 rounded-full shadow" onclick="abrirModalInspiracaoDireto(1)"></i>
             </div>            
         </div>
- <!--===PRODUTOS===-->
-        
+
         <div class="flex items-center justify-between mt-8 mb-4 border-l-4 border-emerald-600 pl-2">
             <h2 class="text-xl font-bold text-[#44403c]">Nossos Produtos</h2>
             <button onclick="adicionarNovoProdutoDinamico()" class="bg-emerald-600 hover:bg-emerald-700 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow transition-all" title="Criar mais produto">
@@ -511,7 +502,6 @@
 
         <div class="space-y-4" id="containerListaProdutos">
             <div class="bg-white rounded-2xl p-4 shadow-sm border border-orange-50/50 flex items-center gap-4 relative">
-                
                 <div class="w-16 h-16 rounded-xl overflow-hidden border border-gray-100 relative shrink-0">
                     <img id="img-prod-id-1" src="https://picsum.photos/id/64/300/300" alt="Produto" class="w-full h-full object-cover">
                     <i class="fa fa-pencil text-blue-600 text-xl cursor-pointer absolute bottom-0 right-0 bg-white/90 p-0.5 rounded-tl shadow" onclick="abrirModalProdutosDireto('IMG', 1)"></i>
@@ -533,14 +523,10 @@
                 </div>
             </div>         
         </div>
-        <!--===fim==-->
-
-    <div class="modal" id="modalEdicao">
+        <div class="modal" id="modalEdicao">
         <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-sm mx-4">
             <h3 class="text-lg font-bold text-gray-700 mb-4 text-center" id="tituloModal">Preencha os dados</h3>
-
             <input type="hidden" id="valorColunaA">
-
             <div class="mb-5">
                 <label class="block text-sm font-medium text-gray-600 mb-1">Insira a nova informação</label>
                 <input 
@@ -550,7 +536,6 @@
                     class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600"
                 >
             </div>
-
             <div class="flex gap-3">
                 <button id="btnFechar" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 font-medium py-2 rounded-xl transition-all text-sm">
                     Cancelar
@@ -559,48 +544,7 @@
                     Salvar e Enviar
                 </button>
             </div>
-
             <div id="mensagemModal" class="mt-4 text-center text-sm font-medium hidden"></div>
-        </div>
-    </div>
-
-
-    <div class="modal" id="modalCores">
-        <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-sm mx-4">
-            <h3 class="text-lg font-bold text-gray-700 mb-4 text-center">Gerenciar Cores do Catálogo</h3>
-
-            <div class="mb-4">
-                <label class="block text-sm font-medium text-gray-600 mb-1">Cor (Nome em inglês ou #Hexadecimal):</label>
-                <input 
-                    type="text" 
-                    id="corValorB" 
-                    placeholder="Ex: red, pink, #FF00FF..." 
-                    class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600"
-                >
-            </div>
-
-            <div class="mb-5">
-                <label class="block text-sm font-medium text-gray-600 mb-1">Número do Identificador (1 até 200):</label>
-                <input 
-                    type="number" 
-                    id="corNumeroA" 
-                    min="1" 
-                    max="200"
-                    placeholder="Digite o número correspondente..." 
-                    class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600"
-                >
-            </div>
-
-            <div class="flex gap-3">
-                <button id="btnFecharCores" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 font-medium py-2 rounded-xl transition-all text-sm">
-                    Cancelar
-                </button>
-                <button id="btnSalvarCores" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-xl transition-all text-sm">
-                    Salvar Cor
-                </button>
-            </div>
-
-            <div id="mensagemModalCores" class="mt-4 text-center text-sm font-medium hidden"></div>
         </div>
     </div>
 
@@ -609,17 +553,14 @@
             <button onclick="fecharModalCriadorHexa()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition-all text-xl font-bold">
                 <i class="fa fa-times"></i>
             </button>
-
             <h3 class="text-xl font-bold text-gray-800 mb-2 text-center flex items-center justify-center gap-2">
                 <i class="fa fa-paint-brush text-amber-500"></i> Criador de Cores Perfeitas
             </h3>
             <p class="text-xs text-gray-500 text-center mb-6">Escolha e visualize sua cor exata em tempo real para colocar no catálogo</p>
-
             <div class="flex flex-col items-center justify-center mb-6">
                 <div id="previewCorHexa" class="w-24 h-24 rounded-full border-4 border-white shadow-xl bg-orange-500 transition-all duration-150"></div>
                 <span class="text-xs font-semibold text-gray-400 mt-2">Visualização da Cor</span>
             </div>
-
             <div class="mb-5">
                 <label class="block text-sm font-medium text-gray-600 mb-2 text-center">Clique no retângulo abaixo e coloque todos os ponteiros para o lado direito e crie sua cor.</label>
                 <input 
@@ -630,7 +571,6 @@
                     oninput="atualizarCriadorDeCor(this.value)"
                 >
             </div>
-
             <div class="mb-6">
                 <label class="block text-sm font-medium text-gray-600 mb-1">Código Hexadecimal gerado:</label>
                 <div class="relative flex items-center">
@@ -646,7 +586,6 @@
                     </button>
                 </div>
             </div>
-
             <div id="alertaCopiadoSucesso" class="text-center text-xs text-green-600 font-bold hidden transition-all">
                 <i class="fa fa-check-circle"></i> Código copiado com sucesso! Só colar no seu gerenciador.
             </div>
@@ -656,8 +595,8 @@
     <div class="modal" id="modalNovoServico">
         <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-sm mx-4">
             <h3 class="text-lg font-bold text-gray-700 mb-4 text-center" id="tituloModalNovoServico">Editar Informação</h3>
-
-            <input type="hidden" id="tipoCampoNovoServico"> <div class="mb-4">
+            <input type="hidden" id="tipoCampoNovoServico"> 
+            <div class="mb-4">
                 <label class="block text-sm font-medium text-gray-600 mb-1" id="labelCampoNovoServico">Inserir Informação (Coluna B):</label>
                 <input 
                     type="text" 
@@ -666,7 +605,6 @@
                     class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600"
                 >
             </div>
-
             <div class="mb-5">
                 <label class="block text-sm font-medium text-gray-600 mb-1" id="labelNumeroNovoServico">Numeração do Identificador (7 até 20):</label>
                 <input 
@@ -678,7 +616,6 @@
                     class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600"
                 >
             </div>
-
             <div class="flex gap-3">
                 <button id="btnFecharNovoServico" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 font-medium py-2 rounded-xl transition-all text-sm">
                     Cancelar
@@ -687,51 +624,52 @@
                     Salvar e Enviar
                 </button>
             </div>
-
             <div id="mensagemModalNovoServico" class="mt-4 text-center text-sm font-medium hidden"></div>
         </div>
     </div>
     
-<div class="modal" id="modalCarrossel">
-    <div class="bg-white rounded-2xl shadow-xl p-4 w-full max-w-md mx-4 max-h-[85vh] flex flex-col">
-        <div class="flex justify-between items-center mb-4 border-b pb-2">
-            <h3 class="text-lg font-bold text-gray-700">Imagens do Carrossel</h3>
-            <button onclick="fecharModalCarrossel()" class="text-gray-500 hover:text-gray-700 text-xl font-bold">&times;</button>
-        </div>
-        
-        <div class="space-y-4 overflow-y-auto pr-1 flex-1" id="listaImagensCarrossel">
+    <div class="modal" id="modalCarrossel">
+        <div class="bg-white rounded-2xl shadow-xl p-4 w-full max-w-md mx-4 max-h-[85vh] flex flex-col">
+            <div class="flex justify-between items-center mb-4 border-b pb-2">
+                <h3 class="text-lg font-bold text-gray-700">Imagens do Carrossel</h3>
+                <button onclick="fecharModalCarrossel()" class="text-gray-500 hover:text-gray-700 text-xl font-bold">&times;</button>
             </div>
-    </div>
-</div>
-
-<div class="modal" id="modalAlterarLinkCarrossel">
-    <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-sm mx-4">
-        <h3 class="text-lg font-bold text-gray-700 mb-4 text-center" id="tituloModalLink">Alterar Imagem do Carrossel</h3>
-        <input type="hidden" id="carrosselIdAtual">
-        
-        <div class="mb-5">
-            <label class="block text-sm font-medium text-gray-600 mb-1">Insira a URL / Link da Imagem</label>
-            <input 
-                type="text" 
-                id="inputLinkCarrossel" 
-                placeholder="https://linkdaimagem.com/foto.jpg" 
-                class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600">
+            <div class="space-y-4 overflow-y-auto pr-1 flex-1" id="listaImagensCarrossel"></div>
         </div>
-
-        <div class="flex gap-3">
-            <button onclick="fecharModalLinkCarrossel()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 font-medium py-2 rounded-xl transition-all text-sm">
-                Cancelar
-            </button>
-            <button id="btnConfirmarAlterarCarrossel" onclick="enviarLinkCarrossel()" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-xl transition-all text-sm">
-                Alterar
-            </button>
-        </div>
-        <div id="msgModalCarrossel" class="mt-4 text-center text-sm font-medium hidden"></div>
     </div>
-</div>
+
+    <div class="modal" id="modalAlterarLinkCarrossel">
+        <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-sm mx-4">
+            <h3 class="text-lg font-bold text-gray-700 mb-4 text-center" id="tituloModalLink">Alterar Imagem do Carrossel</h3>
+            <input type="hidden" id="carrosselIdAtual">
+            <div class="mb-5">
+                <label class="block text-sm font-medium text-gray-600 mb-1">Insira a URL / Link da Imagem</label>
+                <input 
+                    type="text" 
+                    id="inputLinkCarrossel" 
+                    placeholder="https://linkdaimagem.com/foto.jpg" 
+                    class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-600">
+            </div>
+            <div class="flex gap-3">
+                <button onclick="fecharModalLinkCarrossel()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 font-medium py-2 rounded-xl transition-all text-sm">
+                    Cancelar
+                </button>
+                <button id="btnConfirmarAlterarCarrossel" onclick="enviarLinkCarrossel()" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-xl transition-all text-sm">
+                    Alterar
+                </button>
+            </div>
+            <div id="msgModalCarrossel" class="mt-4 text-center text-sm font-medium hidden"></div>
+        </div>
+    </div>
     
     <script>
         const LINK_APP_SCRIPT = "https://script.google.com/macros/s/AKfycbyCwlZqYZ0lJ-wgRg4eHKWuU-_qDjIGJdoh3x1bP18WCOJO6eE4llk_-8Ny2vzX6G0/exec";
+
+        //===🔐🔐🔐🔐 PASSO 3 DA SEGURANÇA🔐🔐🔐🔐
+        // Variáveis globais para armazenar o Usuário e a Senha que se logaram com sucesso
+        let usuarioAutenticado = "";
+        let senhaAutenticada = "";
+        //===🔐🔐🔐🔐 
 
         const modal = document.getElementById('modalEdicao');
         const btnFechar = document.getElementById('btnFechar');
@@ -772,42 +710,17 @@
 
         const containerImagensInspiracao = document.getElementById('containerImagensInspiracao');
 
-        /*
-          ========================================================================
-          📌 CENTRAL DE CONTROLE DOS TEXTOS DA COLUNA A
-          Abaixo você pode ver exatamente o que cada lápis envia para a Coluna A.
-          Se quiser alterar o termo enviado, mude o valor correspondente aqui dentro.
-          ========================================================================
-        */
         const MapeamentoColunaA = {
-            'img-perfil': 'img-perfil',                     // Lápis da Imagem de Perfil
-            'Nome-Perfil': 'Nome-Perfil',                   // Lápis do Nome Principal
-            'Slogan-Perfil': 'Sobre-Perfil',               // Lápis do Slogan/Frase
-
-            // Nomes dos Serviços (Coluna A)
+            'img-perfil': 'img-perfil',
+            'Nome-Perfil': 'Nome-Perfil',
+            'Slogan-Perfil': 'Sobre-Perfil',
             'Servico-Postica-Simples': 'SERVICO_NOME_1',
-            'Servico-Postica-Luxo': 'SERVICO_NOME_2',
-            'Servico-Mao-Simples': 'SERVICO_NOME_3',
-            'Servico-Pe-Simples': 'SERVICO_NOME_4',
-            'Servico-Pe-Mao-Completo': 'SERVICO_NOME_5',
-            'Servico-Esmaltacao': 'SERVICO_NOME_6',
-
-            // Preços dos Serviços (Coluna A)
-            'Preco-Postica-Simples': 'SERVICO_PRECO_1',
-            'Preco-Postica-Luxo': 'SERVICO_PRECO_2',
-            'Preco-Mao-Simples': 'SERVICO_PRECO_3',
-            'Preco-Pe-Simples': 'SERVICO_PRECO_4',
-            'Preco-Pe-Mao-Completo': 'SERVICO_PRECO_5',
-            'Preco-Esmaltacao': 'SERVICO_PRECO_6'
+            'Preco-Postica-Simples': 'SERVICO_PRECO_1'
         };
 
-        // Função universal executada no clique do lápis
         function abrirModalComDados(codigoChave, tituloAmigavel) {
             tituloModal.textContent = `Editando: ${tituloAmigavel}`;
-            
-            // Pega o valor exato definido no painel MapeamentoColunaA acima
             inputA.value = MapeamentoColunaA[codigoChave] || codigoChave; 
-            
             inputB.value = ''; 
             modal.classList.add('aberto');
         }
@@ -818,8 +731,8 @@
         });
 
         btnSalvarEnviar.addEventListener('click', async () => {
-            const valorA = inputA.value; // Pega o nome configurado do lápis
-            const valorB = inputB.value.trim(); // Pega o texto digitado pelo usuário
+            const valorA = inputA.value;
+            const valorB = inputB.value.trim();
 
             if (!valorB) {
                 mostrarMensagem('O campo não pode ficar vazio!', 'text-red-500');
@@ -833,12 +746,12 @@
                 await fetch(LINK_APP_SCRIPT, {
                     method: 'POST',
                     mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        colunaA: valorA,
-                        colunaB: valorB
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        usuario: usuarioAutenticado, 
+                        senha: senhaAutenticada, 
+                        colunaA: valorA, 
+                        colunaB: valorB 
                     })
                 });
 
@@ -865,10 +778,6 @@
             mensagemModal.classList.remove('hidden');
         }
 
-        /* ==================== NOVAS FUNÇÕES EXCLUSIVAS PARA O MODAL DE CORES ==================== */
-                /* ==================== SISTEMA DINÂMICO DE CORES DO ZERO ==================== */
-        
-        // Renderiza o quadrado na tela aplicando a cor de fundo com o lápis e a lixeira
         function renderizarBlocoCor(idIndex, corPadrao) {
             const corGravada = localStorage.getItem(`COR_VALOR_ID_${idIndex}`) || corPadrao;
 
@@ -877,20 +786,16 @@
                 <button onclick="removerCorDinamica(this, ${idIndex})" class="absolute -top-1 -left-1 text-red-500 hover:text-red-700 text-xs bg-white rounded-full w-5 h-5 flex items-center justify-center shadow border border-gray-100 transition-all" title="Remover esta cor">
                     <i class="fa fa-trash"></i>
                 </button>
-                
                 <div id="circulo-cor-${idIndex}" class="w-10 h-10 rounded-full border border-gray-300 shadow-inner" style="background-color: ${corGravada};"></div>
                 <span class="text-[10px] font-bold mt-1 text-gray-500">COR_${idIndex}</span>
-                
                 <i class="fa fa-pencil text-blue-600 text-base cursor-pointer absolute -top-1 -right-1 bg-white rounded-full w-5 h-5 flex items-center justify-center shadow border border-gray-100" onclick="abrirModalCoresDireto(${idIndex})" title="Editar esta cor"></i>
             </div>`;
 
             document.getElementById('containerCores').insertAdjacentHTML('beforeend', estruturaHTML);
         }
 
-        // Acionado pelo botão principal "Criar Cor"
         function adicionarNovaCorDinamica() {
             let ordensCores = JSON.parse(localStorage.getItem('ordemCoresExtras') || '[]');
-            // Se não tiver nenhuma cor, começa da COR_1, se já tiver, pega o maior número e soma +1
             let novoIdIndex = ordensCores.length > 0 ? Math.max(...ordensCores) + 1 : 1;
             
             ordensCores.push(novoIdIndex);
@@ -899,7 +804,6 @@
             renderizarBlocoCor(novoIdIndex, "gray");
         }
 
-        // Abre o modal injetando o ID correto da cor que está sendo alterada
         function abrirModalCoresDireto(numero) {
             document.getElementById('tituloModalCores').textContent = `Editando: COR_${numero}`;
             corNumeroA.value = numero;
@@ -908,13 +812,11 @@
             modalCores.classList.add('aberto');
         }
 
-        // Fechar o modal de cores
         btnFecharCores.addEventListener('click', () => {
             modalCores.classList.remove('aberto');
             mensagemModalCores.classList.add('hidden');
         });
 
-        // Evento que salva e envia a criação/edição para a planilha e localStorage
         btnSalvarCores.addEventListener('click', async () => {
             const valorCor = corValorB.value.trim();
             const numeroIdentificador = parseInt(corNumeroA.value);
@@ -934,16 +836,16 @@
                     method: 'POST',
                     mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        colunaA: colunaAFormatada,
-                        colunaB: valorCor
+                    body: JSON.stringify({ 
+                        usuario: usuarioAutenticado, 
+                        senha: senhaAutenticada, 
+                        colunaA: colunaAFormatada, 
+                        colunaB: valorCor 
                     })
                 });
 
-                // Salva a cor localmente para persistência
                 localStorage.setItem(`COR_VALOR_ID_${numeroIdentificador}`, valorCor);
                 
-                // Atualiza o círculo da cor na tela instantaneamente
                 const circulo = document.getElementById(`circulo-cor-${numeroIdentificador}`);
                 if (circulo) circulo.style.backgroundColor = valorCor;
 
@@ -963,7 +865,6 @@
             }
         });
 
-        // Função para remover por completo a cor da tela e da planilha (Envia EXCLUIR para a Coluna D)
         async function removerCorDinamica(botaoLixeira, idIndex) {
             const elementoCor = botaoLixeira.closest('.classe-cor-dinamica');
             if (elementoCor) {
@@ -976,15 +877,16 @@
                         method: 'POST',
                         mode: 'no-cors',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            colunaA: `COR_${idIndex}`,
-                            colunaB: corAtual,
-                            colunaD: "EXCLUIR"
+                        body: JSON.stringify({ 
+                            usuario: usuarioAutenticado, 
+                            senha: senhaAutenticada, 
+                            colunaA: `COR_${idIndex}`, 
+                            colunaB: corAtual, 
+                            colunaD: "EXCLUIR" 
                         })
                     });
                 } catch (e) { console.error("Erro ao enviar exclusão de cor:", e); }
 
-                // Limpa da tela e dos registros locais
                 elementoCor.remove();
                 localStorage.removeItem(`COR_VALOR_ID_${idIndex}`);
                 
@@ -1000,11 +902,8 @@
             mensagemModalCores.classList.remove('hidden');
         }
 
-        /* ==================== NOVAS FUNÇÕES PARA CRIAR SERVIÇOS E SEU MODAL DE DOIS CAMPOS ==================== */
-
-        // Função para abrir o modal de 2 campos dos novos serviços dinâmicos
         function abrirModalNovoServico(tipo) {
-            tipoCampoNovoServico.value = tipo; // 'NOME', 'PRECO', 'PRODUTO_IMG', 'PRODUTO_NOME', 'PRODUTO_PRECO', 'INSPIRACAO_DINA'
+            tipoCampoNovoServico.value = tipo;
             novoServicoValorB.value = '';
             novoServicoNumeroA.value = '';
             
@@ -1055,7 +954,6 @@
             modalNovoServico.classList.add('aberto');
         }
 
-        // Atalho rápido para injetar tipo e número pré-definidos no modal dos produtos
         function abrirModalProdutosDireto(subTipo, numero) {
             abrirModalNovoServico(`PRODUTO_${subTipo}`);
             novoServicoNumeroA.value = numero;
@@ -1076,7 +974,6 @@
                 return;
             }
             
-            // Valida faixas de numeração baseadas no tipo selecionado
             if(tipo.startsWith('PRODUTO')) {
                 if(isNaN(numeroA) || numeroA < 1 || numeroA > 20) {
                     mostrarMensagemNovoServico('O número do produto deve ser entre 1 e 20!', 'text-red-500');
@@ -1094,14 +991,13 @@
                 }
             }
 
-            // Define a string correta que irá para a coluna A baseada na escolha
             let colunaAFormatada = "";
             if (tipo === 'NOME' || tipo === 'PRECO') {
                 colunaAFormatada = `SERVICO_${tipo}_${numeroA}`;
             } else if (tipo === 'INSPIRACAO_DINA') {
                 colunaAFormatada = `IMG_INSPIRACAO_${numeroA}`;
             } else {
-                colunaAFormatada = `${tipo}_${numeroA}`; // Gera PRODUTO_IMG_1, PRODUTO_NOME_1, etc.
+                colunaAFormatada = `${tipo}_${numeroA}`;
             }
 
             try {
@@ -1111,19 +1007,17 @@
                 await fetch(LINK_APP_SCRIPT, {
                     method: 'POST',
                     mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        colunaA: colunaAFormatada,
-                        colunaB: valorB
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        usuario: usuarioAutenticado, 
+                        senha: senhaAutenticada, 
+                        colunaA: colunaAFormatada, 
+                        colunaB: valorB 
                     })
                 });
 
-                // Mantém o valor gravado na tela no localStorage local para persistência
                 localStorage.setItem(`${tipo}_ID_${numeroA}`, valorB);
                 
-                // Atualiza visualmente o campo modificado sem apagar nada
                 if(tipo === 'NOME') {
                     const textoNome = document.getElementById(`txt-nome-id-${numeroA}`);
                     if(textoNome) textoNome.childNodes[0].textContent = valorB + " ";
@@ -1166,77 +1060,62 @@
             mensagemModalNovoServico.classList.remove('hidden');
         }
 
-        // NOVA FUNÇÃO: Remove Nome e Preço do Serviço simultaneamente da planilha e da tela
-async function removerServicoDinamico(botaoLixeira, idIndex) {
-    const elementoServico = botaoLixeira.closest('.classe-servico-dinamico');
-    if (elementoServico) {
-        
-        // Pergunta de segurança para o usuário
-        if (!confirm("Tem certeza que deseja excluir este serviço por completo?")) {
-            return;
+        async function removerServicoDinamico(botaoLixeira, idIndex) {
+            const elementoServico = botaoLixeira.closest('.classe-servico-dinamico');
+            if (elementoServico) {
+                if (!confirm("Tem certeza que deseja excluir este serviço por completo?")) return;
+
+                botaoLixeira.disabled = true;
+                botaoLixeira.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Excluindo...';
+
+                const nomeGravado = localStorage.getItem(`NOME_ID_${idIndex}`) || "";
+                const precoGravado = localStorage.getItem(`PRECO_ID_${idIndex}`) || "";
+
+                try {
+                    await Promise.all([
+                        fetch(LINK_APP_SCRIPT, {
+                            method: 'POST',
+                            mode: 'no-cors',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ 
+                                usuario: usuarioAutenticado, 
+                                senha: senhaAutenticada, 
+                                colunaA: `SERVICO_NOME_${idIndex}`, 
+                                colunaB: nomeGravado, 
+                                colunaD: "EXCLUIR" 
+                            })
+                        }),
+                        fetch(LINK_APP_SCRIPT, {
+                            method: 'POST',
+                            mode: 'no-cors',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ 
+                                usuario: usuarioAutenticado, 
+                                senha: senhaAutenticada, 
+                                colunaA: `SERVICO_PRECO_${idIndex}`, 
+                                colunaB: precoGravado, 
+                                colunaD: "EXCLUIR" 
+                            })
+                        })
+                    ]);
+
+                    elementoServico.remove();
+                    localStorage.removeItem(`NOME_ID_${idIndex}`);
+                    localStorage.removeItem(`PRECO_ID_${idIndex}`);
+                    
+                    let ordensAtuais = JSON.parse(localStorage.getItem('ordemServicosExtras') || '[]');
+                    ordensAtuais = ordensAtuais.filter(item => item !== idIndex);
+                    localStorage.setItem('ordemServicosExtras', JSON.stringify(ordensAtuais));
+
+                } catch (erro) {
+                    console.error("Erro ao tentar excluir serviço completo:", erro);
+                    alert("Houve um erro ao tentar excluir o serviço na planilha. Tente novamente.");
+                    botaoLixeira.disabled = false;
+                    botaoLixeira.innerHTML = '<i class="fa fa-trash"></i> Excluir';
+                }
+            }
         }
 
-        // Altera o texto do botão para mostrar feedback visual de carregamento
-        botaoLixeira.disabled = true;
-        botaoLixeira.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Excluindo...';
-
-        // Coleta o nome e preço gravados no LocalStorage antes de apagar
-        const nomeGravado = localStorage.getItem(`NOME_ID_${idIndex}`) || "";
-        const precoGravado = localStorage.getItem(`PRECO_ID_${idIndex}`) || "";
-
-        try {
-            // Executa os 2 envios simultâneos (Nome e Preço) para a planilha
-            await Promise.all([
-                // 1. Limpa a linha referente ao NOME do Serviço
-                fetch(LINK_APP_SCRIPT, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        colunaA: `SERVICO_NOME_${idIndex}`,
-                        colunaB: nomeGravado,
-                        colunaD: "EXCLUIR"
-                    })
-                }),
-                // 2. Limpa a linha referente ao PREÇO do Serviço
-                fetch(LINK_APP_SCRIPT, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        colunaA: `SERVICO_PRECO_${idIndex}`,
-                        colunaB: precoGravado,
-                        colunaD: "EXCLUIR"
-                    })
-                })
-            ]);
-
-            console.log(`Serviço ${idIndex} (Nome e Preço) removido com sucesso da Planilha.`);
-
-            // Remove o elemento visual da interface do site
-            elementoServico.remove();
-
-            // Limpa as memórias (localStorage) atreladas a este ID de Serviço
-            localStorage.removeItem(`NOME_ID_${idIndex}`);
-            localStorage.removeItem(`PRECO_ID_${idIndex}`);
-            
-            // Atualiza o array de ordenação dos serviços extras no navegador
-            let ordensAtuais = JSON.parse(localStorage.getItem('ordemServicosExtras') || '[]');
-            ordensAtuais = ordensAtuais.filter(item => item !== idIndex);
-            localStorage.setItem('ordemServicosExtras', JSON.stringify(ordensAtuais));
-
-        } catch (erro) {
-            console.error("Erro ao tentar excluir serviço completo:", erro);
-            alert("Houve um erro ao tentar excluir o serviço na planilha. Tente novamente.");
-            botaoLixeira.disabled = false;
-            botaoLixeira.innerHTML = '<i class="fa fa-trash"></i> Excluir';
-        }
-    }
-}
-
-
-
-        // Função que injeta o HTML do serviço igual ao Pé Simples com lixeira no topo esquerdo e salva no localStorage para persistência
         function adicionarNovoServicoDinamico() {
             let ordensAtuais = JSON.parse(localStorage.getItem('ordemServicosExtras') || '[]');
             let novoIdIndex = ordensAtuais.length > 0 ? Math.max(...ordensAtuais) + 1 : 2;
@@ -1246,118 +1125,104 @@ async function removerServicoDinamico(botaoLixeira, idIndex) {
             renderizarBlocoServico(novoIdIndex, "Qual serviço?", "R$ 30,00");
         }
     
-    function renderizarBlocoServico(idIndex, nomePadrao, precoPadrao) {
-    const nomeGravado = localStorage.getItem(`NOME_ID_${idIndex}`) || nomePadrao;
-    const precoGravado = localStorage.getItem(`PRECO_ID_${idIndex}`) || precoPadrao;
+        function renderizarBlocoServico(idIndex, nomePadrao, precoPadrao) {
+            const nomeGravado = localStorage.getItem(`NOME_ID_${idIndex}`) || nomePadrao;
+            const precoGravado = localStorage.getItem(`PRECO_ID_${idIndex}`) || precoPadrao;
 
-    const estruturaHTML = `
-    <div class="bg-white rounded-2xl p-4 shadow-sm border border-orange-50/50 flex justify-between items-start relative classe-servico-dinamico pt-6" data-id-index="${idIndex}">
-        <button onclick="removerServicoDinamico(this, ${idIndex})" class="absolute top-2 left-3 text-red-500 hover:text-red-700 text-sm transition-all" title="Remover este serviço">
-            <i class="fa fa-trash"></i> Excluir
-        </button>
-        <div class="pr-4 flex-1 mt-2">
-            <h3 id="txt-nome-id-${idIndex}" class="font-bold text-gray-800 text-base flex items-center gap-2">
-                ${nomeGravado}
-                <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer hover:text-blue-800" onclick="abrirModalNovoServico('NOME'); document.getElementById('novoServicoNumeroA').value = ${idIndex};"></i>
-            </h3>
-            <p class="text-xs text-gray-400 mt-1">Cutilagem e esmaltação tradicional das unhas dos pés.</p>
-        </div>
-        <div id="txt-preco-id-${idIndex}" class="text-right font-bold text-[#c2410c] whitespace-nowrap flex items-center gap-2 mt-2">
-            ${precoGravado}
-            <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer hover:text-blue-800" onclick="abrirModalNovoServico('PRECO'); document.getElementById('novoServicoNumeroA').value = ${idIndex};"></i>
-        </div>
-    </div>`;
-    
-    containerListaServicos.insertAdjacentHTML('beforeend', estruturaHTML);
-}
-
-    
-             // NOVA FUNÇÃO CORRIGIDA: Exclui Imagem, Nome e Preço sem deixar o preço para trás
-async function removerProdutoDinamico(botaoLixeira, idIndex) {
-    const elementoProduto = botaoLixeira.closest('.classe-produto-dinamico');
-    if (elementoProduto) {
-        
-        // Pergunta ao usuário se ele realmente quer deletar para evitar cliques por engano
-        if (!confirm("Tem certeza que deseja excluir este produto por completo?")) {
-            return;
+            const estruturaHTML = `
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-orange-50/50 flex justify-between items-start relative classe-servico-dinamico pt-6" data-id-index="${idIndex}">
+                <button onclick="removerServicoDinamico(this, ${idIndex})" class="absolute top-2 left-3 text-red-500 hover:text-red-700 text-sm transition-all" title="Remover este serviço">
+                    <i class="fa fa-trash"></i> Excluir
+                </button>
+                <div class="pr-4 flex-1 mt-2">
+                    <h3 id="txt-nome-id-${idIndex}" class="font-bold text-gray-800 text-base flex items-center gap-2">
+                        ${nomeGravado}
+                        <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer hover:text-blue-800" onclick="abrirModalNovoServico('NOME'); document.getElementById('novoServicoNumeroA').value = ${idIndex};"></i>
+                    </h3>
+                    <p class="text-xs text-gray-400 mt-1">Cutilagem e esmaltação tradicional das unhas dos pés.</p>
+                </div>
+                <div id="txt-preco-id-${idIndex}" class="text-right font-bold text-[#c2410c] whitespace-nowrap flex items-center gap-2 mt-2">
+                    ${precoGravado}
+                    <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer hover:text-blue-800" onclick="abrirModalNovoServico('PRECO'); document.getElementById('novoServicoNumeroA').value = ${idIndex};"></i>
+                </div>
+            </div>`;
+            
+            containerListaServicos.insertAdjacentHTML('beforeend', estruturaHTML);
         }
 
-        // Altera o texto do botão para mostrar que está deletando
-        botaoLixeira.disabled = true;
-        botaoLixeira.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Excluindo...';
+        async function removerProdutoDinamico(botaoLixeira, idIndex) {
+            const elementoProduto = botaoLixeira.closest('.classe-produto-dinamico');
+            if (elementoProduto) {
+                if (!confirm("Tem certeza que deseja excluir este produto por completo?")) return;
 
-        // Captura os valores do localStorage ANTES de enviar para garantir que não vão vazios
-        const imgSalva = localStorage.getItem(`PRODUTO_IMG_ID_${idIndex}`) || "";
-        const nomeSalvo = localStorage.getItem(`PRODUTO_NOME_ID_${idIndex}`) || "";
-        const precoSalvo = localStorage.getItem(`PRODUTO_PRECO_ID_${idIndex}`) || ""; // Corrigido o termo para bater com o botão +
+                botaoLixeira.disabled = true;
+                botaoLixeira.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Excluindo...';
 
-        // Prepara os 3 envios simultâneos para limpar as 3 linhas correspondentes na planilha
-        try {
-            await Promise.all([
-                // 1. Apaga a linha da Imagem do produto
-                fetch(LINK_APP_SCRIPT, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        colunaA: `PRODUTO_IMG_${idIndex}`,
-                        colunaB: imgSalva,
-                        colunaD: "EXCLUIR"
-                    })
-                }),
-                // 2. Apaga a linha do Nome do produto
-                fetch(LINK_APP_SCRIPT, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        colunaA: `PRODUTO_NOME_${idIndex}`,
-                        colunaB: nomeSalvo,
-                        colunaD: "EXCLUIR"
-                    })
-                }),
-                // 3. Apaga a linha do Preço do produto (Alinhado com a Coluna A correta)
-                fetch(LINK_APP_SCRIPT, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        colunaA: `PRODUTO_PRECO_${idIndex}`, // Mantém o padrão PRECO sem o "O" para a planilha
-                        colunaB: precoSalvo,
-                        colunaD: "EXCLUIR"
-                    })
-                })
-            ]);
+                const imgSalva = localStorage.getItem(`PRODUTO_IMG_ID_${idIndex}`) || "";
+                const nomeSalvo = localStorage.getItem(`PRODUTO_NOME_ID_${idIndex}`) || "";
+                const precoSalvo = localStorage.getItem(`PRODUTO_PRECO_ID_${idIndex}`) || "";
 
-            console.log(`Produto ${idIndex} removido com sucesso da Planilha e LocalStorage.`);
-            
-            // Remove o elemento visual da tela do site
-            elementoProduto.remove();
+                try {
+                    await Promise.all([
+                        fetch(LINK_APP_SCRIPT, {
+                            method: 'POST',
+                            mode: 'no-cors',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ 
+                                usuario: usuarioAutenticado, 
+                                senha: senhaAutenticada, 
+                                colunaA: `PRODUTO_IMG_${idIndex}`, 
+                                colunaB: imgSalva, 
+                                colunaD: "EXCLUIR" 
+                            })
+                        }),
+                        fetch(LINK_APP_SCRIPT, {
+                            method: 'POST',
+                            mode: 'no-cors',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ 
+                                usuario: usuarioAutenticado, 
+                                senha: senhaAutenticada, 
+                                colunaA: `PRODUTO_NOME_${idIndex}`, 
+                                colunaB: nomeSalvo, 
+                                colunaD: "EXCLUIR" 
+                            })
+                        }),
+                        fetch(LINK_APP_SCRIPT, {
+                            method: 'POST',
+                            mode: 'no-cors',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ 
+                                usuario: usuarioAutenticado, 
+                                senha: senhaAutenticada, 
+                                colunaA: `PRODUTO_PRECO_${idIndex}`, 
+                                colunaB: precoSalvo, 
+                                colunaD: "EXCLUIR" 
+                            })
+                        })
+                    ]);
 
-            // Limpa a memória interna (localStorage) do navegador desse produto
-            localStorage.removeItem(`PRODUTO_IMG_ID_${idIndex}`);
-            localStorage.removeItem(`PRODUTO_NOME_ID_${idIndex}`);
-            localStorage.removeItem(`PRODUTO_PRECO_ID_${idIndex}`); // Removido com o nome correto
-            
-            // Atualiza a lista de ordem dos produtos extras no navegador
-            let ordensProds = JSON.parse(localStorage.getItem('ordemProdutosExtras') || '[]');
-            ordensProds = ordensProds.filter(item => item !== idIndex);
-            localStorage.setItem('ordemProdutosExtras', JSON.stringify(ordensProds));
+                    elementoProduto.remove();
+                    localStorage.removeItem(`PRODUTO_IMG_ID_${idIndex}`);
+                    localStorage.removeItem(`PRODUTO_NOME_ID_${idIndex}`);
+                    localStorage.removeItem(`PRODUTO_PRECO_ID_${idIndex}`);
+                    
+                    let ordensProds = JSON.parse(localStorage.getItem('ordemProdutosExtras') || '[]');
+                    ordensProds = ordensProds.filter(item => item !== idIndex);
+                    localStorage.setItem('ordemProdutosExtras', JSON.stringify(ordensProds));
 
-        } catch (erro) {
-            console.error("Erro ao tentar excluir produto completo:", erro);
-            alert("Houve um erro ao tentar excluir o produto na planilha. Tente novamente.");
-            botaoLixeira.disabled = false;
-            botaoLixeira.innerHTML = '<i class="fa fa-trash"></i> Excluir';
+                } catch (erro) {
+                    console.error("Erro ao tentar excluir produto completo:", erro);
+                    alert("Houve um erro ao tentar excluir the produto na planilha. Tente novamente.");
+                    botaoLixeira.disabled = false;
+                    botaoLixeira.innerHTML = '<i class="fa fa-trash"></i> Excluir';
+                }
+            }
         }
-    }
-}
-
-        
 
         function adicionarNovoProdutoDinamico() {
             let ordensProds = JSON.parse(localStorage.getItem('ordemProdutosExtras') || '[]');
-            let novoIdIndex = ordensProds.length > 0 ? Math.max(...ordensProds) + 1 : 2; // Começa no ID 2 por sequência
+            let novoIdIndex = ordensProds.length > 0 ? Math.max(...ordensProds) + 1 : 2;
             ordensProds.push(novoIdIndex);
             localStorage.setItem('ordemProdutosExtras', JSON.stringify(ordensProds));
 
@@ -1398,8 +1263,6 @@ async function removerProdutoDinamico(botaoLixeira, idIndex) {
             containerListaProdutos.insertAdjacentHTML('beforeend', estruturaHTML);
         }
 
-        /* ==================== NOVAS FUNÇÕES COMPLEMENTARES DO CRIADOR HEXADECIMAL DE CORES ==================== */
-        
         function abrirModalCriadorHexa() {
             alertaCopiadoSucesso.classList.add('hidden');
             modalCriadorHexa.classList.add('aberto');
@@ -1409,15 +1272,15 @@ async function removerProdutoDinamico(botaoLixeira, idIndex) {
             modalCriadorHexa.classList.remove('aberto');
         }
 
-        function atualizarCriadorDeCor(codigoHexadecimal) {
+        function actualizarCriadorDeCor(codigoHexadecimal) {
             previewCorHexa.style.backgroundColor = codigoHexadecimal;
             txtCodigoHexaGerado.value = codigoHexadecimal;
-            alertaCopiadoSucesso.classList.add('hidden'); // Oculta o aviso de cópia se ele mudar de cor
+            alertaCopiadoSucesso.classList.add('hidden');
         }
 
         function copiarCodigoHexaCriado() {
             txtCodigoHexaGerado.select();
-            txtCodigoHexaGerado.setSelectionRange(0, 99999); // Suporte para dispositivos móveis
+            txtCodigoHexaGerado.setSelectionRange(0, 99999);
             
             navigator.clipboard.writeText(txtCodigoHexaGerado.value).then(() => {
                 alertaCopiadoSucesso.classList.remove('hidden');
@@ -1429,8 +1292,6 @@ async function removerProdutoDinamico(botaoLixeira, idIndex) {
             });
         }
 
-        /* ==================== NOVAS FUNÇÕES EXCLUSIVAS PARA AS IMAGENS DE INSPIRAÇÃO ==================== */
-
         function abrirModalInspiracaoDireto(numero) {
             tituloModal.textContent = `Editando: Modelo ${numero}`;
             inputA.value = `IMG_INSPIRACAO_${numero}`;
@@ -1438,28 +1299,26 @@ async function removerProdutoDinamico(botaoLixeira, idIndex) {
             modal.classList.add('aberto');
         }
 
-                // O QUE MEXER: Nova versão enviando EXCLUIR para a Coluna D
         async function removerImagemInspiracaoDinamica(botaoLixeira, idIndex) {
             const elementoInsp = botaoLixeira.closest('.classe-inspiracao-dinamica');
             if (elementoInsp) {
-                // Captura a URL que estava preenchida
                 const imgGravada = localStorage.getItem(`INSPIRACAO_DINA_ID_${idIndex}`) || "";
 
-                // Envia para o Google Sheets mapeando para a Coluna D
                 try {
                     await fetch(LINK_APP_SCRIPT, {
                         method: 'POST',
                         mode: 'no-cors',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            colunaA: `IMG_INSPIRACAO_${idIndex}`,
-                            colunaB: imgGravada,
-                            colunaD: "EXCLUIR" // <--- Envia o comando para a coluna D
+                        body: JSON.stringify({ 
+                            usuario: usuarioAutenticado, 
+                            senha: senhaAutenticada, 
+                            colunaA: `IMG_INSPIRACAO_${idIndex}`, 
+                            colunaB: imgGravada, 
+                            colunaD: "EXCLUIR" 
                         })
                     });
                 } catch (e) { console.error("Erro ao enviar exclusão:", e); }
 
-                // Remove da tela e do armazenamento local
                 elementoInsp.remove();
                 localStorage.removeItem(`INSPIRACAO_DINA_ID_${idIndex}`);
                 
@@ -1468,7 +1327,6 @@ async function removerProdutoDinamico(botaoLixeira, idIndex) {
                 localStorage.setItem('ordemImagensInspiracaoExtras', JSON.stringify(ordensInsps));
             }
         }
-
 
         function adicionarNovaImagemInspiracaoDinamica() {
             let ordensInsps = JSON.parse(localStorage.getItem('ordemImagensInspiracaoExtras') || '[]');
@@ -1488,7 +1346,7 @@ async function removerProdutoDinamico(botaoLixeira, idIndex) {
         function renderizarBlocoImagemInspiracao(idIndex, imgPadrao) {
             const imgGravada = localStorage.getItem(`INSPIRACAO_DINA_ID_${idIndex}`) || imgPadrao;
 
-            const estruturaHTML = `
+            const estructuraHTML = `
             <div class="flex flex-col items-center justify-center p-2 border border-gray-100 rounded-xl relative group classe-inspiracao-dinamica" data-id-index="${idIndex}">
                 <button onclick="removerImagemInspiracaoDinamica(this, ${idIndex})" class="absolute top-2 left-2 text-red-500 hover:text-red-700 text-[10px] bg-white/90 px-1 py-0.5 rounded shadow transition-all" title="Remover esta imagem">
                     <i class="fa fa-trash"></i>
@@ -1500,14 +1358,13 @@ async function removerProdutoDinamico(botaoLixeira, idIndex) {
                 <i class="fa fa-pencil text-blue-600 text-2xl cursor-pointer absolute top-3 right-3 bg-white/80 p-1 rounded-full shadow" onclick="abrirModalNovoServico('INSPIRACAO_DINA'); document.getElementById('novoServicoNumeroA').value = ${idIndex};"></i>
             </div>`;
 
-            containerImagensInspiracao.insertAdjacentHTML('beforeend', estruturaHTML);
+            containerImagensInspiracao.insertAdjacentHTML('beforeend', estructuraHTML);
         }
     
-        // Variável para controlar o estado atual (true = ON, false = OFF)
         let statusAtual = true; 
 
         async function alternarStatus() {
-            statusAtual = !statusAtual; // Inverte o estado ao clicar
+            statusAtual = !statusAtual;
 
             const btn = document.getElementById('btnStatusToggle');
             const esquerdo = document.getElementById('statusEsquerdo');
@@ -1516,46 +1373,42 @@ async function removerProdutoDinamico(botaoLixeira, idIndex) {
             let dadosEnvio = {};
 
             if (statusAtual) {
-                // Configuração visiva para o lado ON
-                esquerdo.className = "flex-1 text-center font-bold text-xs text-white bg-red-500 rounded-full py-1 efeito-piscando";
+                esquerdo.className = "flex-1 text-center font-bold text-xs text-white bg-green-500 rounded-full py-1";
                 direito.className = "flex-1 text-center font-bold text-xs text-gray-400 rounded-full py-1";
-                btn.className = "flex items-center bg-gray-200 border-2 border-red-300 rounded-full p-1 w-28 cursor-pointer transition-all duration-300 focus:outline-none";
+                btn.className = "flex items-center bg-gray-200 border-2 border-gray-300 rounded-full p-1 w-28 cursor-pointer transition-all duration-300 focus:outline-none";
                 
-                // Mapeamento das Colunas para o estado ON
-                dadosEnvio = {
-                    colunaA: "STATUS_ON_OF",
-                    colunaB: "Disponível"
+                dadosEnvio = { 
+                    usuario: usuarioAutenticado, 
+                    senha: senhaAutenticada, 
+                    colunaA: "STATUS_ON_OF", 
+                    colunaB: "Disponível" 
                 };
             } else {
-                // Configuração visiva para o lado OFF
                 esquerdo.className = "flex-1 text-center font-bold text-xs text-gray-400 rounded-full py-1";
                 direito.className = "flex-1 text-center font-bold text-xs text-white bg-red-500 rounded-full py-1 efeito-piscando";
                 btn.className = "flex items-center bg-gray-200 border-2 border-red-300 rounded-full p-1 w-28 cursor-pointer transition-all duration-300 focus:outline-none";
                 
-                // Mapeamento das Colunas para o estado OFF
-                dadosEnvio = {
-                    colunaA: "STATUS_ON_OF",
-                    colunaB: "Indisponível"
+                dadosEnvio = { 
+                    usuario: usuarioAutenticado, 
+                    senha: senhaAutenticada, 
+                    colunaA: "STATUS_ON_OF", 
+                    colunaB: "Indisponível" 
                 };
             }
 
-            // Envia os dados de forma assíncrona para o seu Google Apps Script já configurado
             try {
                 await fetch(LINK_APP_SCRIPT, {
                     method: 'POST',
                     mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(dadosEnvio)
                 });
-                console.log('Status atualizado na planilha:', dadosEnvio);
+                console.log('Status updated:', dadosEnvio);
             } catch (erro) {
-                console.error('Erro ao enviar status para planilha:', erro);
+                console.error('Error updating status:', erro);
             }
         }
-    //===FIM
-            // ==================== SISTEMA DO CARROSSEL DE 17 IMAGENS ====================
+
         const modalCarrossel = document.getElementById('modalCarrossel');
         const modalAlterarLinkCarrossel = document.getElementById('modalAlterarLinkCarrossel');
         const listaImagensCarrossel = document.getElementById('listaImagensCarrossel');
@@ -1564,13 +1417,11 @@ async function removerProdutoDinamico(botaoLixeira, idIndex) {
         const msgModalCarrossel = document.getElementById('msgModalCarrossel');
         const btnConfirmarAlterarCarrossel = document.getElementById('btnConfirmarAlterarCarrossel');
 
-        // Função para abrir o modal do carrossel e construir as 17 imagens estruturadas
         function abrirModalCarrossel() {
-            listaImagensCarrossel.innerHTML = ''; // Limpa antes de renderizar
+            listaImagensCarrossel.innerHTML = '';
             
             for (let i = 1; i <= 17; i++) {
-                // Recupera link salvo localmente ou usa um placeholder comprido e baixo (ex: 400x125)
-                const linkSalvo = localStorage.getItem(`CARROSSEL_LINK_${i}`) || `https://picsum.photos/400/125?random=${i}`;
+                const linkSalvo = localStorage.getItem(`CARROSSSEL_LINK_${i}`) || `https://picsum.photos/400/125?random=${i}`;
                 
                 const itemHTML = `
                 <div class="relative w-full h-24 rounded-xl overflow-hidden border border-gray-200 bg-gray-100 shrink-0">
@@ -1592,11 +1443,10 @@ async function removerProdutoDinamico(botaoLixeira, idIndex) {
             modalCarrossel.classList.remove('aberto');
         }
 
-        // Abre o mini-modal interno para colar a URL
         function abrirModalLinkCarrossel(numero) {
             carrosselIdAtual.value = numero;
             document.getElementById('tituloModalLink').textContent = `Alterar Imagem da Posição ${numero}`;
-            inputLinkCarrossel.value = localStorage.getItem(`CARROSSEL_LINK_${numero}`) || '';
+            inputLinkCarrossel.value = localStorage.getItem(`CARROSSSEL_LINK_${numero}`) || '';
             msgModalCarrossel.classList.add('hidden');
             modalAlterarLinkCarrossel.classList.add('aberto');
         }
@@ -1605,7 +1455,6 @@ async function removerProdutoDinamico(botaoLixeira, idIndex) {
             modalAlterarLinkCarrossel.classList.remove('aberto');
         }
 
-        // Envia os dados estruturados: Coluna A = CARROCEL_IMG_X e Coluna B = Link/URL
         async function enviarLinkCarrossel() {
             const numero = carrosselIdAtual.value;
             const urlInserida = inputLinkCarrossel.value.trim();
@@ -1624,23 +1473,21 @@ async function removerProdutoDinamico(botaoLixeira, idIndex) {
                 await fetch(LINK_APP_SCRIPT, {
                     method: 'POST',
                     mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        usuario: usuarioAutenticado, 
+                        senha: senhaAutenticada, 
                         colunaA: colunaAFormatada, 
-                        colunaB: urlInserida         
+                        colunaB: urlInserida 
                     })
                 });
 
-                // Salva localmente para persistir a imagem na tela ao reabrir
-                localStorage.setItem(`CARROSSEL_LINK_${numero}`, urlInserida);
+                localStorage.setItem(`CARROSSSEL_LINK_${numero}`, urlInserida);
                 
-                // Atualiza a imagem de preview em tempo real no fundo
                 const imgPreview = document.getElementById(`img-carrossel-preview-${numero}`);
                 if(imgPreview) imgPreview.src = urlInserida;
 
-                mostrarMsgCarrossel('✅ Link atualizado com sucesso!', 'text-green-500');
+                mostrarMsgCarrossel('✅ Link updated successfully!', 'text-green-500');
 
                 setTimeout(() => {
                     fecharModalLinkCarrossel();
@@ -1648,7 +1495,7 @@ async function removerProdutoDinamico(botaoLixeira, idIndex) {
 
             } catch (erro) {
                 console.error(erro);
-                mostrarMsgCarrossel('❌ Erro ao enviar os dados!', 'text-red-500');
+                mostrarMsgCarrossel('❌ Error sending data!', 'text-red-500');
             } finally {
                 btnConfirmarAlterarCarrossel.disabled = false;
                 btnConfirmarAlterarCarrossel.textContent = 'Alterar';
@@ -1660,119 +1507,132 @@ async function removerProdutoDinamico(botaoLixeira, idIndex) {
             msgModalCarrossel.className = `mt-4 text-center text-sm font-medium ${classeCor}`;
             msgModalCarrossel.classList.remove('hidden');
         }
-     //===FIM
-    
 
-        // Carrega os blocos extras salvos quando a página for recarregada
         window.addEventListener('DOMContentLoaded', () => {
+            if (sessionStorage.getItem('painelAutorizado') !== 'true') {
+                document.getElementById('btnSalvarEnviar').disabled = true;
+                document.getElementById('btnSalvarCores').disabled = true;
+                console.warn("Access denied.");
+            }
             
-                        // Carrega e renderiza o catálogo dinâmico de cores salvas
             let ordensCoresSalvas = JSON.parse(localStorage.getItem('ordemCoresExtras') || '[]');
             ordensCoresSalvas.forEach(idIndex => {
                 renderizarBlocoCor(idIndex, "gray");
             });
 
-            // Inicializa a persistência local dos 4 primeiros produtos fixos caso o usuário já possua dados customizados
             for(let p = 1; p <= 4; p++) {
                 const imgLocal = localStorage.getItem(`PRODUTO_IMG_ID_${p}`);
                 const nomeLocal = localStorage.getItem(`PRODUTO_NOME_ID_${p}`);
                 const precoLocal = localStorage.getItem(`PRODUTO_PRECO_ID_${p}`);
-                if(imgLocal) document.getElementById(`img-prod-id-${p}`).src = imgLocal;
-                if(nomeLocal) document.getElementById(`txt-prod-nome-id-${p}`).childNodes[0].textContent = nomeLocal + " ";
-                if(precoLocal) document.getElementById(`txt-prod-preco-id-${p}`).childNodes[0].textContent = precoLocal + " ";
+                const imgElem = document.getElementById(`img-prod-id-${p}`);
+                const nomeElem = document.getElementById(`txt-prod-nome-id-${p}`);
+                const precoElem = document.getElementById(`txt-prod-preco-id-${p}`);
+                
+                if(imgLocal && imgElem) imgElem.src = imgLocal;
+                if(nomeLocal && nomeElem) nomeElem.childNodes[0].textContent = nomeLocal + " ";
+                if(precoLocal && precoElem) precoElem.childNodes[0].textContent = precoLocal + " ";
             }
 
-            // Inicializa a persistência das 6 imagens de inspiração fixas iniciais
-            for(let i = 1; i <= 6; i++) {
-                const imgInspLocal = localStorage.getItem(`IMG_INSPIRACAO_${i}`);
-                if(imgInspLocal) document.getElementById(`img-insp-id-${i}`).src = imgInspLocal;
-            }
+            // Correção no loop de carregamento inicial das imagens fixas para evitar erros no console
+            const imgInspLocal1 = localStorage.getItem(`IMG_INSPIRACAO_1`);
+            const tagImg1 = document.getElementById(`img-insp-id-1`);
+            if(imgInspLocal1 && tagImg1) tagImg1.src = imgInspLocal1;
 
-            // Carrega os serviços adicionais dinâmicos salvos
             let ordensSalvas = JSON.parse(localStorage.getItem('ordemServicosExtras') || '[]');
             ordensSalvas.forEach(idIndex => {
                 renderizarBlocoServico(idIndex, "Qual serviço?", "R$ 30,00");
             });
 
-            // Carrega os produtos adicionais dinâmicos salvos pelo botão +
             let ordensProdsSalvas = JSON.parse(localStorage.getItem('ordemProdutosExtras') || '[]');
             ordensProdsSalvas.forEach(idIndex => {
                 renderizarBlocoProduto(idIndex, "https://picsum.photos/id/64/300/300", "NOVO PRODUTO", "R$ 14,00");
             });
 
-            // Carrega as imagens de inspiração adicionais dinâmicas salvas pelo botão +
             let ordensInspsSalvas = JSON.parse(localStorage.getItem('ordemImagensInspiracaoExtras') || '[]');
             ordensInspsSalvas.forEach(idIndex => {
                 renderizarBlocoImagemInspiracao(idIndex, "https://picsum.photos/id/119/300/300");
             });
         });
-    //===🔒🔒🔒🔒 Sistema de Validação Segura via JSONP
-        function validarAcessoPainel() {
-    const usuarioInput = document.getElementById('authID').value.trim();
-    const senhaInput = document.getElementById('authSenha').value.trim();
-    const divErro = document.getElementById('erroAuth');
-    
-    // Pegar os elementos do botão
-    const btnEntrar = document.getElementById('btnEntrar');
-    const textoBotao = document.getElementById('textoBotao');
-    const spinnerBotao = document.getElementById('spinnerBotao');
 
-    const urlBackend = "https://script.google.com/macros/s/AKfycbxnFPcHlGE0qldY0LBW1YEwRyyNt9Oeh_NqAXEnjM2srfwgvElum5JmfSYmPqP6NzhJZA/exec";
 
-    if (!usuarioInput || !senhaInput) {
-        if (divErro) divErro.style.display = 'block';
-        return;
-    }
+        
+//===PASSO 4 DA SEGURANÇA 🔐🔐🔐🔐________
+        
+                async function validarAcessoPainel() {
+            const usuarioInput = document.getElementById('authID').value.trim();
+            const senhaInput = document.getElementById('authSenha').value.trim();
+            const divErro = document.getElementById('erroAuth');
+            const telaBloqueio = document.getElementById('bloqueio-seguranca');
+            
+            const btnEntrar = document.getElementById('btnEntrar');
+            const textoBotao = document.getElementById('textoBotao');
+            const spinnerBotao = document.getElementById('spinnerBotao');
 
-    // === ATIVA O SPINNER AQUI (assim que clica) ===
-    if (btnEntrar) btnEntrar.disabled = true; // Impede cliques repetidos
-    if (textoBotao) textoBotao.style.display = 'none';
-    if (spinnerBotao) spinnerBotao.style.display = 'block';
+            if (!usuarioInput || !senhaInput) {
+                if (divErro) divErro.style.display = 'block';
+                return;
+            }
 
-    const nomeCallback = 'meuCallbackOuvinte_' + Math.round(Math.random() * 1000000);
-
-    window[nomeCallback] = function(resultado) {
-        const telaBloqueio = document.getElementById('bloqueio-seguranca');
-
-        // === DESATIVA O SPINNER NO SUCESSO OU ERRO DE CREDENCIAIS ===
-        if (btnEntrar) btnEntrar.disabled = false;
-        if (textoBotao) textoBotao.style.display = 'block';
-        if (spinnerBotao) spinnerBotao.style.display = 'none';
-
-        if (resultado && resultado.autorizado === true) {
-            if (telaBloqueio) telaBloqueio.style.display = 'none';
+            // Ativa o carregamento (Spinner) no botão
+            if (btnEntrar) btnEntrar.disabled = true;
+            if (textoBotao) textoBotao.style.display = 'none';
+            if (spinnerBotao) spinnerBotao.style.display = 'block';
             if (divErro) divErro.style.display = 'none';
-        } else {
-            if (divErro) divErro.style.display = 'block';
-            document.getElementById('authSenha').value = '';
+
+            try {
+                // Envia os dados via POST para testar a senha no Apps Script
+                const resposta = await fetch(LINK_APP_SCRIPT, {
+                    method: 'POST',
+                    body: JSON.stringify({ 
+                        usuario: usuarioInput, 
+                        senha: senhaInput, 
+                        colunaA: "TESTE_LOGIN", 
+                        colunaB: "Apenas checando a senha" 
+                    })
+                });
+
+                // Transforma a resposta do Apps Script em um objeto legível
+                const dadosRetornados = await resposta.json();
+
+                // Verifica se o Apps Script devolveu o status de erro ("Senha incorreta")
+                if (dadosRetornados.status === "erro") {
+                    // Se deu erro, força a ida para o bloco 'catch' para barrar o usuário
+                    throw new Error(dadosRetornados.mensagem || "Acesso negado");
+                }
+                
+                // SE PASSOU DO IF ACIMA, A SENHA ESTÁ CORRETA:
+                usuarioAutenticado = usuarioInput;
+                senhaAutenticada = senhaInput;
+
+                sessionStorage.setItem('painelAutorizado', 'true');
+                if (telaBloqueio) telaBloqueio.style.display = 'none';
+                if (divErro) divErro.style.display = 'none';
+                
+                // Libera os botões de envio após a autenticação com sucesso
+                document.getElementById('btnSalvarEnviar').disabled = false;
+                document.getElementById('btnSalvarCores').disabled = false;
+
+            } catch (erro) {
+                console.error('Erro na autenticação:', erro);
+                
+                // Exibe a mensagem vermelha de erro na tela
+                if (divErro) {
+                    divErro.style.display = 'block';
+                    divErro.textContent = "ID ou Senha incorretos!";
+                }
+                
+                // Mantém as credenciais vazias para segurança
+                usuarioAutenticado = "";
+                senhaAutenticada = "";
+                sessionStorage.setItem('painelAutorizado', 'false');
+            } finally {
+                // Restaura o botão caso o login falhe ou termine
+                if (btnEntrar) btnEntrar.disabled = false;
+                if (textoBotao) textoBotao.style.display = 'block';
+                if (spinnerBotao) spinnerBotao.style.display = 'none';
+            }
         }
-
-        document.body.removeChild(scriptElemento);
-        delete window[nomeCallback];
-    };
-
-    const parametros = `?usuario=${encodeURIComponent(usuarioInput)}&senha=${encodeURIComponent(senhaInput)}&callback=${nomeCallback}`;
-
-    const scriptElemento = document.createElement('script');
-    scriptElemento.src = urlBackend + parametros;
-
-    scriptElemento.onerror = function() {
-        // === DESATIVA O SPINNER SE CASO CAIR NO ERRO DE REDE ===
-        if (btnEntrar) btnEntrar.disabled = false;
-        if (textoBotao) textoBotao.style.display = 'block';
-        if (spinnerBotao) spinnerBotao.style.display = 'none';
-
-        alert("Erro de autenticação: Verifique sua conexão ou a configuração do script.");
-        if (divErro) divErro.style.display = 'block';
-        document.body.removeChild(scriptElemento);
-        delete window[nomeCallback];
-    };
-
-    document.body.appendChild(scriptElemento);
-}
-
-     //===🔒🔒🔒🔒
+//===🔐🔐🔐🔐
     </script>
-
 </body>
 </html>
